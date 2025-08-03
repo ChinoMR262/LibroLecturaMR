@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo 1: SERES DEL NOVENO UNIVERSO</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Old+Standard+TT:ital@0;1&display=swap');
+
+        body {
+            font-family: 'Merriweather', serif; /* Fuente para el cuerpo del texto */
+            background-color: #d4c0a1; /* Color base que simula pergamino claro */
+            background-size: cover;
+            background-attachment: fixed;
+            color: #4a3d2d; /* Color de texto que simula tinta antigua */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alineación superior para el contenido */
+            min-height: 100vh;
+            padding: 1.5rem; /* Padding general más adaptable */
+        }
+
+        .map-sheet-container {
+            background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente para el "papel" */
+            border: 8px solid; /* Borde para simular el mapa */
+            border-image: url('https://placehold.co/100x100/8B4513/FFFFFF/png?text=Borde+Madera') 30 round; /* Borde tipo madera o pergamino oscuro */
+            padding: 2.5rem; /* Padding adaptable para el contenido */
+            border-radius: 1.5rem; /* Esquinas ligeramente redondeadas */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada para efecto 3D */
+            max-width: 650px; /* Ancho máximo corregido para un aspecto de pergamino más estrecho */
+            width: 100%;
+            line-height: 1.8; /* Espaciado de línea para mejor lectura */
+            position: relative;
+            overflow: hidden; /* Para contener los elementos internos y evitar scroll horizontal */
+        }
+
+        .map-sheet-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* Se ha cambiado la imagen de fondo a una más neutra y se ha aumentado la opacidad */
+            background-image: url('https://placehold.co/800x600/f5f5dc/f5f5dc/png?text='); /* Fondo beige muy claro, sin texto */
+            background-size: cover;
+            opacity: 0.25; /* Opacidad aumentada para mayor visibilidad, pero aún sutil */
+            pointer-events: none; /* Para que no interfiera con el texto */
+            z-index: 0;
+        }
+
+        h1 {
+            font-family: 'Old Standard TT', serif; /* Fuente para títulos, más clásica */
+            font-size: 3rem; /* Título de capítulo grande */
+            font-weight: 700;
+            color: #5a4b3c; /* Tono más oscuro para el título */
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para el título */
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-family: 'Old Standard TT', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #6d5b4d;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed #a08a6d; /* Línea discontinua sutil */
+            padding-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Estilo para las iniciales del párrafo */
+        p:first-of-type::first-letter {
+            font-family: 'Old Standard TT', serif;
+            font-size: 4em; /* Inicial más grande */
+            line-height: 0.8;
+            float: left;
+            margin-right: 0.1em;
+            color: #8B4513; /* Color de madera/tinta más oscura */
+            font-weight: bold;
+        }
+
+        .chapter-image {
+            width: 100%;
+            max-width: 600px; /* Ancho máximo para las imágenes */
+            height: auto;
+            margin: 2rem auto;
+            display: block;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border: 2px solid #a08a6d; /* Borde sutil para la imagen */
+        }
+
+        /* Estilos para el control de música flotante */
+        .music-control-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparente */
+            padding: 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 1000; /* Asegura que esté por encima de todo */
+            transition: all 0.3s ease-in-out;
+            transform: translateX(calc(100% + 1.5rem)); /* Inicialmente fuera de pantalla */
+        }
+
+        .music-control-container.open {
+            transform: translateX(0); /* Desliza hacia adentro */
+        }
+
+        .music-control-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: #2b6cb0; /* Azul vibrante */
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1001; /* Por encima del panel */
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .music-control-toggle:hover {
+            background-color: #3182ce; /* Azul más claro al pasar el ratón */
+        }
+
+        .music-control-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .music-control-buttons button {
+            background-color: #4299e1; /* Azul claro para botones */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .music-control-buttons button:hover {
+            background-color: #63b3ed; /* Azul más claro al pasar el ratón */
+        }
+
+        .music-control-input {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #a0aec0;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #2d3748;
+        }
+
+        /* Responsive adjustments for smaller screens (mobile portrait) */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem; /* Menos padding en pantallas muy pequeñas */
+            }
+            .map-sheet-container {
+                padding: 1rem;
+                border-width: 4px;
+                border-radius: 1rem;
+                max-width: 95%; /* Asegura que no se desborde en móviles */
+            }
+            h1 {
+                font-size: 2rem; /* Título más pequeño */
+                margin-bottom: 1.5rem;
+            }
+            h2 {
+                font-size: 1.5rem; /* Subtítulos más pequeños */
+                margin-top: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            p {
+                font-size: 0.95rem; /* Texto más pequeño para legibilidad */
+                margin-bottom: 1rem;
+            }
+            p:first-of-type::first-letter {
+                font-size: 3em; /* Inicial más pequeña */
+            }
+            .chapter-image {
+                max-width: 100%; /* Imágenes ocupan todo el ancho disponible */
+                margin: 1.5rem auto;
+            }
+            .music-control-container, .music-control-toggle {
+                bottom: 0.75rem;
+                right: 0.75rem;
+                padding: 0.6rem;
+                border-radius: 0.6rem;
+            }
+            .music-control-buttons button {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            .music-control-input {
+                font-size: 0.8rem;
+                padding: 0.4rem;
+            }
+        }
+
+        /* Responsive adjustments for tablets (landscape and portrait) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            body {
+                padding: 1rem;
+            }
+            .map-sheet-container {
+                padding: 1.5rem;
+                border-width: 6px;
+                max-width: 750px; /* Ajuste para tablets, ligeramente más ancho que el móvil */
+            }
+            h1 {
+                font-size: 2.8rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            .music-control-container, .music-control-toggle {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Audio para música de fondo (controles ocultos) -->
+    <audio id="backgroundMusic" autoplay loop>
+        <!--
+            IMPORTANTE: Para que la música se reproduzca automáticamente,
+            necesitas una URL DIRECTA a un archivo de audio (MP3, OGG, WAV, etc.).
+            Las URLs de videos de YouTube NO funcionarán para la reproducción automática en segundo plano.
+            Puedes subir tu música a un servicio de alojamiento de archivos y usar el enlace directo.
+            
+            Ejemplo de URL de archivo de audio (reemplázala con la tuya):
+        -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- Botón flotante para abrir/cerrar el panel de control de música -->
+    <div id="musicToggle" class="music-control-toggle">
+        Control de Música
+    </div>
+
+    <!-- Panel de control de música flotante -->
+    <div id="musicControls" class="music-control-container">
+        <div class="music-control-buttons">
+            <button id="playPauseBtn">Pausar</button>
+            <button id="stopBtn">Detener</button>
+        </div>
+        <input type="text" id="musicUrlInput" class="music-control-input" placeholder="URL de nueva música (.mp3, .ogg)">
+        <button id="loadMusicBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">Cargar Música</button>
+    </div>
+
+    <div class="map-sheet-container">
+        <h1>Capítulo 1: SERES DEL NOVENO UNIVERSO</h1>
+
+        <h2>Prólogo – Año 25033 d.C. / Siul, Universo 9</h2>
+        <p>
+            El Mandato del Serafín Legendario
+        </p>
+        <p>
+            En los planos más elevados de la existencia, donde las estrellas eran meros puntos de luz en una inmensidad etérea, David, alguna vez conocido como "Factum Supremo", había descendido de su gloria. Su poder, antaño ilimitado, se había reducido a la mitad tras su titánica batalla contra Metatrón, un desafío directo al mismísimo Dios del Todo, todo por salvar el multiverso de la aniquilación. Ahora, como el "Serafín Legendario", su papel trascendía el de un mero guerrero celestial; se había convertido en un mentor, un guía para aquellos elegidos por el Creador. David mantenía una conexión íntima con el Altísimo, una comunión silenciosa pero constante que le revelaba los designios divinos y le confiaba misiones cruciales para mantener el frágil equilibrio universal.
+        </p>
+
+        <!-- Imagen: Planos elevados y estrellas -->
+        <img src="https://placehold.co/600x350/5a4b3c/FFFFFF/png?text=Planos+Celestiales+y+Estrellas" alt="Imagen de planos celestiales y estrellas etéreas." class="chapter-image">
+
+        <p>
+            Una noche, en el silencio abrumador del éter celestial, David sintió la presencia del Creador. No fue una voz audible, sino una inundación de su ser, una calidez que no consumía pero iluminaba cada fibra de su existencia, como un fuego cósmico que vibraba en su alma. El aire mismo pareció densificarse con la santidad.
+        </p>
+        <p>
+            —David, Serafín de mi voluntad —resonó una voz que era a la vez un susurro y un trueno en su mente, una voz que contenía la sabiduría de eones—. El momento ha llegado para que guíes a los elegidos. Siul clama por justicia, y la oscuridad que lo consume debe ser erradicada. Ve a Gabriel, quien aún no conoce la totalidad de mi plan, y comunícale su papel. Max y Radicks necesitan ser liberados; ellos serán la clave para restaurar el orden.
+        </p>
+        <p>
+            David inclinó su rostro en señal de reverencia, el peso de la responsabilidad cayendo sobre sus hombros, una carga que aceptaba con humildad.
+        </p>
+
+        <!-- Imagen: Figura inclinándose en reverencia (rostro oculto) -->
+        <img src="https://placehold.co/400x400/8B4513/FFFFFF/png?text=Figura+en+Reverencia" alt="Imagen de una figura celestial inclinándose en reverencia, con el rostro oculto." class="chapter-image">
+
+        <p>
+            —Padre, haré como lo ordenas. Les mostraré el camino y les enseñaré a través de mí. —Su propia voz, aunque celestial, contenía una pizca de la duda que a veces lo asaltaba—. Pero dime, ¿qué propósito hay detrás de sus pruebas? ¿Por qué permitirles soportar tanto dolor?
+        </p>
+        <p>
+            La voz del Creador resonó de nuevo, esta vez con una mezcla de solemnidad y una ternura infinita que calmó el alma de David.
+        </p>
+        <p>
+            —El fuego purifica, y el dolor moldea. Max y Radicks han sido forjados en las llamas de la adversidad, porque solo aquellos que han conocido la profundidad del quebranto pueden ser instrumentos de verdadera redención. Su sufrimiento no es en vano; es el crisol donde su verdadera fuerza se manifestará.
+        </p>
+
+        <!-- Imagen: Figuras siendo forjadas en llamas etéreas -->
+        <img src="https://placehold.co/600x350/6d5b4d/FFFFFF/png?text=Forjados+en+Llamas" alt="Imagen de figuras siendo forjadas en llamas etéreas, simbolizando la adversidad." class="chapter-image">
+
+        <p>
+            David sintió el peso de esas palabras, comprendiendo que el plan divino era mucho más vasto de lo que su mente podía abarcar. Aun consciente de la magnitud de su rol, se dirigió al plano celestial donde Gabriel, el dios del planeta Siul, mantenía una vigilia constante sobre su reino caído. La imagen de Siul, un mundo antaño vibrante y colosal, ahora cubierto por las sombras, le dolía profundamente.
+        </p>
+
+        <h2>El encuentro con Gabriel</h2>
+        <p>
+            Durante siglos, el planeta Siul, el mundo más grande conocido en todos los universos, había sido un campo de batalla desolado. Sus paisajes, antaño vastas selvas de árboles dorados que cantaban con el viento y cordilleras que tocaban el cielo, estaban ahora marcados por cicatrices de fuego y desolación. El aire olía a ceniza y a una tristeza ancestral, un lamento perpetuo que se alzaba desde las ruinas. El equilibrio entre la luz y la oscuridad había sido destruido por el poder de Belcebú, un querubín caído que, en su ansia de poder, había desafiado las leyes del Creador y traído un caos incomprensible a la creación. Las tierras de Siul, antaño sagradas, se encontraban sumidas en la ruina, y el clamor de los inocentes resonaba en los planos celestiales, un eco constante de su sufrimiento. Incluso Kairon, el planeta gemelo que orbitaba tan cerca que parecía rozar el horizonte siulciano, sentía la alteración, desatando tormentas de energía en su atmósfera, un reflejo de la agonía de Siul.
+        </p>
+
+        <!-- Imagen: Planeta Siul devastado y Kairon cercano -->
+        <img src="https://placehold.co/600x350/4a3d2d/FFFFFF/png?text=Planeta+Siul+Devastado+y+Kairon" alt="Imagen de un planeta devastado por la guerra, con el planeta gemelo Kairon visible en el horizonte." class="chapter-image">
+
+        <p>
+            En un templo sagrado, suspendido en los cielos de Siul, con pilares fracturados y vitrales rotos que apenas filtraban la luz moribunda del planeta, Gabriel, el dios del planeta, se encontraba en oración profunda. Sus rodillas estaban gastadas por eones de súplicas, su rostro marcado por la angustia. Suplicaba al Altísimo una solución, una señal, cualquier cosa que pudiera aliviar el tormento de su mundo. Fue entonces cuando el cielo mismo pareció abrirse sobre el templo, inundando el salón con una luz divina tan pura y cegadora que eclipsó todo a su alrededor, haciendo que el polvo danzara en sus haces. Un zumbido vibrante llenó el aire, como mil arpas celestiales tocando al unísono. De repente, un viento divino, suave pero poderoso, atravesó la estancia, y una figura majestuosa apareció ante él. David, con su armadura celestial resplandeciendo con un brillo incandescente que parecía forjado en el corazón de una estrella, se presentó.
+        </p>
+
+        <!-- Imagen: Templo sagrado en ruinas con luz divina y David apareciendo -->
+        <img src="https://placehold.co/600x350/6d5b4d/FFFFFF/png?text=Templo+en+Ruinas+y+David+Apareciendo" alt="Imagen de un templo sagrado en ruinas en Siul, bañado por una luz divina, con David apareciendo." class="chapter-image">
+
+        <p>
+            —Gabriel, he venido por mandato del Creador —dijo David, su voz firme pero cargada de una empatía que resonó en el alma de Gabriel.
+        </p>
+        <p>
+            Gabriel lo miró con asombro, sus ojos, acostumbrados a la penumbra, parpadeando ante la intensidad de David. Aunque conocía la historia de la caída y redención de David, jamás había presenciado su grandeza como el Serafín Legendario de esta manera tan directa. Una mezcla de reverencia y esperanza le invadió.
+        </p>
+        <p>
+            —David, portador de la voluntad divina, dime, ¿qué orden trae el Altísimo? —preguntó Gabriel, su voz apenas un susurro.
+        </p>
+        <p>
+            David se acercó, sus pasos ligeros sobre el suelo de mármol. Colocó una mano sobre el hombro de Gabriel, un toque que transmitió una fuerza inmensa y una comprensión tácita.
+        </p>
+        <p>
+            —El Creador me ha hablado. Es momento de que liberes a los elegidos, Max y Radicks. Ellos han sido moldeados por Su mano para enfrentar la oscuridad que azota este mundo. Su sacrificio será grande, pero su propósito lo justifica.
+        </p>
+        <p>
+            Gabriel frunció el ceño, su rostro reflejando una profunda duda y una pizca de resentimiento. ¿Por qué otros, cuando él había luchado incansablemente?
+        </p>
+        <p>
+            —¿Por qué ellos, David? —cuestionó, su voz teñida de amargura—. ¿Por qué no yo, quien juré proteger este mundo con cada fibra de mi ser? ¿Acaso mi fe no ha sido suficiente?
+        </p>
+        <p>
+            David esbozó una sonrisa comprensiva, una expresión que suavizó la intensidad de su presencia.
+        </p>
+        <p>
+            —El Creador elige a los más aptos, no siempre a los más fuertes. Max y Radicks no solo lucharán con sus manos, sino con sus corazones, con una dualidad que tú no posees. Y tú, Gabriel, tienes otro papel importante, uno crucial: ser el puente entre el cielo y ellos, el faro que los guiará. Su victoria también será la tuya, pues la habrás hecho posible.
+        </p>
+        <p>
+            Gabriel asintió lentamente, la verdad de las palabras de David calando hondo. El resentimiento se disipó, reemplazado por una renovada determinación. Comprendió que su papel no era menor, sino diferente, igualmente vital.
+        </p>
+        <p>
+            —Entonces, guíame, David. Muéstrame cómo debo cumplir con esta tarea. —Su voz ahora era firme, llena de una nueva convicción.
+        </p>
+        <p>
+            David extendió sus alas, un despliegue de luz que transformó la estancia en un reflejo del cielo, con destellos iridiscentes que danzaban en el aire.
+        </p>
+
+        <!-- Imagen: David extendiendo sus alas de luz -->
+        <img src="https://placehold.co/600x350/5a4b3c/FFFFFF/png?text=David+Extendiendo+Alas+de+Luz" alt="" class="chapter-image">
+
+        <p>
+            —Comienza liberándolos de las cadenas que los atan, tanto las físicas como las internas. Después, llévalos al trono de Belcebú, pero no los abandones hasta que hayan comprendido su verdadero poder. Y cuando la hora de la batalla llegue, recuerda que tu fe será su escudo, y tu esperanza, su espada.
+        </p>
+
+        <h2>El Serafín Legendario como mentor</h2>
+        <p>
+            Gabriel, renovado en su misión y con el corazón lleno de una nueva esperanza, extendió sus alas de oro resplandeciente. El sonido de su vuelo era como el susurro de mil campanas celestiales mientras descendía a las mazmorras más profundas del planeta Siul, un lugar donde la luz apenas se atrevía a entrar, donde los elegidos aguardaban su destino.
+        </p>
+        <p>
+            Pero no estaba solo. David, como un mentor designado por el Creador, decidió acompañarlos en espíritu. Su presencia no era física, sino una resonancia en el alma, una guía silenciosa que se manifestaría a los elegidos en los momentos de mayor necesidad, tejiendo su sabiduría en el tejido mismo de su viaje.
+        </p>
+
+        <h2>La prisión de los elegidos</h2>
+        <p>
+            Encerrados en una prisión oculta al mundo, un laberinto de piedra fría y humedad perpetua, Max y Radicks vivían encadenados, víctimas de su propia naturaleza dual. El aire era denso, cargado con el olor a moho y desesperación. Max, mitad humano y mitad divino, meditaba silenciosamente en un rincón, su postura serena a pesar de las cadenas que le oprimían los tobillos. Buscaba fortaleza en su conexión espiritual, intentando silenciar el clamor de su parte humana, que anhelaba la libertad. Por otro lado, Radicks, cuya sangre también albergaba misteriosos vestigios de lo celestial, dejaba que su ira contra el mundo se desbordara en gruñidos bajos y golpes ocasionales contra las paredes de la celda, el sonido sordo de sus puños contra la piedra resonando en la oscuridad.
+        </p>
+
+        <!-- Imagen: Max meditando encadenado en la oscuridad de la prisión -->
+        <img src="https://placehold.co/600x350/4a3d2d/FFFFFF/png?text=Max+Meditando+Encadenado" alt="" class="chapter-image">
+
+        <p>
+            —Estamos atrapados aquí mientras el mundo se consume en las llamas de Belcebú —gruñó Radicks, golpeando las paredes de la celda con frustración, el eco de sus golpes una manifestación de su rabia—. ¿De qué sirve todo esto?
+        </p>
+
+        <!-- Imagen: Radicks golpeando la pared de la celda con ira -->
+        <img src="https://placehold.co/600x350/4a3d2d/FFFFFF/png?text=Radicks+Golpeando+Pared" alt="" class="chapter-image">
+
+        <p>
+            —A veces, la oscuridad solo es el preludio de la luz —respondió Max, su voz tranquila como un estanque en calma, mientras sus ojos se perdían en las sombras que los rodeaban, buscando un significado más allá de su confinamiento. Su mente, sin embargo, no estaba exenta de dudas; la inmovilidad era una tortura para su espíritu guerrero.
+        </p>
+        <p>
+            Esa misma noche, cuando la desesperación parecía más densa, una luz divina, suave al principio y luego cegadora, iluminó su celda. El aire frío de la prisión se calentó, y el olor a moho fue reemplazado por una fragancia a incienso y pureza. Una figura celestial emergió de la luz: Gabriel, el Dios de Siul, portador de la voluntad del Creador. Sus alas doradas, majestuosas y etéreas, irradiaban una luz que parecía limpiar incluso las piedras corroídas por el tiempo, haciendo que las sombras retrocedieran.
+        </p>
+
+        <!-- Imagen: Gabriel con alas doradas apareciendo en la celda -->
+        <img src="https://placehold.co/600x350/5a4b3c/FFFFFF/png?text=Gabriel+Apareciendo+en+Celda" alt="" class="chapter-image">
+
+        <p>
+            —Max, Radicks, escuchen mis palabras —dijo Gabriel, su voz resonando como el eco de un coro celestial, llenando la celda con una melodía de esperanza—. El Creador me ha ordenado liberarlos. Son los elegidos, destinados a enfrentar al Querubín caído y devolver la paz a Siul.
+        </p>
+        <p>
+            Radicks lo miró incrédulo, sus ojos entrecerrados, una mezcla de desconfianza y una chispa de esperanza luchando en su interior. ¿Después de tanto tiempo, la libertad? ¿Y con un propósito tan grande? Max, por su parte, cayó de rodillas en señal de reverencia, su corazón inundado por la magnitud de la revelación.
+        </p>
+        <p>
+            —¿Por qué nosotros? —preguntó Max, su voz temblando por la abrumadora responsabilidad que sentía, por el peso de un destino que parecía demasiado grande para ellos.
+        </p>
+        <p>
+            Gabriel extendió su mano y, con un gesto sutil, las cadenas que los ataban se desintegraron en polvo brillante, cayendo al suelo con un suave tintineo.
+        </p>
+
+        <!-- Imagen: Cadenas desintegrándose en polvo brillante -->
+        <img src="https://placehold.co/600x350/6d5b4d/FFFFFF/png?text=Cadenas+Desintegrandose" alt="" class="chapter-image">
+
+        <p>
+            —Porque son los únicos que pueden soportar esta carga. El Creador ve en ustedes un equilibrio único, una fuerza capaz de derrotar incluso a un querubín como Belcebú. —En ese instante, una figura etérea y luminosa apareció junto a Gabriel, la forma de David, no como un guerrero distante, sino como un guía que entendía su lucha interna, sus miedos y sus dudas. Su presencia era reconfortante, un ancla en el torbellino de emociones.
+        </p>
+        <p>
+            —Max, Radicks, son más que guerreros —resonó la voz de David en sus mentes, una voz que era a la vez antigua y familiar—. Son la esperanza encarnada para un mundo que agoniza. Yo fui como ustedes una vez, quebrado pero elegido. Aprenderán a dominar sus fuerzas, pero primero deben aprender a confiar el uno en el otro, a fusionar sus diferencias en una sola voluntad.
+        </p>
+        <p>
+            Durante su viaje hacia el Abismo de las Sombras, bajo la guía espiritual de David, cada paso se convirtió en una lección. David les enseñó lecciones esenciales, no solo a través de palabras, sino a través de visiones y sensaciones que se grababan en sus almas:
+        </p>
+        <p>
+            A Max, le mostró cómo canalizar su divinidad sin perder su humanidad, haciéndole entender que su mitad mortal no era una debilidad, sino su mayor fortaleza, el ancla que lo conectaba con la compasión y la resistencia. Le enseñó a sentir el pulso de la creación en sus venas, a tejer la luz divina con la esencia terrenal.
+        </p>
+        <p>
+            A Radicks, le enseñó a dominar su ira, a sentirla, reconocerla, pero no dejar que lo consumiera. Le mostró cómo usarla como una herramienta, una fuerza controlada y dirigida, en lugar de un arma descontrolada que lo destruiría desde dentro. Le hizo ver que la furia podía ser un motor, no un amo.
+        </p>
+        <p>
+            En las noches más oscuras, cuando el miedo y las dudas los acechaban, cuando las sombras de su pasado se cernían sobre ellos, David se manifestaba en sus sueños, susurrando palabras de aliento, recordándoles que la fe era el arma más poderosa que poseían, una luz interna que ninguna oscuridad podía apagar. Les mostró visiones de su futuro, de la victoria, pero también del costo.
+        </p>
+        <p>
+            En sus manos, con un brillo etéreo que se materializó del aire mismo, Gabriel materializó dos reliquias ancestrales: la Espada del Amanecer, una hoja bañada en la luz del primer día de la creación, su filo resplandeciendo con una promesa de victoria, y el Escudo del Alba, una barrera impenetrable que parecía contener las estrellas mismas, sus grabados antiguos pulsando con energía.
+        </p>
+
+        <!-- Imagen: Espada del Amanecer y Escudo del Alba materializándose -->
+        <img src="https://placehold.co/600x350/8B4513/FFFFFF/png?text=Espada+y+Escudo+Divinos" alt="" class="chapter-image">
+
+        <p>
+            —Estas reliquias los guiarán, pero recuerden: su fuerza no está solo en ellas, sino en su fe y unidad. Son extensiones de su voluntad, no la fuente de su poder.
+        </p>
+        <p>
+            Radicks tomó la espada con una determinación férrea, sintiendo el peso equilibrado de la hoja en su mano, una extensión natural de su espíritu combativo. Max aceptó el escudo con reverencia, su superficie fría y lisa, pero vibrante con una energía protectora.
+        </p>
+
+        <h2>El camino hacia el abismo de las sombras</h2>
+        <p>
+            Guiados por la luz constante de Gabriel, que se manifestaba como un orbe brillante flotando delante de ellos, Max y Radicks emprendieron un viaje hacia el Abismo de las Sombras, el último bastión de Belcebú. El camino era arduo, a través de paisajes desolados que atestiguaban la brutalidad de la guerra. Pasaron por aldeas devastadas, donde el silencio era tan pesado como las ruinas. El olor a ceniza y a muerte flotaba en el aire, mezclado con el tenue aroma de la desesperación. Los pocos sobrevivientes, con rostros demacrados y ojos vacíos, clamaban por ayuda, sus voces roncas y quebradas. Cada paso era un recordatorio lacerante del precio que Siul había pagado por el caos desatado. Los bosques de árboles dorados, que en tiempos de paz cantaban con el viento, ahora se alzaban como esqueletos carbonizados, y los ríos de luz se habían convertido en cauces secos y polvorientos.
+        </p>
+
+        <!-- Imagen: Paisaje desolado y devastado de Siul -->
+        <img src="https://placehold.co/600x350/4a3d2d/FFFFFF/png?text=Siul+Devastado+por+la+Guerra" alt="" class="chapter-image">
+
+        <p>
+            Max dedicaba sus noches a la oración, arrodillado bajo el cielo estrellado de Siul, pidiendo al Creador fuerza y guía, no solo para la batalla, sino para soportar el dolor que veía a su alrededor. El viento susurraba sus plegarias entre los árboles carbonizados, llevando consigo el lamento de un mundo herido.
+        </p>
+        <p>
+            —¿Crees que realmente podremos vencerlo? —preguntó Radicks una noche, su tono cargado de dudas, mientras observaba las llamas distantes de algún fuego de campamento enemigo. La inmensidad de Belcebú pesaba sobre ellos, una opresión palpable que se sentía incluso en el aire denso de Siul.
+        </p>
+        <p>
+            —No se trata de vencer, sino de cumplir con el propósito que nos fue dado —respondió Max, con una serenidad que a Radicks a veces le resultaba desconcertante, casi inhumana. Max sabía que la victoria no siempre era la aniquilación, sino la restauración del equilibrio, la sanación de un mundo que había perdido su armonía.
+        </p>
+
+        <h2>El Enfrentamiento Final</h2>
+        <p>
+            David ya había preparado sus corazones y mentes para el desafío final. Su voz, ahora una presencia constante en sus pensamientos, resonaba con su última lección en el umbral de la batalla:
+        </p>
+        <p>
+            —Recuerden, no son solo soldados; son la voluntad del Creador en acción. Esta batalla no es solo contra Belcebú, sino contra la oscuridad que habita en cada uno de nosotros. Deben de ser valientes, pues su luz es más grande que cualquier sombra. No teman al fracaso, sino a no intentarlo.
+        </p>
+        <p>
+            El Abismo de las Sombras se alzaba ante ellos, una garganta cavernosa que exhalaba un frío gélido y un olor a azufre y podredumbre. El aire vibraba con una energía maligna, pesada y opresiva, que se aferraba a sus pulmones. Al llegar al trono de Belcebú, fueron recibidos por una escena de puro horror: el Querubín caído, una figura grotesca de inmensa estatura, con sus alas ennegrecidas y desgarradas, su corona de huesos afilados brillando con una luz macabra. Sus ojos, dos brasas ardientes en la penumbra, los observaban con una sonrisa cruel que revelaba dientes afilados como dagas, prometiendo un tormento sin fin.
+        </p>
+
+        <!-- Imagen: Belcebú en su trono en el Abismo de las Sombras -->
+        <img src="https://placehold.co/600x350/2d3748/FFFFFF/png?text=Belcebú+en+su+Trono" alt="" class="chapter-image">
+
+        <p>
+            —¿Así que son los Ángeles del Creador? —se burló Belcebú, su voz un eco gutural que retumbaba en la caverna, cargada de desprecio y una maldad ancestral—. ¿Dos seres rotos y renegados que creen que pueden desafiarme? ¡Qué patético!
+        </p>
+        <p>
+            La batalla que siguió fue como el choque de estrellas, una sinfonía de destrucción y poder que hacía temblar los cimientos mismos de Siul. El metal de la Espada del Amanecer chocaba contra las garras de Belcebú con un estruendo ensordecedor, mientras el Escudo del Alba repelía sus ataques con destellos cegadores. Max y Radicks, armados con las reliquias divinas, lucharon con todo lo que tenían, sus movimientos fluidos y coordinados, un baile mortal de luz y sombra. Sin embargo, Belcebú, un ser alimentado por siglos de oscuridad y poder, los superaba en fuerza y resistencia, su risa resonando con cada golpe que asestaba, una carcajada que helaba la sangre. El suelo temblaba bajo sus pies, las rocas se desprendían del techo con estruendo y el aire se llenaba con el olor a electricidad y a la desesperación de la batalla, un hedor metálico y acre.
+        </p>
+        <p>
+            Uno a uno, sus aliados cayeron. Mia y Luna, guerreras de Rango Virtudes, que habían luchado con valentía inquebrantable junto a ellos, ofrecieron sus vidas por la causa, sus luces desvaneciéndose en la oscuridad del abismo con un último suspiro. Sus sacrificios, aunque dolorosos, encendieron una nueva furia en Radicks, una que David había intentado contener. La lucha alcanzó un nuevo nivel cuando Radicks, en un acceso de furia descontrolada, liberó la ira que David había logrado sellar en él. Su cuerpo se rodeó de un aura oscura y su fuerza se multiplicó, pero sus ataques eran salvajes, sin dirección, un torbellino de destrucción sin control.
+        </p>
+
+        <!-- Imagen: Radicks rodeado de un aura oscura en plena furia -->
+        <img src="https://placehold.co/600x350/4a3d2d/FFFFFF/png?text=Radicks+con+Aura+Oscura" alt="" class="chapter-image">
+
+        <p>
+            En el último instante, cuando todo parecía perdido, cuando la desesperación amenazaba con consumirlos, Max, con una última chispa de fe y la guía silenciosa de David en su mente, dio el golpe decisivo con la Espada del Amanecer. La hoja, imbuida con la luz purificadora del primer día de la creación, atravesó la oscuridad que Belcebú representaba, sellando su poder y desintegrándolo en una explosión de energía que iluminó el abismo por un instante. Pero el costo fue inmenso, pues la fuerza liberada fue tal que Max y Radicks, gravemente heridos y al borde de la aniquilación, cayeron, muriendo en el proceso. Sus cuerpos quedaron inertes en el suelo, rodeados por el silencio ensordecedor de la victoria, un silencio que solo el eco de su sacrificio llenaba.
+        </p>
+
+        <!-- Imagen: Max y Radicks caídos tras la victoria -->
+        <img src="https://placehold.co/600x350/6d5b4d/FFFFFF/png?text=Max+y+Radicks+Caídos" alt="" class="chapter-image">
+
+        <h2>Renacimiento</h2>
+        <p>
+            La luz de la victoria, brillante y cegadora, envolvió el universo, no con un estallido violento, sino con una expansión suave y purificadora que se extendió por cada rincón. Los cielos de Siul, antes grises y opresivos, se despejaron, revelando un azul profundo y un sol radiante que bañaba las tierras con energía divina. Las cicatrices de la guerra comenzaron a sanar, los bosques carbonizados brotaban con un nuevo verdor dorado y los ríos de luz volvían a fluir con luminiscencia natural. Una nueva esperanza floreció en el aire, un aroma a renacimiento y paz. Gabriel, desde su trono celestial, observaba en silencio, sus ojos llenos de una mezcla de tristeza por el sacrificio de sus elegidos y una profunda comprensión. Sabía que ese no era el final, sino el comienzo de una nueva era, un ciclo de redención que apenas comenzaba a desplegarse en el vasto tapiz del multiverso, un eco de la armonía restaurada entre Siul y Kairon.
+        </p>
+
+        <!-- Imagen: Siul renaciendo, lleno de luz y vida -->
+        <img src="https://placehold.co/600x350/2b6cb0/FFFFFF/png?text=Siul+Renaciendo" alt="" class="chapter-image">
+
+    </div>
+
+    <script>
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const musicUrlInput = document.getElementById('musicUrlInput');
+        const loadMusicBtn = document.getElementById('loadMusicBtn');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicControls = document.getElementById('musicControls');
+
+        let isPlaying = true; // La música empieza reproduciéndose (autoplay)
+
+        // Función para alternar entre reproducir y pausar
+        playPauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                playPauseBtn.textContent = 'Reproducir';
+            } else {
+                backgroundMusic.play();
+                playPauseBtn.textContent = 'Pausar';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Función para detener la música
+        stopBtn.addEventListener('click', () => {
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0; // Reinicia la música al principio
+            playPauseBtn.textContent = 'Reproducir';
+            isPlaying = false;
+        });
+
+        // Función para cargar nueva música
+        loadMusicBtn.addEventListener('click', () => {
+            const newUrl = musicUrlInput.value;
+            if (newUrl) {
+                backgroundMusic.src = newUrl;
+                backgroundMusic.load(); // Carga la nueva fuente
+                backgroundMusic.play()
+                    .then(() => {
+                        playPauseBtn.textContent = 'Pausar';
+                        isPlaying = true;
+                        console.log("Nueva música cargada y reproduciéndose.");
+                    })
+                    .catch(error => {
+                        console.error("Error al cargar o reproducir la nueva música:", error);
+                        alert("No se pudo cargar o reproducir la música. Asegúrate de que la URL sea válida y el formato compatible.");
+                    });
+            } else {
+                alert("Por favor, introduce una URL de música.");
+            }
+        });
+
+        // Función para alternar la visibilidad del panel de control
+        musicToggle.addEventListener('click', () => {
+            musicControls.classList.toggle('open');
+            // Mueve el botón de toggle para que no se superponga
+            if (musicControls.classList.contains('open')) {
+                // Calcula la posición para que el toggle esté al lado del panel abierto
+                musicToggle.style.right = `${musicControls.offsetWidth + 1.5 * 16}px`; // Ancho del panel + margen
+            } else {
+                musicToggle.style.right = '1.5rem'; // Vuelve a la posición original
+            }
+        });
+
+        // Asegurarse de que el botón de toggle se ajuste si el panel se abre/cierra
+        // y también al cargar la página si el panel está inicialmente oculto
+        window.addEventListener('load', () => {
+            // Inicialmente ocultar el panel y posicionar el toggle
+            musicControls.classList.remove('open');
+            musicToggle.style.right = '1.5rem';
+        });
+
+        // Ajustar el botón de toggle si la ventana cambia de tamaño y el panel está abierto
+        window.addEventListener('resize', () => {
+            if (musicControls.classList.contains('open')) {
+                musicToggle.style.right = `${musicControls.offsetWidth + 1.5 * 16}px`;
+            }
+        });
+    </script>
+</body>
+</html>
