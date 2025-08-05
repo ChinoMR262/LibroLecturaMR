@@ -1,0 +1,2367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo 1: SERES DEL NOVENO UNIVERSO</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- particles.js CDN para animación de partículas -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Tone.js se carga dinámicamente en JavaScript -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Old+Standard+TT:ital@0;1&display=swap');
+
+        /* Base styles for light mode (default) */
+        body {
+            font-family: 'Merriweather', serif; /* Fuente para el cuerpo del texto */
+            background-color: #d4c0a1; /* Color base que simula pergamino claro */
+            background-size: cover;
+            background-attachment: fixed;
+            color: #4a3d2d; /* Color de texto que simula tinta antigua */
+            display: flex;
+            flex-direction: column; /* Allow vertical stacking */
+            justify-content: flex-start; /* Align content to the top */
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem; /* Padding general más adaptable */
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .map-sheet-container {
+            background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente para el "papel" */
+            border: 8px solid; /* Borde para simular el mapa */
+            border-image: url('https://placehold.co/100x100/8B4513/FFFFFF/png?text=Borde+Madera') 30 round; /* Borde tipo madera o pergamino oscuro */
+            padding: 2.5rem; /* Padding adaptable para el contenido */
+            border-radius: 1.5rem; /* Esquinas ligeramente redondeadas */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada para efecto 3D */
+            max-width: 650px; /* Ancho máximo corregido para un aspecto de pergamino más estrecho */
+            width: 100%;
+            line-height: 1.8; /* Espaciado de línea para mejor lectura */
+            position: relative;
+            overflow: hidden; /* Para contener los elementos internos y evitar scroll horizontal */
+            filter: sepia(0.1) saturate(0.9); /* Filtro sutil para un tono envejecido */
+            transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .map-sheet-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://placehold.co/800x600/f5f5dc/f5f5dc/png?text='); /* Fondo beige muy claro, sin texto */
+            background-size: cover;
+            opacity: 0.25; /* Opacidad aumentada para mayor visibilidad, pero aún sutil */
+            pointer-events: none; /* Para que no interfiera con el texto */
+            z-index: 0;
+        }
+
+        h1 {
+            font-family: 'Old Standard TT', serif; /* Fuente para títulos, más clásica */
+            font-size: 3rem; /* Título de capítulo grande */
+            font-weight: 700;
+            color: #5a4b3c; /* Tono más oscuro para el título */
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para el título */
+            position: relative;
+            z-index: 1;
+            transition: color 0.5s ease, text-shadow 0.5s ease;
+        }
+
+        h2 {
+            font-family: 'Old Standard TT', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #6d5b4d;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed #a08a6d; /* Línea discontinua sutil */
+            padding-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            transition: color 0.5s ease, border-color 0.5s ease;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            position: relative;
+            z-index: 1;
+            transition: color 0.5s ease;
+        }
+
+        p:first-of-type::first-letter {
+            font-family: 'Old Standard TT', serif;
+            font-size: 4em; /* Inicial más grande */
+            line-height: 0.8;
+            float: left;
+            margin-right: 0.1em;
+            color: #8B4513; /* Color de madera/tinta más oscura */
+            font-weight: bold;
+            transition: color 0.5s ease;
+        }
+
+        /* Contenedor de la imagen y las partículas */
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Ajusta según el tamaño deseado de la imagen */
+            margin: 2rem auto; /* Vuelve a añadir el margen aquí para espaciado vertical */
+            overflow: hidden; /* Importante para contener las partículas */
+            min-height: 350px; /* Asegura una altura base para el contenedor */
+            /* Added for burned effect on the image background */
+            background-image: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0.5) 100%);
+            background-size: cover;
+            background-position: center;
+            border-radius: 1.5rem; /* Match container border-radius */
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5); /* Inner shadow for burned effect */
+        }
+
+        .chapter-image {
+            position: absolute; /* Hace que la imagen sea absoluta para no afectar la altura del contenedor */
+            top: 0;
+            left: 0;
+            width: 100%; /* Llena el contenedor */
+            height: 100%; /* Llena el contenedor */
+            object-fit: cover; /* Asegura que la imagen cubra el área sin distorsión */
+            display: block;
+            margin: 0; /* Elimina el margen automático ya que es absoluto */
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.5),
+                -5px -5px 15px rgba(0, 0, 0, 0.3),
+                5px 5px 15px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.15);
+            transform: rotate(1deg);
+            transition: transform 0.2s ease-in-out, box-shadow 0.5s ease;
+            z-index: 1; /* La imagen debe estar por debajo de las partículas */
+        }
+
+        .chapter-image:hover {
+            transform: rotate(-0.2deg) scale(1.005);
+        }
+
+        /* Estilos para los divs que particles.js convierte en canvas */
+        .particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2; /* Las partículas deben estar por encima de la imagen */
+            pointer-events: none; /* Permite que los clics pasen a los elementos debajo */
+        }
+
+        /* Zoom Blur Effect for Belcebú with shake, more intense blur/zoom, and flicker */
+        .zoom-blur-shake {
+            animation: zoomBlurShake 2s forwards, flickerLight 0.3s infinite alternate; /* Increased duration for zoom, faster flicker */
+        }
+
+        @keyframes zoomBlurShake {
+            0% {
+                filter: blur(0px) scale(1);
+                transform: translateX(0) translateY(0) rotate(1deg);
+            }
+            25% {
+                filter: blur(25px) scale(1.3); /* Even more intense blur and zoom */
+                transform: translateX(-10px) translateY(10px) rotate(2.5deg); /* More shake */
+            }
+            50% {
+                filter: blur(30px) scale(1.35); /* Max blur and zoom */
+                transform: translateX(10px) translateY(-10px) rotate(-1deg); /* More shake */
+            }
+            75% {
+                filter: blur(18px) scale(1.2);
+                transform: translateX(-8px) translateY(8px) rotate(2deg); /* More shake */
+            }
+            100% {
+                filter: blur(0px) scale(1);
+                transform: translateX(0) translateY(0) rotate(1deg);
+            }
+        }
+
+        @keyframes flickerLight {
+            0% {
+                filter: brightness(1) contrast(1) saturate(1) hue-rotate(0deg);
+                box-shadow: 0 0 10px 5px rgba(255, 69, 0, 0.5), /* Orange glow */
+                            0 0 20px 10px rgba(255, 0, 0, 0.3);  /* Red glow */
+            }
+            50% {
+                filter: brightness(1.8) contrast(1.2) saturate(1.5) hue-rotate(10deg); /* More intense brightness, contrast, saturation, slight hue shift */
+                box-shadow: 0 0 25px 12px rgba(255, 69, 0, 0.9), /* More intense orange glow */
+                            0 0 50px 25px rgba(255, 0, 0, 0.7);  /* More intense red glow */
+            }
+            100% {
+                filter: brightness(1) contrast(1) saturate(1) hue-rotate(0deg);
+                box-shadow: 0 0 10px 5px rgba(255, 69, 0, 0.5),
+                            0 0 20px 10px rgba(255, 0, 0, 0.3);
+            }
+        }
+
+        /* New slow zoom for Gabriel */
+        .slow-zoom-in {
+            animation: slowZoomIn 3s ease-out forwards;
+        }
+
+        @keyframes slowZoomIn {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05); /* Slightly zoom in */
+            }
+        }
+
+
+        /* Music Control Styles */
+        .music-control-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+            transform: translateX(calc(100% + 1.5rem));
+        }
+
+        .music-control-container.open {
+            transform: translateX(0);
+        }
+
+        .music-control-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: rgba(43, 108, 176, 0.5);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1001;
+            transition: background-color 0.2s ease-in-out, right 0.3s ease-in-out;
+        }
+
+        .music-control-toggle:hover {
+            background-color: rgba(49, 130, 206, 0.6);
+        }
+
+        .music-control-buttons button {
+            background-color: #4299e1;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .music-control-buttons button:hover {
+            background-color: #63b3ed;
+        }
+
+        .music-control-input {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #a0aec0;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #2d3748;
+        }
+
+        /* Music Start Overlay */
+        .music-start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 2000;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .music-start-overlay h1.animated-title {
+            font-family: 'Old Standard TT', serif;
+            font-size: 3rem; /* Default size */
+            margin-bottom: 1rem;
+            color: white;
+            white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+            animation: reconstruct-text 6s ease-out forwards; /* Animación de reconstrucción más lenta */
+            opacity: 0; /* Comienza invisible */
+            transform: scale(0.8) translateY(20px); /* Comienza ligeramente más pequeño y desplazado */
+            filter: blur(10px); /* Comienza muy borroso */
+            /* Responsive font size */
+            font-size: 7vw; /* Adjusts with viewport width */
+            max-font-size: 3rem; /* Maximum size */
+        }
+
+        /* Animación de reconstrucción */
+        @keyframes reconstruct-text {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+                filter: blur(10px);
+            }
+            50% { /* Punto medio donde comienza a unirse */
+                opacity: 0.5;
+                transform: scale(1) translateY(0);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        .music-start-overlay h2 {
+            font-family: 'Old Standard TT', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            border-bottom: none;
+        }
+
+        .music-start-overlay button {
+            background-color: #4299e1;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .music-start-overlay button:hover {
+            background-color: #63b3ed;
+            transform: scale(1.05);
+        }
+
+        /* Message Box */
+        .message-box {
+            position: fixed;
+            bottom: 6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .message-box.show {
+            opacity: 1;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #2d3748; /* Darker background */
+            color: #e2e8f0; /* Lighter text */
+        }
+
+        body.dark-mode .map-sheet-container {
+            background-color: rgba(45, 55, 72, 0.9); /* Darker semi-transparent background */
+            border-image: url('https://placehold.co/100x100/4A3D2D/FFFFFF/png?text=Borde+Oscuro') 30 round; /* Darker border */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        body.dark-mode .map-sheet-container::before {
+            background-image: url('https://placehold.co/800x600/2d3748/2d3748/png?text='); /* Dark background texture */
+            opacity: 0.1;
+        }
+
+        body.dark-mode h1 {
+            color: #90cdf4; /* Lighter blue for dark mode titles */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        body.dark-mode h2 {
+            color: #a0aec0; /* Lighter gray for dark mode subtitles */
+            border-bottom-color: #4a5568; /* Darker dashed line */
+        }
+
+        body.dark-mode p {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode p:first-of-type::first-letter {
+            color: #b794f4; /* Purple accent for dark mode initial letter */
+        }
+
+        body.dark-mode .chapter-image {
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.7),
+                -5px -5px 15px rgba(0, 0, 0, 0.5),
+                5px 5px 15px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mode Toggle Button */
+        .mode-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background-color: #4299e1;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1001;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .mode-toggle:hover {
+            background-color: #63b3ed;
+        }
+
+        /* Scroll to Top Button */
+        #scrollToTopBtn {
+            display: none; /* Hidden by default */
+            position: fixed;
+            bottom: 8rem; /* Above music controls */
+            right: 1.5rem;
+            z-index: 999;
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        #scrollToTopBtn.show {
+            display: block;
+            opacity: 1;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #63b3ed;
+        }
+
+        /* Responsive adjustments for smaller screens (mobile portrait) */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+            .map-sheet-container {
+                padding: 1rem;
+                border-width: 4px;
+                border-radius: 1rem;
+                max-width: 95%;
+            }
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+                margin-top: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            p {
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+            }
+            p:first-of-type::first-letter {
+                font-size: 3em;
+            }
+            .chapter-image {
+                max-width: 100%;
+                margin: 1.5rem auto;
+            }
+            .music-control-container, .music-control-toggle {
+                bottom: 0.75rem;
+                right: 0.75rem;
+                padding: 0.6rem;
+                border-radius: 0.6rem;
+            }
+            .music-control-buttons button {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            .music-control-input {
+                font-size: 0.8rem;
+                padding: 0.4rem;
+            }
+            .music-start-overlay h1.animated-title {
+                font-size: 8vw; /* Further adjustment for very small screens */
+                max-font-size: 2.5rem;
+            }
+            .music-start-overlay h2 {
+                font-size: 1.8rem;
+            }
+            .music-start-overlay button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+            .mode-toggle {
+                top: 0.75rem;
+                right: 0.75rem;
+                padding: 0.6rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            #scrollToTopBtn {
+                bottom: 6rem;
+                right: 0.75rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Responsive adjustments for tablets (landscape and portrait) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            body {
+                padding: 1rem;
+            }
+            .map-sheet-container {
+                padding: 1.5rem;
+                border-width: 6px;
+                max-width: 750px;
+            }
+            h1 {
+                font-size: 2.8rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            .music-control-container, .music-control-toggle {
+                bottom: 1rem;
+                right: 1rem;
+            }
+            #scrollToTopBtn {
+                bottom: 8rem;
+                right: 1rem;
+            }
+            .music-start-overlay h1.animated-title {
+                font-size: 5vw; /* Adjust for tablets */
+                max-font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG para definir el clip-path de papel rasgado (ya no se usa para el marco de la imagen) -->
+    <svg width="0" height="0" style="position: absolute; z-index: -1;">
+        <defs>
+            <clipPath id="torn-edge-mask" clipPathUnits="objectBoundingBox">
+                <!-- Este path crea una forma irregular que simula papel rasgado -->
+                <path d="M0.03,0.06 C0.01,0.02,0.01,0.01,0.03,0 C0.06,0,0.09,0.01,0.12,0.02 C0.15,0.03,0.18,0.04,0.21,0.05 C0.24,0.06,0.27,0.07,0.3,0.07 C0.33,0.07,0.36,0.06,0.39,0.05 C0.42,0.04,0.45,0.03,0.48,0.02 C0.51,0.01,0.54,0,0.57,0 C0.6,0,0.63,0.01,0.66,0.02 C0.69,0.03,0.72,0.04,0.75,0.05 C0.78,0.06,0.81,0.07,0.84,0.07 C0.87,0.07,0.9,0.06,0.93,0.05 C0.96,0.04,0.99,0.03,1,0.02 L1,0.98 C0.99,0.97,0.96,0.96,0.93,0.95 C0.9,0.94,0.87,0.93,0.84,0.93 C0.81,0.93,0.78,0.94,0.75,0.95 C0.72,0.96,0.69,0.97,0.66,0.98 C0.63,0.99,0.6,1,0.57,1 C0.54,1,0.51,0.99,0.48,0.98 C0.45,0.97,0.42,0.96,0.39,0.95 C0.36,0.94,0.33,0.93,0.3,0.93 C0.27,0.93,0.24,0.94,0.21,0.95 C0.18,0.96,0.15,0.97,0.12,0.98 C0.09,0.99,0.06,1,0.03,1 C0.01,0.99,0.01,0.98,0,0.94 L0,0.06 Z"/>
+            </clipPath>
+        </defs>
+    </svg>
+
+    <!-- Overlay para iniciar la música. Este overlay cubre la página hasta que el usuario hace clic en el botón. -->
+    <div id="musicStartOverlay" class="music-start-overlay">
+        <h1 id="animatedTitle" class="animated-title">Seres Del Noveno Universo</h1>
+        <h2>Bienvenido a la historia</h2>
+        <p>Haz clic para iniciar la experiencia con música de fondo.</p>
+        <button id="startMusicButton">Iniciar Música</button>
+    </div>
+
+    <!-- Audio para música de fondo (sin autoplay inicial). La reproducción se maneja por JavaScript. -->
+    <audio id="backgroundMusic" loop>
+        <!--
+            ***************************************************************************************************
+            IMPORTANTE: Necesitas reemplazar la siguiente URL con un enlace DIRECTO a tu archivo de música.
+            Debe ser un archivo .mp3 o .ogg accesible públicamente.
+            Las URLs de servicios como Dropbox o Google Drive que no son enlaces de descarga directa NO FUNCIONARÁN.
+            Ejemplo de URL directa (solo para demostración, NO USES ESTA EN PRODUCCIÓN sin permiso):
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            ***************************************************************************************************
+        -->
+        <source src="https://example.com/your-music-file.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- Botón flotante para abrir/cerrar el panel de control de música -->
+    <div id="musicToggle" class="music-control-toggle">
+        Control de Música
+    </div>
+
+    <!-- Panel de control de música flotante -->
+    <div id="musicControls" class="music-control-container">
+        <div class="music-control-buttons">
+            <button id="playPauseBtn">Pausar</button>
+            <button id="stopBtn">Detener</button>
+        </div>
+        <!-- Nuevo control de volumen -->
+        <div class="flex items-center gap-2">
+            <label for="volumeSlider" class="text-white text-sm">Volumen:</label>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" class="flex-grow">
+        </div>
+        <input type="text" id="musicUrlInput" class="music-control-input" placeholder="URL de nueva música (.mp3, .ogg)">
+        <button id="loadMusicBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">Cargar Música</button>
+    </div>
+
+    <!-- Cuadro de mensaje para errores de audio -->
+    <div id="messageBox" class="message-box"></div>
+
+    <!-- Botón de modo oscuro/claro -->
+    <button id="modeToggle" class="mode-toggle">Modo Oscuro</button>
+
+    <div class="map-sheet-container">
+        <h1>Capítulo 1: SERES DEL NOVENO UNIVERSO</h1>
+
+        <h2>Prólogo – Año 25033 d.C. / Siul, Universo 9</h2>
+        <p>
+            El Mandato del Serafín Legendario
+        </p>
+        <p>
+            En los planos más elevados de la existencia, donde las estrellas eran meros puntos de luz en una inmensidad etérea, David, alguna vez conocido como "Factum Supremo", había descendido de su gloria. Su poder, antaño ilimitado, se había reducido a la mitad tras su titánica batalla contra Metatrón, un desafío directo al mismísimo Dios del Todo, todo por salvar el multiverso de la aniquilación. Ahora, como el "Serafín Legendario", su papel trascendía el de un mero guerrero celestial; se había convertido en un mentor, un guía para aquellos elegidos por el Creador. David mantenía una conexión íntima con el Altísimo, una comunión silenciosa pero constante que le revelaba los designios divinos y le confiaba misiones cruciales para mantener el frágil equilibrio universal.
+        </p>
+
+        <!-- Image of Celestial planes and stars with particle animation -->
+        <div class="image-container" data-sound-type="celestial" data-particles-ids="particles-js-1">
+            <img id="image-1" class="chapter-image" alt="Planos celestiales y estrellas" src="https://iili.io/F4j0O8l.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/A0B2C8/FFFFFF?text=Error+al+cargar+imagen+1'; console.error('Error al cargar Imagen 1.png');" loading="lazy">
+            <!-- Contenedor para las partículas -->
+            <div id="particles-js-1" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            Una noche, en el silencio abrumador del éter celestial, David sintió la presencia del Creador. No fue una voz audible, sino una inundación de su ser, una calidez que no consumía pero iluminaba cada fibra de su existencia, como un fuego cósmico que vibraba en su alma. El aire mismo pareció densificarse con la santidad.
+        </p>
+        <p>
+            —David, Serafín de mi voluntad —resonó una voz que era a la vez un susurro y un trueno en su mente, una voz que contenía la sabiduría de eones—. El momento ha llegado para que guíes a los elegidos. Siul clama por justicia, y la oscuridad que lo consume debe ser erradicada. Ve a Gabriel, quien aún no conoce la totalidad de mi plan, y comunícale su papel. Max y Radicks necesitan ser liberados; ellos serán la clave para restaurar el orden.
+        </p>
+        <p>
+            David inclinó su rostro en señal de reverencia, el peso de la responsabilidad cayendo sobre sus hombros, una carga que aceptaba con humildad.
+        </p>
+
+        <p>
+            —Padre, haré como lo ordenas. Les mostraré el camino y les enseñaré a través de mí. —Su propia voz, aunque celestial, contenía una pizca de la duda que a veces lo asaltaba—. Pero dime, ¿qué propósito hay detrás de sus pruebas? ¿Por qué permitirles soportar tanto dolor?
+        </p>
+        <p>
+            La voz del Creador resonó de nuevo, esta vez con una mezcla de solemnidad y una ternura infinita que calmó el alma de David.
+        </p>
+        <p>
+            —El fuego purifica, y el dolor moldea. Max y Radicks han sido forjados en las llamas de la adversidad, porque solo aquellos que han conocido la profundidad del quebranto pueden ser instrumentos de verdadera redención. Su sufrimiento no es en vano; es el crisol donde su verdadera fuerza se manifestará.
+        </p>
+
+        <!-- Image of Figures being forged in ethereal flames with fire particle animation -->
+        <div class="image-container" data-sound-type="fire" data-particles-ids="particles-js-3">
+            <img id="image-3" class="chapter-image" alt="Figuras siendo forjadas en llamas etéreas" src="https://iili.io/F4wnGx2.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/D2B48C/4A3D2D?text=Error+al+cargar+imagen+3'; console.error('Error al cargar Imagen 3: https://iili.io/F4wnGx2.png');" loading="lazy">
+            <!-- Contenedor para las partículas de fuego -->
+            <div id="particles-js-3" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            David sintió el peso de esas palabras, comprendiendo que el plan divino era mucho más vasto de lo que su mente podía abarcar. Aun consciente de la magnitud de su rol, se dirigió al plano celestial donde Gabriel, el dios del planeta Siul, mantenía una vigilia constante sobre su reino caído. La imagen de Siul, un mundo antaño vibrante y colosal, ahora cubierto por las sombras, le dolía profundamente.
+        </p>
+
+        <h2>El encuentro con Gabriel</h2>
+        <p>
+            Durante siglos, el planeta Siul, el mundo más grande conocido en todos los universos, había sido un campo de batalla desolado. Sus paisajes, antaño vastas selvas de árboles dorados que cantaban con el viento y cordilleras que tocaban el cielo, estaban ahora marcados por cicatrices de fuego y desolación. El aire olía a ceniza y a una tristeza ancestral, un lamento perpetuo que se alzaba desde las ruinas. El equilibrio entre la luz y la oscuridad había sido destruido por el poder de Belcebú, un querubín caído que, en su ansia de poder, había desafiado las leyes del Creador y traído un caos incomprensible a la creación. Las tierras de Siul, antaño sagradas, se encontraban sumidas en la ruina, y el clamor de los inocentes resonaba en los planos celestiales, un eco constante de su sufrimiento. Incluso Kairon, el planeta gemelo que orbitaba tan cerca que parecía rozar el horizonte siulciano, sentía la alteración, desatando tormentas de energía en su atmósfera, un reflejo de la agonía de Siul.
+        </p>
+
+        <!-- Image of Devastated planet Siul and nearby Kairon with smoke particle animation -->
+        <div class="image-container" data-sound-type="desolationWind" data-particles-ids="particles-js-4">
+            <img id="image-4" class="chapter-image" alt="Planeta Siul devastado y Kairon cercano" src="https://iili.io/F4wnMVS.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/8B0000/FFFFFF?text=Error+al+cargar+imagen+4'; console.error('Error al cargar Imagen 4: https://iili.io/F4wnMVS.png');" loading="lazy">
+            <!-- Contenedor para las partículas de humo -->
+            <div id="particles-js-4" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            En un templo sagrado, suspendido en los cielos de Siul, con pilares fracturados y vitrales rotos que apenas filtraban la luz moribunda del planeta, Gabriel, el dios del planeta, se encontraba en oración profunda. Sus rodillas estaban gastadas por eones de súplicas, su rostro marcado por la angustia. Suplicaba al Altísimo una solución, una señal, cualquier cosa que pudiera aliviar el tormento de su mundo. Fue entonces cuando el cielo mismo pareció abrirse sobre el templo, inundando el salón con una luz divina tan pura y cegadora que eclipsó todo a su alrededor, haciendo que el polvo danzara en sus haces. Un zumbido vibrante llenó el aire, como mil arpas celestiales tocando al unísono. De repente, un viento divino, suave pero poderoso, atravesó la estancia, y una figura majestuosa apareció ante él. David, con su armadura celestial resplandeciendo con un brillo incandescente que parecía forjado en el corazón de una estrella, se presentó.
+        </p>
+
+        <!-- Image of Sacred temple in ruins with divine light and David appearing -->
+        <div class="image-container" data-sound-type="divineLight" data-particles-ids="particles-js-5,particles-js-6">
+            <img id="image-5" class="chapter-image" alt="Templo sagrado en ruinas con luz divina y David apareciendo" src="https://iili.io/F4wnlRf.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/B8860B/FFFFFF?text=Error+al+cargar+imagen+5'; console.error('Error al cargar Imagen 5: https://iili.io/F4wnlRf.png');" loading="lazy">
+            <!-- Contenedor para las partículas de luz -->
+            <div id="particles-js-5" class="particles-canvas"></div>
+            <!-- Contenedor para el destello de lente -->
+            <div id="particles-js-6" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            —Gabriel, he venido por mandato del Creador —dijo David, su voz firme pero cargada de una empatía que resonó en el alma de Gabriel.
+        </p>
+        <p>
+            Gabriel lo miró con asombro, sus ojos, acostumbrados a la penumbra, parpadeando ante la intensidad de David. Aunque conocía la historia de la caída y redención de David, jamás había presenció su grandeza como el Serafín Legendario de esta manera tan directa. Una mezcla de reverencia y esperanza le invadió.
+        </p>
+        <p>
+            —David, portador de la voluntad divina, dime, ¿qué orden trae el Altísimo? —preguntó Gabriel, su voz apenas un susurro.
+        </p>
+        <p>
+            David se acercó, sus pasos ligeros sobre el suelo de mármol. Colocó una mano sobre el hombro de Gabriel, un toque que transmitió una fuerza inmensa y una comprensión tácita.
+        </p>
+        <p>
+            —El Creador me ha hablado. Es momento de que liberes a los elegidos, Max y Radicks. Ellos han sido moldeados por Su mano para enfrentar la oscuridad que azota este mundo. Su sacrificio será grande, pero su propósito lo justifica.
+        </p>
+        <p>
+            Gabriel frunció el ceño, su rostro reflejando una profunda duda y una pizca de resentimiento. ¿Por qué otros, cuando él había luchado incansablemente?
+        </p>
+        <p>
+            —¿Por qué ellos, David? —cuestionó, su voz teñida de amargura—. ¿Por qué no yo, quien juré proteger este mundo con cada fibra de mi ser? ¿Acaso mi fe no ha sido suficiente?
+        </p>
+        <p>
+            David esbozó una sonrisa comprensiva, una expresión que suavizó la intensidad de su presencia.
+        </p>
+        <p>
+            —El Creador elige a los más aptos, no siempre a los más fuertes. Max y Radicks no solo lucharán con sus manos, sino con sus corazones, con una dualidad que tú no posees. Y tú, Gabriel, tienes otro papel importante, uno crucial: ser el puente entre el cielo y ellos, el faro que los guiará. Su victoria también será la tuya, pues la habrás hecho posible.
+        </p>
+        <p>
+            Gabriel asintió lentamente, la verdad de las palabras de David calando hondo. El resentimiento se disipó, reemplazado por una renovada determinación. Comprendió que su papel no era menor, sino diferente, igualmente vital.
+        </p>
+        <p>
+            —Entonces, guíame, David. Muéstrame cómo debo cumplir con esta tarea. —Su voz ahora era firme, llena de una nueva convicción.
+        </p>
+        <p>
+            David irradió una luz que transformó la estancia en un reflejo del cielo, con destellos iridiscentes que danzaban en el aire.
+        </p>
+
+        <!-- Image of Gabriel observing David with light beam effect and particles -->
+        <div class="image-container" data-sound-type="beautifulLightBeam" data-particles-ids="particles-js-7,particles-js-8">
+            <img id="image-6" class="chapter-image" alt="Gabriel observando a David con rayo de luz" src="https://iili.io/F4OiQuj.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/ADD8E6/FFFFFF?text=Gabriel+Observa+David'; console.error('Error al cargar Imagen 6');" loading="lazy">
+            <!-- Contenedor para el rayo de luz -->
+            <div id="particles-js-7" class="particles-canvas"></div>
+            <!-- Contenedor para partículas generales -->
+            <div id="particles-js-8" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            —Comienza liberándolos de las cadenas que los atan, tanto las físicas como las internas. Después, llévalos al trono de Belcebú, pero no los abandones hasta que hayan comprendido su verdadero poder. Y cuando la hora de la batalla llegue, recuerda que tu fe será su escudo, y tu esperanza, su espada.
+        </p>
+
+        <h2>El Serafín Legendario como mentor</h2>
+        <p>
+            Gabriel, renovado en su misión y con el corazón lleno de una nueva esperanza, se preparó para descender a las mazmorras más profundas del planeta Siul, un lugar donde la luz apenas se atrevía a entrar, donde los elegidos aguardaban su destino.
+        </p>
+        <p>
+            Pero no estaba solo. David, como un mentor designado por el Creador, decidió acompañarlos en espíritu. Su presencia no era física, sino una resonancia en el alma, una guía silenciosa que se manifestaría a los elegidos en los momentos de mayor necesidad, tejiendo su sabiduría en el tejido mismo de su viaje.
+        </p>
+
+        <h2>La prisión de los elegidos</h2>
+        <p>
+            Encerrados en una prisión oculta al mundo, un laberinto de piedra fría y humedad perpetua, Max y Radicks vivían encadenados, víctimas de su propia naturaleza dual. El aire era denso, cargado con el olor a moho y desesperación. Max, mitad humano y mitad divino, meditaba silenciosamente en un rincón, su postura serena a pesar de las cadenas que le oprimían los tobillos. Buscaba fortaleza en su conexión espiritual, intentando silenciar el clamor de su parte humana, que anhelaba la libertad. Por otro lado, Radicks, cuya sangre también albergaba misteriosos vestigios de lo celestial, dejaba que su ira contra el mundo se desbordara en gruñidos bajos y golpes ocasionales contra las paredes de la celda, el sonido sordo de sus puños contra la piedra resonando en la oscuridad.
+        </p>
+
+        <!-- Image of Max meditating chained in the darkness of the prison with dust and light rays -->
+        <div class="image-container" data-sound-type="prison" data-particles-ids="particles-js-9,particles-js-10">
+            <img id="image-7" class="chapter-image" alt="Max meditando encadenado en la oscuridad de la prisión" src="https://iili.io/F4j0Q9V.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/4B0082/FFFFFF?text=Max+En+Prision'; console.error('Error al cargar Imagen 7');" loading="lazy">
+            <!-- Contenedor para partículas de polvo -->
+            <div id="particles-js-9" class="particles-canvas"></div>
+            <!-- Contenedor para rayos de luz -->
+            <div id="particles-js-10" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            —Estamos atrapados aquí mientras el mundo se consume en las llamas de Belcebú —gruñó Radicks, golpeando las paredes de la celda con frustración, el eco de sus golpes una manifestación de su rabia—. ¿De qué sirve todo esto?
+        </p>
+
+        <!-- Image of Radicks hitting the cell wall in anger -->
+        <div class="image-container" data-sound-type="impact" data-particles-ids="particles-js-12">
+            <img id="image-8" class="chapter-image" alt="Radicks golpeando la pared de la celda con ira" src="https://iili.io/F4j0ZAB.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/8B0000/FFFFFF?text=Radicks+Enfurecido'; console.error('Error al cargar Imagen 8');" loading="lazy">
+            <!-- Contenedor para efectos de polvo y partículas para Radicks enfurecido -->
+            <div id="particles-js-12" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            —A veces, la oscuridad solo es el preludio de la luz —respondió Max, su voz tranquila como un estanque en calma, mientras sus ojos se perdían en las sombras que los rodeaban, buscando un significado más allá de su confinamiento. Su mente, sin embargo, no estaba exenta de dudas; la inmovilidad era una tortura para su espíritu guerrero.
+        </p>
+        <p>
+            Esa misma noche, cuando la desesperación parecía más densa, una luz divina, suave al principio y luego cegadora, iluminó su celda. El aire frío de la prisión se calentó, y el olor a moho fue reemplazado por una fragancia a incienso y pureza. Una figura celestial emergió de la luz: Gabriel, el Dios de Siul, portador de la voluntad del Creador. Su presencia majestuosa y etérea, irradiaba una luz que parecía limpiar incluso las piedras corroídas por el tiempo, haciendo que las sombras retrocedieran.
+        </p>
+
+        <!-- Image of Gabriel with golden wings appearing in the cell -->
+        <div class="image-container" data-sound-type="divineLight" data-particles-ids="particles-js-feathers">
+            <img id="image-9" class="chapter-image slow-zoom-in" alt="Gabriel con alas doradas apareciendo en la celda" src="https://iili.io/F4bimap.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/FFD700/000000?text=Gabriel+Divino'; console.error('Error al cargar Imagen 9');" loading="lazy">
+            <!-- Contenedor para las partículas de plumas -->
+            <div id="particles-js-feathers" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            —Max, Radicks, escuchen mis palabras —dijo Gabriel, su voz resonando como el eco de un coro celestial, llenando la celda con una melodía de esperanza—. El Creador me ha ordenado liberarlos. Son los elegidos, destinados a enfrentar al Querubín caído y devolver la paz a Siul.
+        </p>
+        <p>
+            Radicks lo miró incrédulo, sus ojos entrecerrados, una mezcla de desconfianza y una chispa de esperanza luchando en su interior. ¿Después de tanto tiempo, la libertad? ¿Y con un propósito tan grande? Max, por su parte, cayó de rodillas en señal de reverencia, su corazón inundado por la magnitud de la revelación.
+        </p>
+        <p>
+            —¿Por qué nosotros? —preguntó Max, su voz temblando por la abrumadora responsabilidad que sentía, por el peso de un destino que parecía demasiado grande para ellos.
+        </p>
+        <p>
+            Gabriel extendió su mano y, con un gesto sutil, las cadenas que los ataban se desintegraron en polvo brillante, cayendo al suelo con un suave tintineo.
+        </p>
+
+        <!-- Image of Chains disintegrating into sparkling dust -->
+        <div class="image-container" data-sound-type="chains">
+            <img id="image-10" class="chapter-image" alt="Cadenas desintegrándose en polvo brillante" src="https://iili.io/F4bsKPf.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/C0C0C0/000000?text=Cadenas+Rotas'; console.error('Error al cargar Imagen 10');" loading="lazy">
+        </div>
+
+        <p>
+            —Porque son los únicos que pueden soportar esta carga. El Creador ve en ustedes un equilibrio único, una fuerza capaz de derrotar incluso a un querubín como Belcebú. —En ese instante, una figura etérea y luminosa apareció junto a Gabriel, la forma de David, no como un guerrero distante, sino como un guía que entendía su lucha interna, sus miedos y sus dudas. Su presencia era reconfortante, un ancla en el torbellino de emociones.
+        </p>
+        <p>
+            —Max, Radicks, son más que guerreros —resonó la voz de David en sus mentes, una voz que era a la vez antigua y familiar—. Son la esperanza encarnada para un mundo que agoniza. Yo fui como ustedes una vez, quebrado pero elegido. Aprenderán a dominar sus fuerzas, pero primero deben aprender a confiar el uno en el otro, a fusionar sus diferencias en una sola voluntad.
+        </p>
+        <p>
+            Durante su viaje hacia el Abismo de las Sombras, bajo la guía espiritual de David, cada paso se convirtió en una lección. David les enseñó lecciones esenciales, no solo a través de palabras, sino a través de visiones y sensaciones que se grababan en sus almas:
+        </p>
+        <p>
+            A Max, le mostró cómo canalizar su divinidad sin perder su humanidad, haciéndole entender que su mitad mortal no era una debilidad, sino su mayor fortaleza, el ancla que lo conectaba con la compasión y la resistencia. Le enseñó a sentir el pulso de la creación en sus venas, a tejer la luz divina con la esencia terrenal.
+        </p>
+        <p>
+            A Radicks, le enseñó a dominar su ira, a sentirla, reconocerla, pero no dejar que lo consumiera. Le mostró cómo usarla como una herramienta, una fuerza controlada y dirigida, en lugar de un arma descontrolada que lo destruiría desde dentro. Le hizo ver que la furia podía ser un motor, no un amo.
+        </p>
+        <p>
+            En las noches más oscuras, cuando el miedo y las dudas los acechaban, cuando las sombras de su pasado se cernían sobre ellos, David se manifestaba en sus sueños, susurrando palabras de aliento, recordándoles que la fe era el arma más poderosa que poseían, una luz interna que ninguna oscuridad podía apagar. Les mostró visiones de su futuro, de la victoria, pero también del costo.
+        </p>
+        <p>
+            En sus manos, con un brillo etéreo que se materializó del aire mismo, Gabriel materializó dos reliquias ancestrales: la Espada del Amanecer, una hoja bañada en la luz del primer día de la creación, su filo resplandeciendo con una promesa de victoria, y el Escudo del Alba, una barrera impenetrable que parecía contener las estrellas mismas, sus grabados antiguos pulsando con energía.
+        </p>
+
+        <!-- Image of Sword of Dawn and Shield of Dawn materializing -->
+        <div class="image-container" data-sound-type="celestial" data-particles-ids="particles-js-sword,particles-js-shield">
+            <img id="image-11" class="chapter-image" alt="Espada del Amanecer y Escudo del Alba materializándose" src="https://iili.io/F4bibFR.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/FF8C00/FFFFFF?text=Reliquias+Divinas'; console.error('Error al cargar Imagen 11');" loading="lazy">
+            <!-- Contenedor para partículas de espada -->
+            <div id="particles-js-sword" class="particles-canvas"></div>
+            <!-- Contenedor para partículas de escudo -->
+            <div id="particles-js-shield" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            —Estas reliquias los guiarán, pero recuerden: su fuerza no está solo en ellas, sino en su fe y unidad. Son extensiones de su voluntad, no la fuente de su poder.
+        </p>
+        <p>
+            Radicks tomó la espada con una determinación férrea, sintiendo el peso equilibrado de la hoja en su mano, una extensión natural de su espíritu combativo. Max aceptó el escudo con reverencia, su superficie fría y lisa, pero vibrante con una energía protectora.
+        </p>
+
+        <h2>El camino hacia el abismo de las sombras</h2>
+        <p>
+            Guiados por la luz constante de Gabriel, que se manifestaba como un orbe brillante flotando delante de ellos, Max y Radicks emprendieron un viaje hacia el Abismo de las Sombras, el último bastión de Belcebú. El camino era arduo, a través de paisajes desolados que atestiguaban la brutalidad de la guerra. Pasaron por aldeas devastadas, donde el silencio era tan pesado como las ruinas. El olor a ceniza y a muerte flotaba en el aire, mezclado con el tenue aroma de la desesperación. Los pocos sobrevivientes, con rostros demacrados y ojos vacíos, clamaban por ayuda, sus voces roncas y quebradas. Cada paso era un recordatorio lacerante del precio que Siul había pagado por el caos desatado. Los bosques de árboles dorados, que en tiempos de paz cantaban con el viento, ahora se alzaban como esqueletos carbonizados, y los ríos de luz se habían convertido en cauces secos y polvorientos.
+        </p>
+
+        <!-- Image of Desolate and devastated landscape of Siul with ash and smoke animation -->
+        <div class="image-container" data-sound-type="darkGloomy" data-particles-ids="particles-js-13">
+            <img id="image-12" class="chapter-image" alt="Paisaje desolado y devastado de Siul" src="https://iili.io/F4j08w7.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/808080/FFFFFF?text=Error+al+cargar+imagen+12'; console.error('Error al cargar Imagen 12: https://iili.io/F4j08w7.png');" loading="lazy">
+            <!-- Contenedor para ceniza y humo -->
+            <div id="particles-js-13" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            Max dedicaba sus noches a la oración, arrodillado bajo el cielo estrellado de Siul, pidiendo al Creador fuerza y guía, no solo para la batalla, sino para soportar el dolor que veía a su alrededor. El viento susurraba sus plegarias entre los árboles carbonizados, llevando consigo el lamento de un mundo herido.
+        </p>
+        <p>
+            —¿Crees que realmente podremos vencerlo? —preguntó Radicks una noche, su tono cargado de dudas, mientras observaba las llamas distantes de algún fuego de campamento enemigo. La inmensidad de Belcebú pesaba sobre ellos, una opresión palpable que se sentía incluso en el aire denso de Siul.
+        </p>
+        <p>
+            —No se trata de vencer, sino de cumplir con el propósito que nos fue dado —respondió Max, con una serenidad que a Radicks a veces le resultaba desconcertante, casi inhumana. Max sabía que la victoria no siempre era la aniquilación, sino la restauración del equilibrio, la sanación de un mundo que había perdido su armonía.
+        </p>
+
+        <h2>El Enfrentamiento Final</h2>
+        <p>
+            David ya había preparado sus corazones y mentes para el desafío final. Su voz, ahora una presencia constante en sus pensamientos, resonaba con su última lección en el umbral de la batalla:
+        </p>
+        <p>
+            —Recuerden, no son solo soldados; son la voluntad del Creador en acción. Esta batalla no es solo contra Belcebú, sino contra la oscuridad que habita en cada uno de nosotros. Deben de ser valientes, pues su luz es más grande que cualquier sombra. No teman al fracaso, sino a no intentarlo.
+        </p>
+        <p>
+            El Abismo de las Sombras se alzaba ante ellos, una garganta cavernosa que exhalaba un frío gélido y un olor a azufre y podredumbre. El aire vibraba con una energía maligna, pesada y opresiva, que se aferraba a sus pulmones. Al llegar al trono de Belcebú, fueron recibidos por una escena de puro horror: el Querubín caído, una figura grotesca de inmensa estatura, con sus alas ennegrecidas y desgarradas, su corona de huesos afilados brillando con una luz macabra. Sus ojos, dos brasas ardientes en la penumbra, los observaban con una sonrisa cruel que revelaba dientes afilados como dagas, prometiendo un tormento sin fin.
+        </p>
+
+        <!-- Image of Beelzebub on his throne in the Abyss of Shadows -->
+        <div class="image-container" data-sound-type="demonic" data-particles-ids="particles-js-fire-smoke">
+            <img id="image-13" class="chapter-image zoom-blur-shake" alt="Belcebú en su trono en el Abismo de las Sombras" src="https://iili.io/F4bit6v.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/000000/FF0000?text=Belcebu+En+Trono'; console.error('Error al cargar Imagen 13');" loading="lazy">
+            <!-- Contenedor para partículas de fuego y humo -->
+            <div id="particles-js-fire-smoke" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            La batalla que siguió fue como el choque de estrellas, una sinfonía de destrucción y poder que hacía temblar los cimientos mismos de Siul. El metal de la Espada del Amanecer chocaba contra las garras de Belcebú con un estruendo ensordecedor, mientras el Escudo del Alba repelía sus ataques con destellos cegadores. Max y Radicks, armados con las reliquias divinas, lucharon con todo lo que tenían, sus movimientos fluidos y coordinados, un baile mortal de luz y sombra. Sin embargo, Belcebú, un ser alimentado por siglos de oscuridad y poder, los superaba en fuerza y resistencia, su risa resonando con cada golpe que asestaba, una carcajada que helaba la sangre. El suelo temblaba bajo sus pies, las rocas se desprendían del techo con estruendo y el aire se llenaba con el olor a electricidad y a la desesperación de la batalla, un hedor metálico y acre.
+        </p>
+        <p>
+            Uno a uno, sus aliados cayeron. Mia y Luna, guerreras de Rango Virtudes, que habían luchado con valentía inquebrantable junto a ellos, ofrecieron sus vidas por la causa, sus luces desvaneciéndose en la oscuridad del abismo con un último suspiro. Sus sacrificios, aunque dolorosos, encendieron una nueva furia en Radicks, una que David había intentado contener. La lucha alcanzó un nuevo nivel cuando Radicks, en un acceso de furia descontrolada, liberó la ira que David había logrado sellar en él. Su cuerpo se rodeó de un aura oscura y su fuerza se multiplicó, pero sus ataques eran salvajes, sin dirección, un torbellino de destrucción sin control.
+        </p>
+
+        <!-- Image of Radicks surrounded by a dark aura in full fury -->
+        <div class="image-container" data-sound-type="rage" data-particles-ids="particles-js-14">
+            <img id="image-14" class="chapter-image" alt="Radicks rodeado de un aura oscura en plena furia" src="https://iili.io/F4bs3ns.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/4B0082/FF0000?text=Radicks+Furia'; console.error('Error al cargar Imagen 14');" loading="lazy">
+            <!-- Contenedor para partículas de ira/furia -->
+            <div id="particles-js-14" class="particles-canvas"></div>
+        </div>
+
+        <p>
+            En el último instante, cuando todo parecía perdido, cuando la desesperación amenazaba con consumirlos, Max, con una última chispa de fe y la guía silenciosa de David en su mente, dio el golpe decisivo con la Espada del Amanecer. La hoja, imbuida con la luz purificadora del primer día de la creación, atravesó la oscuridad que Belcebú representaba, sellando su poder y desintegrándolo en una explosión de energía que iluminó el abismo por un instante. Pero el costo fue inmenso, pues la fuerza liberada fue tal que Max y Radicks, gravemente heridos y al borde de la aniquilación, cayeron, muriendo en el proceso. Sus cuerpos quedaron inertes en el suelo, rodeados por el silencio ensordecedor de la victoria, un silencio que solo el eco de su sacrificio llenaba.
+        </p>
+
+        <!-- Image of Max and Radicks fallen after victory -->
+        <div class="image-container" data-sound-type="fallingBodies">
+            <img id="image-15" class="chapter-image" alt="Max y Radicks caídos tras la victoria" src="https://placehold.co/600x350/800000/FFFFFF?text=Sacrificio+Guerreros" onerror="this.onerror=null;this.src='https://placehold.co/600x350/800000/FFFFFF?text=Sacrificio+Guerreros'; console.error('Error al cargar Imagen 15');" loading="lazy">
+        </div>
+
+        <h2>Renacimiento</h2>
+        <p>
+            La luz de la victoria, brillante y cegadora, envolvió el universo, no con un estallido violento, sino con una expansión suave y purificadora que se extendió por cada rincón. Los cielos de Siul, antes grises y opresivos, se despejaron, revelando un azul profundo y un sol radiante que bañaba las tierras con energía divina. Las cicatrices de la guerra comenzaron a sanar, los bosques carbonizados brotaban con un nuevo verdor dorado y los ríos de luz volvían a fluir con luminiscencia natural. Una nueva esperanza floreció en el aire, un aroma a renacimiento y paz. Gabriel, desde su trono celestial, observaba en silencio, sus ojos llenos de una mezcla de tristeza por el sacrificio de sus elegidos y una profunda comprensión. Sabía que ese no era el final, sino el comienzo de una nueva era, un ciclo de redención que apenas comenzaba a desplegarse en el vasto tapiz del multiverso, un eco de la armonía restaurada entre Siul y Kairon.
+        </p>
+
+        <!-- Image of Siul reborn, full of light and life -->
+        <div class="image-container" data-sound-type="rebirthAndNature" data-particles-ids="particles-js-rebirth">
+            <img id="image-16" class="chapter-image" alt="Siul renaciendo, lleno de luz y vida" src="https://iili.io/F4bsqF4.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/008000/FFFFFF?text=Siul+Renacimiento'; console.error('Error al cargar Imagen 16');" loading="lazy">
+            <!-- Contenedor para partículas de renacimiento -->
+            <div id="particles-js-rebirth" class="particles-canvas"></div>
+        </div>
+
+    </div>
+
+    <!-- Contenedor para partículas globales de esquina a esquina -->
+    <div id="particles-js-11" class="particles-canvas"></div>
+
+    <!-- Botón de Volver Arriba -->
+    <button id="scrollToTopBtn" title="Volver arriba">↑</button>
+
+    <script>
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const musicUrlInput = document.getElementById('musicUrlInput');
+        const loadMusicBtn = document.getElementById('loadMusicBtn');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicControls = document.getElementById('musicControls');
+        const musicStartOverlay = document.getElementById('musicStartOverlay');
+        const startMusicButton = document.getElementById('startMusicButton');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const messageBox = document.getElementById('messageBox');
+        const modeToggle = document.getElementById('modeToggle');
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        const animatedTitle = document.getElementById('animatedTitle');
+
+        let isPlaying = false;
+        let fadeInterval;
+        let isEffectPlaying = false; // Flag to track if any sound effect is currently playing
+        let backgroundMusicNormalVolume = 0.5; // Stores the user-set or default background music volume
+
+        // Function to show messages in the message box
+        function showMessage(message, duration = 3000) {
+            messageBox.textContent = message;
+            messageBox.classList.add('show');
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+            }, duration);
+        }
+
+        // Function for fade-in effect for background music
+        function fadeInMusic() {
+            return new Promise(async (resolve, reject) => {
+                console.log("fadeInMusic: Iniciando fade-in de música de fondo.");
+                backgroundMusic.volume = 0; // Start at 0 volume
+
+                try {
+                    console.log(`fadeInMusic: URL de la música: ${backgroundMusic.src}`);
+                    console.log(`fadeInMusic: backgroundMusic.paused antes de play(): ${backgroundMusic.paused}`);
+                    console.log(`fadeInMusic: backgroundMusic.ended antes de play(): ${backgroundMusic.ended}`);
+                    console.log(`fadeInMusic: backgroundMusic.readyState antes de play(): ${backgroundMusic.readyState}`);
+
+                    // Wait for the audio to be ready to play
+                    if (backgroundMusic.readyState < 2) { // HTMLMediaElement.HAVE_CURRENT_DATA
+                        console.log("fadeInMusic: La música no está lista para reproducirse. Esperando 'canplaythrough'...");
+                        await new Promise((res, rej) => {
+                            const canPlayHandler = () => {
+                                console.log("fadeInMusic: Evento 'canplaythrough' recibido.");
+                                backgroundMusic.removeEventListener('error', errorHandler); // Clean up error listener
+                                res();
+                            };
+                            const errorHandler = (e) => {
+                                console.error("fadeInMusic: Error en el evento 'canplaythrough' o durante la carga:", e);
+                                backgroundMusic.removeEventListener('canplaythrough', canPlayHandler); // Clean up canplaythrough listener
+                                rej(new Error(`Error de carga de audio: ${e.message || e.type}`));
+                            };
+                            backgroundMusic.addEventListener('canplaythrough', canPlayHandler, { once: true });
+                            backgroundMusic.addEventListener('error', errorHandler, { once: true });
+                            backgroundMusic.load(); // Ensure loading starts
+                        });
+                    }
+
+                    console.log("fadeInMusic: Intentando backgroundMusic.play()...");
+                    const playPromise = backgroundMusic.play();
+                    if (playPromise !== undefined) {
+                        await playPromise; // Wait for the play promise to resolve
+                        console.log("fadeInMusic: backgroundMusic.play() exitoso.");
+                    }
+
+                    console.log(`fadeInMusic: backgroundMusic.paused después de play(): ${backgroundMusic.paused}`);
+                    console.log(`fadeInMusic: backgroundMusic.ended después de play(): ${backgroundMusic.ended}`);
+
+                    let volume = 0;
+                    fadeInterval = setInterval(() => {
+                        if (volume < backgroundMusicNormalVolume) { // Fade up to normal volume
+                            volume += 0.01;
+                            backgroundMusic.volume = Math.min(volume, backgroundMusicNormalVolume); // Ensure volume doesn't exceed normal or 1
+                        } else {
+                            clearInterval(fadeInterval);
+                            backgroundMusic.volume = backgroundMusicNormalVolume; // Ensure final volume is set
+                            isPlaying = true;
+                            playPauseBtn.textContent = 'Pausar';
+                            musicStartOverlay.style.display = 'none'; // Hide overlay on successful play
+                            console.log("fadeInMusic: Música iniciada por interacción del usuario con fade-in.");
+                            resolve();
+                        }
+                    }, 100);
+                } catch (error) {
+                    console.error("fadeInMusic: Error al intentar reproducir la música de fondo:", error);
+                    let errorMessage = "Error al reproducir la música de fondo. ";
+                    if (error.name === "NotAllowedError") {
+                        errorMessage += "El navegador bloqueó la reproducción automática. Esto suele ocurrir si no hay interacción previa del usuario o si la URL no es directa. Asegúrate de que la URL de la música es un enlace directo a un archivo de audio.";
+                    } else if (error.name === "NotSupportedError") {
+                        errorMessage += "El formato de audio no es compatible o la URL no es válida. Asegúrate de que es un archivo .mp3 o .ogg y que la URL es directa.";
+                    } else if (error.name === "AbortError") {
+                        errorMessage += "La reproducción fue abortada (ej. por una pausa rápida o cambio de fuente).";
+                    } else if (error.message.includes("Failed to load because no supported source was found")) {
+                         errorMessage += "No se encontró una fuente de audio compatible. Verifica la URL de la música.";
+                    }
+                    else {
+                        errorMessage += "Verifica la URL de la música o tu conexión a internet.";
+                    }
+                    showMessage(errorMessage);
+                    musicStartOverlay.style.display = 'none'; // IMPORTANT: Hide overlay even on error
+                    reject(error);
+                }
+            });
+        }
+
+        // Function to duck background music volume
+        function duckBackgroundMusic() {
+            if (!isEffectPlaying) { // Only duck if no other effect is currently playing
+                let currentVolume = backgroundMusic.volume;
+                const duckInterval = setInterval(() => {
+                    if (currentVolume > 0.2) { // Duck to 0.2
+                        currentVolume -= 0.01;
+                        backgroundMusic.volume = Math.max(currentVolume, 0.2);
+                    } else {
+                        clearInterval(duckInterval);
+                    }
+                }, 50);
+            }
+            isEffectPlaying = true;
+        }
+
+        // Function to restore background music volume
+        function restoreBackgroundMusic() {
+            isEffectPlaying = false; // No effect is playing now
+            let currentVolume = backgroundMusic.volume;
+            const restoreInterval = setInterval(() => {
+                if (currentVolume < backgroundMusicNormalVolume) {
+                    currentVolume += 0.01;
+                    backgroundMusic.volume = Math.min(currentVolume, backgroundMusicNormalVolume);
+                } else {
+                    clearInterval(restoreInterval);
+                }
+            }, 50);
+        }
+
+        // Initialize volume slider with current music volume
+        volumeSlider.value = backgroundMusic.volume;
+
+        // Event listener for volume slider
+        volumeSlider.addEventListener('input', () => {
+            backgroundMusic.volume = volumeSlider.value;
+            backgroundMusicNormalVolume = volumeSlider.value; // Update normal volume when slider is moved
+        });
+
+        // Tone.js Sound Effects Initialization
+        let sounds = {};
+        let activeSounds = new Set(); // To keep track of currently playing sounds
+
+        // Helper function to create a fader for each sound
+        function createFader(initialVolume) {
+            const fader = new Tone.Gain(initialVolume).toDestination();
+            return fader;
+        }
+
+        // Helper function to stop all currently playing sound effects
+        function stopAllSoundEffects() {
+            activeSounds.forEach(activeType => {
+                if (sounds[activeType] && sounds[activeType].stop) {
+                    sounds[activeType].stop();
+                    console.log(`Stopped ${activeType} sound.`);
+                }
+            });
+            activeSounds.clear();
+            restoreBackgroundMusic(); // Ensure background music volume is restored
+        }
+
+        // Function to initialize Tone.js synths
+        function initializeSounds() {
+            // Celestial/Divine Light Sound (for image-1, image-10, image-11)
+            const celestialFader = createFader(0.00001); // Very low initial volume
+            const celestialReverb = new Tone.Freeverb({
+                roomSize: 0.99,
+                dampening: 8000
+            }).connect(celestialFader);
+
+            const celestialChorus = new Tone.Chorus(5, 5, 0.3).connect(celestialReverb);
+            const celestialSynth = new Tone.PolySynth(Tone.DuoSynth, {
+                harmonicity: 1.001,
+                voice0: {
+                    oscillator: { type: "sine" },
+                    envelope: {
+                        attack: 10,
+                        decay: 5,
+                        sustain: 0.8,
+                        release: 15
+                    }
+                },
+                voice1: {
+                    oscillator: { type: "triangle" },
+                    envelope: {
+                        attack: 9,
+                        decay: 4,
+                        sustain: 0.7,
+                        release: 14
+                    }
+                }
+            }).connect(celestialChorus);
+            celestialSynth.volume.value = -8; // Increased base volume
+
+            sounds.celestial = {
+                triggerAttackRelease: (notes, duration) => {
+                    celestialSynth.triggerAttackRelease(notes, duration);
+                    celestialFader.gain.rampTo(0.08, 5); // Increased fade-in target volume
+                },
+                stop: () => {
+                    celestialFader.gain.rampTo(0.00001, 3);
+                    setTimeout(() => celestialSynth.triggerRelease(), 3000);
+                }
+            };
+
+            // Fire/Destruction Sound (for image-3)
+            const fireFader = createFader(0.00001);
+            const fireReverb = new Tone.Freeverb({
+                roomSize: 0.8,
+                dampening: 4000
+            }); // Connect later
+            const fireAutoFilter = new Tone.AutoFilter({
+                frequency: 0.5,
+                depth: 0.7,
+                baseFrequency: 200,
+                octaves: 2,
+                type: "sine"
+            }).start(); // Start here
+
+            const fireNoise = new Tone.NoiseSynth({
+                noise: { type: "brown" },
+                envelope: {
+                    attack: 0.5,
+                    decay: 2,
+                    sustain: 0.7,
+                    release: 3.5
+                }
+            }); // Connect later
+            fireNoise.volume.value = -3; // Increased base volume
+
+            const crackleNoise = new Tone.NoiseSynth({
+                noise: { type: "white" },
+                envelope: {
+                    attack: 0.01,
+                    decay: 0.2,
+                    sustain: 0.1,
+                    release: 0.5,
+                    attackCurve: "exponential"
+                }
+            }); // Connect later
+            crackleNoise.volume.value = -5; // Increased base volume
+
+            const lowRumble = new Tone.Synth({
+                oscillator: { type: "sine" },
+                envelope: {
+                    attack: 1,
+                    decay: 3,
+                    sustain: 0.9,
+                    release: 5
+                }
+            }); // Connect later
+            lowRumble.volume.value = -8; // Increased base volume
+            lowRumble.frequency.value = 40;
+
+            // Corrected connections for fire
+            fireNoise.chain(fireAutoFilter, fireReverb, fireFader);
+            crackleNoise.connect(fireReverb); // Crackle noise directly to reverb
+            lowRumble.connect(fireReverb); // Low rumble directly to reverb
+
+
+            sounds.fire = {
+                _crackleInterval: null,
+                _rumbleInterval: null,
+                triggerAttackRelease: (duration) => {
+                    fireNoise.triggerAttackRelease(duration);
+                    lowRumble.triggerAttackRelease("C1", duration);
+                    fireFader.gain.rampTo(0.18, 2); // Increased fade-in target volume
+
+                    if (sounds.fire._crackleInterval) clearInterval(sounds.fire._crackleInterval);
+                    sounds.fire._crackleInterval = setInterval(() => {
+                        crackleNoise.triggerAttackRelease("0.08");
+                    }, 250 + Math.random() * 500);
+
+                    setTimeout(() => {
+                        clearInterval(sounds.fire._crackleInterval);
+                        sounds.fire._crackleInterval = null;
+                        lowRumble.triggerRelease();
+                    }, Tone.Time(duration).toMilliseconds());
+                },
+                stop: () => {
+                    fireFader.gain.rampTo(0.00001, 3);
+                    setTimeout(() => {
+                        fireNoise.triggerRelease();
+                        crackleNoise.triggerRelease();
+                        lowRumble.triggerRelease();
+                        if (sounds.fire._crackleInterval) clearInterval(sounds.fire._crackleInterval);
+                        sounds.fire._crackleInterval = null;
+                    }, 3000);
+                }
+            };
+
+            // Desolation Wind Sound (for image-4)
+            const desolationWindFader = createFader(0.00001);
+            const desolationWindFilter = new Tone.Filter(250, "lowpass");
+            const desolationWindTremolo = new Tone.Tremolo(0.2, 0.5).start(); // Slower tremolo for wind
+            const desolationWindReverb = new Tone.Freeverb({
+                roomSize: 0.9,
+                dampening: 3000
+            }); // Connect later
+
+            const windNoise = new Tone.NoiseSynth({
+                noise: { type: "pink" },
+                envelope: {
+                    attack: 2,
+                    decay: 4,
+                    sustain: 0.7,
+                    release: 6
+                }
+            }); // Connect later
+            windNoise.volume.value = -3; // Increased base volume
+
+            // Add a low rumble for the "vacuum" feel
+            const vacuumRumble = new Tone.Synth({
+                oscillator: { type: "sine" },
+                envelope: {
+                    attack: 3,
+                    decay: 5,
+                    sustain: 0.8,
+                    release: 7
+                }
+            }); // Connect later
+            vacuumRumble.volume.value = -8; // Increased base volume
+            vacuumRumble.frequency.value = 30;
+
+            // Corrected connections for desolationWind
+            windNoise.chain(desolationWindTremolo, desolationWindFilter, desolationWindReverb, desolationWindFader);
+            vacuumRumble.connect(desolationWindReverb);
+
+
+            sounds.desolationWind = {
+                triggerAttackRelease: (duration) => {
+                    windNoise.triggerAttackRelease(duration);
+                    vacuumRumble.triggerAttackRelease("C0", duration);
+                    desolationWindFader.gain.rampTo(0.5, 3); // Further increased fade-in target volume for image 4
+                },
+                stop: () => {
+                    desolationWindFader.gain.rampTo(0.00001, 4);
+                    setTimeout(() => {
+                        windNoise.triggerRelease();
+                        vacuumRumble.triggerRelease();
+                    }, 4000);
+                }
+            };
+
+            // Divine Light Sound (for image-5, image-9)
+            const divineLightFader = createFader(0.00001);
+            const divineLightReverb = new Tone.Freeverb({
+                roomSize: 0.9,
+                dampening: 5000
+            }); // Connect later
+
+            const divineLightDelay = new Tone.PingPongDelay("8n", 0.2); // Connect later
+            const divineLightChorus = new Tone.Chorus(3, 3.5, 0.6); // Connect later
+
+            const divineLightSynth = new Tone.PolySynth(Tone.Synth, {
+                oscillator: { type: "triangle" },
+                envelope: {
+                    attack: 3,
+                    decay: 2,
+                    sustain: 0.7,
+                    release: 5
+                }
+            }); // Connect later
+            divineLightSynth.volume.value = -8; // Increased base volume
+
+            // Corrected connections for divineLight
+            divineLightSynth.chain(divineLightChorus, divineLightDelay, divineLightReverb, divineLightFader);
+
+            sounds.divineLight = {
+                triggerAttackRelease: (notes, duration) => {
+                    divineLightSynth.triggerAttackRelease(notes, duration);
+                    divineLightFader.gain.rampTo(0.12, 2); // Increased fade-in target volume
+                },
+                stop: () => {
+                    divineLightFader.gain.rampTo(0.00001, 3);
+                    setTimeout(() => divineLightSynth.triggerRelease(), 3000);
+                }
+            };
+
+            // Beautiful Light Beam Sound (for image-6)
+            const beautifulLightBeamFader = createFader(0.00001);
+            const beautifulLightBeamReverb = new Tone.Freeverb({
+                roomSize: 0.9,
+                dampening: 7000
+            }).connect(beautifulLightBeamFader);
+
+            const beautifulLightBeamChorus = new Tone.Chorus(4, 3, 0.5).connect(beautifulLightBeamReverb);
+
+            const beautifulLightBeamSynth = new Tone.PolySynth(Tone.Synth, {
+                oscillator: { type: "sine" },
+                envelope: {
+                    attack: 4,
+                    decay: 3,
+                    sustain: 0.8,
+                    release: 6
+                }
+            }).connect(beautifulLightBeamChorus);
+            beautifulLightBeamSynth.volume.value = -10;
+
+            sounds.beautifulLightBeam = {
+                triggerAttackRelease: (notes, duration) => {
+                    beautifulLightBeamSynth.triggerAttackRelease(notes, duration);
+                    beautifulLightBeamFader.gain.rampTo(0.1, 3);
+                },
+                stop: () => {
+                    beautifulLightBeamFader.gain.rampTo(0.00001, 3);
+                    setTimeout(() => beautifulLightBeamSynth.triggerRelease(), 3000);
+                }
+            };
+
+            // Prison/Meditation Sound (for image-7) - Added Echo
+            const prisonFader = createFader(0.000001);
+            const prisonDelay = new Tone.FeedbackDelay("0.8n", 0.5); // Added delay for echo
+            const prisonFilter = new Tone.Filter(80, "lowpass"); // Connect later
+            const prisonSynth = new Tone.AMSynth({
+                harmonicity: 0.3,
+                oscillator: { type: "pulse", width: 0.1 },
+                envelope: {
+                    attack: 8,
+                    decay: 0.1,
+                    sustain: 1,
+                    release: 10
+                }
+            }); // Connect later
+            prisonSynth.volume.value = -8; // Increased base volume
+
+            // Corrected connections for prison
+            prisonSynth.chain(prisonFilter, prisonDelay, prisonFader);
+
+            sounds.prison = {
+                triggerAttackRelease: (note, duration) => {
+                    prisonSynth.triggerAttackRelease(note, duration);
+                    prisonFader.gain.rampTo(0.25, 5); // Increased fade-in target volume
+                },
+                stop: () => {
+                    prisonFader.gain.rampTo(0.000001, 5);
+                    setTimeout(() => prisonSynth.triggerRelease(), 5000);
+                }
+            };
+
+            // Impact/Anger Sound (for image-8) - Added Echo and Debris
+            const impactFader = createFader(0.00001);
+            const impactDelay = new Tone.FeedbackDelay("0.5n", 0.6); // Added delay for echo
+            const impactReverb = new Tone.Reverb({
+                decay: 1,
+                preDelay: 0.05
+            }); // Connect later
+
+            const impactMembrane = new Tone.MembraneSynth({
+                pitchDecay: 0.15,
+                octaves: 8,
+                envelope: {
+                    attack: 0.01,
+                    decay: 1,
+                    sustain: 0.05,
+                    release: 1.5,
+                    attackCurve: "exponential"
+                }
+            }); // Connect later
+            impactMembrane.volume.value = 0; // Increased base volume
+
+            const impactNoise = new Tone.NoiseSynth({
+                noise: { type: "brown" },
+                envelope: {
+                    attack: 0.01,
+                    decay: 0.5,
+                    sustain: 0.1,
+                    release: 1
+                }
+            }); // Connect later
+            impactNoise.volume.value = -3; // Increased base volume
+
+            // Debris/Breaking Wall Sound
+            const debrisNoise = new Tone.NoiseSynth({
+                noise: { type: "white" },
+                envelope: {
+                    attack: 0.01,
+                    decay: 0.8,
+                    sustain: 0.1,
+                    release: 1.2,
+                    attackCurve: "exponential"
+                }
+            }); // Connect later
+            debrisNoise.volume.value = -5; // Volume for debris
+
+            // Corrected connections for impact
+            impactMembrane.chain(impactReverb, impactDelay, impactFader);
+            impactNoise.connect(impactReverb);
+            debrisNoise.connect(impactReverb);
+
+
+            sounds.impact = {
+                triggerAttackRelease: (note, duration) => {
+                    impactMembrane.triggerAttackRelease(note, duration);
+                    impactNoise.triggerAttackRelease(duration);
+                    debrisNoise.triggerAttackRelease(duration); // Trigger debris sound
+                    impactFader.gain.rampTo(0.5, 0.1); // Increased fade-in target volume
+                },
+                stop: () => {
+                    impactFader.gain.rampTo(0.00001, 1);
+                    setTimeout(() => {
+                        impactMembrane.triggerRelease();
+                        impactNoise.triggerRelease();
+                        debrisNoise.triggerRelease();
+                    }, 1000);
+                }
+            };
+
+            // Chains Sound (for image-10) - Increased volume and "multiple chains" feel
+            const chainsFader = createFader(0.00001);
+            const chainsReverb = new Tone.Reverb({
+                decay: 1.5, // Increased decay for more echo
+                preDelay: 0.08 // Increased preDelay for more distinct echo
+            });
+
+            const metalSynth1 = new Tone.MetalSynth({
+                frequency: 250, // Slightly higher frequency for one chain
+                envelope: { attack: 0.001, decay: 0.4, sustain: 0.1, release: 0.7 },
+                harmonicity: 3.1, modulationIndex: 32, octaves: 1.5, resonance: 4000, detune: 0
+            });
+            metalSynth1.volume.value = 0; // Increased volume
+
+            const metalSynth2 = new Tone.MetalSynth({
+                frequency: 180, // Lower frequency for a heavier chain
+                envelope: { attack: 0.001, decay: 0.5, sustain: 0.1, release: 0.8 },
+                harmonicity: 3.5, modulationIndex: 35, octaves: 1.8, resonance: 4500, detune: 0
+            });
+            metalSynth2.volume.value = 1; // Increased volume
+
+            const noiseChains = new Tone.NoiseSynth({
+                noise: { type: "white" },
+                envelope: { attack: 0.005, decay: 0.3, sustain: 0.05, release: 0.5 }
+            });
+            noiseChains.volume.value = -3; // Increased volume
+
+            metalSynth1.chain(chainsReverb, chainsFader);
+            metalSynth2.chain(chainsReverb, chainsFader);
+            noiseChains.connect(chainsReverb);
+
+            sounds.chains = {
+                triggerAttackRelease: (duration) => {
+                    metalSynth1.triggerAttackRelease("C3", duration);
+                    metalSynth2.triggerAttackRelease("C2", duration); // Trigger both synths
+                    noiseChains.triggerAttackRelease(duration);
+                    chainsFader.gain.rampTo(0.45, 0.1); // Significantly increased fade-in target volume
+                },
+                stop: () => {
+                    chainsFader.gain.rampTo(0.00001, 0.5);
+                    setTimeout(() => {
+                        metalSynth1.triggerRelease();
+                        metalSynth2.triggerRelease();
+                        noiseChains.triggerRelease();
+                    }, 500);
+                }
+            };
+
+
+            // Demonic/Abyss Sound (for image-13)
+            const demonicFader = createFader(0.00001);
+            const demonicDistortion = new Tone.Distortion(0.3);
+            const demonicCheby = new Tone.Chebyshev(15);
+            const demonicReverb = new Tone.Freeverb({
+                roomSize: 0.9,
+                dampening: 5000
+            }); // Added reverb for void effect
+
+            const demonicSynth = new Tone.MonoSynth({
+                oscillator: { type: "sawtooth" },
+                filter: {
+                    Q: 4,
+                    type: "lowpass",
+                    rolloff: -24
+                },
+                envelope: {
+                    attack: 0.8,
+                    decay: 2.5,
+                    sustain: 0.6,
+                    release: 4.5
+                },
+                filterEnvelope: {
+                    attack: 0.08,
+                    decay: 1.2,
+                    sustain: 0.4,
+                    release: 3.5,
+                    baseFrequency: 80,
+                    octaves: 2.5,
+                    exponent: 2
+                }
+            });
+            demonicSynth.volume.value = -3;
+
+            // New: Low frequency drone for "void/tenebrous" feel
+            const voidDrone = new Tone.Synth({
+                oscillator: { type: "sine" },
+                envelope: {
+                    attack: 5,
+                    decay: 0.1,
+                    sustain: 1,
+                    release: 8
+                }
+            });
+            voidDrone.volume.value = -15; // Increased volume for void drone
+            voidDrone.frequency.value = 20; // Very low frequency
+
+            // Corrected connections for demonic
+            demonicSynth.chain(demonicCheby, demonicDistortion, demonicReverb, demonicFader);
+            voidDrone.connect(demonicReverb); // Connect void drone to reverb
+
+
+            sounds.demonic = {
+                triggerAttackRelease: (note, duration) => {
+                    demonicSynth.triggerAttackRelease(note, duration);
+                    voidDrone.triggerAttackRelease("C0", duration); // Trigger void drone
+                    demonicFader.gain.rampTo(0.12, 2); // Increased fade-in target volume
+                },
+                stop: () => {
+                    demonicFader.gain.rampTo(0.00001, 3);
+                    setTimeout(() => {
+                        demonicSynth.triggerRelease();
+                        voidDrone.triggerRelease();
+                    }, 3000);
+                }
+            };
+
+            // Rage/Dark Energy Sound (for image-14) - Less noisy, more resonant growl
+            const rageFader = createFader(0.00001);
+            const rageDistortion = new Tone.Distortion(0.2); // Reduced distortion
+            const rageDelay = new Tone.FeedbackDelay("4n", 0.2);
+            const rageChorus = new Tone.Chorus(3.5, 4.5, 0.5);
+
+            // Connect effects in sequence
+            rageChorus.connect(rageDelay);
+            rageDelay.connect(rageDistortion);
+            rageDistortion.connect(rageFader);
+
+            const rageSynth1 = new Tone.FMSynth({
+                harmonicity: 0.5,
+                modulationIndex: 8, // Reduced modulation for less harshness
+                oscillator: { type: "square" },
+                envelope: {
+                    attack: 0.08,
+                    decay: 1.5,
+                    sustain: 0.25,
+                    release: 2.5
+                }
+            });
+            rageSynth1.volume.value = -1; // Adjusted volume
+
+            const rageSynth2 = new Tone.Synth({
+                oscillator: { type: "sawtooth" },
+                envelope: {
+                    attack: 0.15,
+                    decay: 1.2,
+                    sustain: 0.35,
+                    release: 2
+                }
+            });
+            rageSynth2.volume.value = -3; // Adjusted volume
+
+            // Growl sound directly to distortion, made more prominent
+            const growlSynth = new Tone.FMSynth({
+                harmonicity: 0.1, // Lower harmonicity for deeper growl
+                modulationIndex: 3, // Reduced modulation
+                oscillator: { type: "sine" },
+                envelope: {
+                    attack: 0.5,
+                    decay: 1.5,
+                    sustain: 0.8,
+                    release: 2
+                }
+            });
+            growlSynth.volume.value = -2; // Volume for growl
+
+            // Corrected connections for rage
+            rageSynth1.connect(rageChorus); // Connect Synth1 to Chorus
+            rageSynth2.connect(rageChorus); // Connect Synth2 to Chorus
+            growlSynth.connect(rageDistortion); // Connect Growl to Distortion
+
+            sounds.rage = {
+                triggerAttackRelease: (note, duration) => {
+                    rageSynth1.triggerAttackRelease(note, duration);
+                    rageSynth2.triggerAttackRelease(note, duration);
+                    growlSynth.triggerAttackRelease("C1", duration); // Trigger growl sound
+                    rageFader.gain.rampTo(0.35, 1); // Increased fade-in target volume
+                },
+                stop: () => {
+                    rageFader.gain.rampTo(0.00001, 2);
+                    setTimeout(() => {
+                        rageSynth1.triggerRelease();
+                        rageSynth2.triggerRelease();
+                        growlSynth.triggerRelease();
+                    }, 2000);
+                }
+            };
+
+            // Falling Bodies Sound (for image-15)
+            const fallingBodiesFader = createFader(0.00001);
+            const fallingBodiesReverb = new Tone.Reverb({
+                decay: 1.5,
+                preDelay: 0.08
+            }); // Connect later
+
+            // Thud sound
+            const thudMembrane = new Tone.MembraneSynth({
+                pitchDecay: 0.05,
+                octaves: 4,
+                envelope: {
+                    attack: 0.01,
+                    decay: 0.6,
+                    sustain: 0.01,
+                    release: 1
+                }
+            }); // Connect later
+            thudMembrane.volume.value = -5;
+
+            // Whoosh/Air sound
+            const whooshNoise = new Tone.NoiseSynth({
+                noise: { type: "white" },
+                envelope: {
+                    attack: 0.05,
+                    decay: 0.5,
+                    sustain: 0.1,
+                    release: 0.8
+                }
+            }); // Connect later
+            whooshNoise.volume.value = -10;
+            const whooshFilter = new Tone.Filter(2000, "lowpass", -24); // Connect later
+            whooshFilter.frequency.rampTo(500, 0.5); // Descending filter for whoosh
+
+            // Corrected connections for fallingBodies
+            thudMembrane.chain(fallingBodiesReverb, fallingBodiesFader);
+            whooshNoise.chain(whooshFilter, fallingBodiesReverb);
+
+
+            sounds.fallingBodies = {
+                triggerAttackRelease: (duration) => {
+                    thudMembrane.triggerAttackRelease("C1", duration);
+                    whooshNoise.triggerAttackRelease(duration);
+                    fallingBodiesFader.gain.rampTo(0.1, 0.5);
+                },
+                stop: () => {
+                    fallingBodiesFader.gain.rampTo(0.00001, 1);
+                    setTimeout(() => {
+                        thudMembrane.triggerRelease();
+                        whooshNoise.triggerRelease();
+                    }, 1000);
+                }
+            };
+
+
+            // Rebirth and Nature Sound (for image-16)
+            const rebirthAndNatureFader = createFader(0.00001);
+            const rebirthAndNatureReverb = new Tone.Freeverb({
+                roomSize: 0.95,
+                dampening: 6000
+            }).connect(rebirthAndNatureFader);
+
+            // Main rebirth synth (sentimental)
+            const rebirthSynth = new Tone.PolySynth(Tone.Synth, {
+                oscillator: { type: "triangle" },
+                envelope: {
+                    attack: 8,
+                    decay: 5,
+                    sustain: 0.9,
+                    release: 12
+                }
+            }).connect(rebirthAndNatureReverb);
+            rebirthSynth.volume.value = -8;
+
+            // Bird chirps
+            const birdChirpSynth = new Tone.PolySynth(Tone.Synth, {
+                oscillator: { type: "sine" },
+                envelope: {
+                    attack: 0.01,
+                    decay: 0.1,
+                    sustain: 0.0,
+                    release: 0.2
+                }
+            }).connect(rebirthAndNatureReverb);
+            birdChirpSynth.volume.value = -20; // Very subtle bird chirps
+
+            // Sentimental pad/strings
+            const sentimentalPad = new Tone.PolySynth(Tone.AMSynth, {
+                harmonicity: 1.5,
+                oscillator: { type: "sawtooth" },
+                envelope: {
+                    attack: 4,
+                    decay: 0.5,
+                    sustain: 0.8,
+                    release: 6
+                }
+            }).connect(rebirthAndNatureReverb);
+            sentimentalPad.volume.value = -12; // Subtle sentimental layer
+
+            // New: Sentimental Piano (adjusted for more melancholic feel)
+            const sentimentalPiano = new Tone.PolySynth(Tone.Synth, {
+                oscillator: { type: "triangle" },
+                envelope: {
+                    attack: 1,    // Slower attack for a softer, more mournful entry
+                    decay: 2,     // Longer decay
+                    sustain: 0.5,
+                    release: 4    // Longer release for lingering notes
+                },
+                filterEnvelope: {
+                    attack: 0.001,
+                    decay: 0.7,
+                    sustain: 0.1,
+                    release: 1,
+                    baseFrequency: 200,
+                    octaves: 2,
+                    exponent: 2
+                }
+            }).connect(rebirthAndNatureReverb);
+            sentimentalPiano.volume.value = -6; // Increased volume for piano
+
+            sounds.rebirthAndNature = {
+                _birdChirpInterval: null,
+                triggerAttackRelease: (duration) => {
+                    rebirthSynth.triggerAttackRelease(["C4", "E4", "G4"], duration);
+                    sentimentalPad.triggerAttackRelease(["C3", "E3", "G3"], duration);
+                    // Play a more melancholic chord progression
+                    sentimentalPiano.triggerAttackRelease(["C4", "Eb4", "G4", "C5"], duration); // C minor chord
+                    rebirthAndNatureFader.gain.rampTo(0.1, 3);
+
+                    if (sounds.rebirthAndNature._birdChirpInterval) clearInterval(sounds.rebirthAndNature._birdChirpInterval);
+                    sounds.rebirthAndNature._birdChirpInterval = setInterval(() => {
+                        const notes = ["G5", "A5", "B5", "C6", "D6"];
+                        const randomNote = notes[Math.floor(Math.random() * notes.length)];
+                        birdChirpSynth.triggerAttackRelease(randomNote, "0.1");
+                    }, 1000 + Math.random() * 2000); // Random interval for chirps
+
+                    setTimeout(() => {
+                        clearInterval(sounds.rebirthAndNature._birdChirpInterval);
+                        sounds.rebirthAndNature._birdChirpInterval = null;
+                    }, Tone.Time(duration).toMilliseconds());
+                },
+                stop: () => {
+                    rebirthAndNatureFader.gain.rampTo(0.00001, 4);
+                    setTimeout(() => {
+                        rebirthSynth.triggerRelease();
+                        sentimentalPad.triggerRelease();
+                        sentimentalPiano.triggerRelease(); // Release piano
+                        birdChirpSynth.triggerRelease();
+                        if (sounds.rebirthAndNature._birdChirpInterval) clearInterval(sounds.rebirthAndNature._birdChirpInterval);
+                        sounds.rebirthAndNature._birdChirpInterval = null;
+                    }, 4000);
+                }
+            };
+
+            // Dark/Gloomy Sound (for image-12)
+            const darkGloomyFader = createFader(0.00001);
+            const darkGloomyReverb = new Tone.Freeverb({
+                roomSize: 0.9,
+                dampening: 5000
+            }).connect(darkGloomyFader);
+
+            const darkGloomySynth = new Tone.MonoSynth({
+                oscillator: { type: "sine" }, // Sine wave for a clean, deep tone
+                envelope: {
+                    attack: 5, // Long attack for a drone effect
+                    decay: 0.1,
+                    sustain: 1,
+                    release: 8 // Long release for lingering sound
+                },
+                filter: {
+                    Q: 6,
+                    type: "lowpass",
+                    rolloff: -24
+                },
+                filterEnvelope: {
+                    attack: 1,
+                    decay: 0.5,
+                    sustain: 0.8,
+                    release: 2,
+                    baseFrequency: 50,
+                    octaves: 1,
+                    exponent: 2
+                }
+            }).connect(darkGloomyReverb);
+            darkGloomySynth.volume.value = -12; // Increased volume
+
+            const darkGloomyNoise = new Tone.NoiseSynth({
+                noise: { type: "pink" },
+                envelope: {
+                    attack: 2,
+                    decay: 4,
+                    sustain: 0.5,
+                    release: 6
+                }
+            }).connect(darkGloomyReverb);
+            darkGloomyNoise.volume.value = -15; // Increased volume
+
+            sounds.darkGloomy = {
+                triggerAttackRelease: (duration) => {
+                    darkGloomySynth.triggerAttackRelease("C1", duration); // Play a very low note
+                    darkGloomyNoise.triggerAttackRelease(duration);
+                    darkGloomyFader.gain.rampTo(0.25, 3); // Increased fade-in target volume for image 12
+                },
+                stop: () => {
+                    darkGloomyFader.gain.rampTo(0.00001, 4);
+                    setTimeout(() => {
+                        darkGloomySynth.triggerRelease();
+                        darkGloomyNoise.triggerRelease();
+                    }, 4000);
+                }
+            };
+
+            // --- Warm-up all sounds after initialization ---
+            // This ensures all audio nodes are created and ready for immediate use.
+            Object.values(sounds).forEach(sound => {
+                if (sound.triggerAttackRelease) {
+                    // Trigger with a very short duration and silent volume
+                    if (sound === sounds.celestial || sound === sounds.divineLight || sound === sounds.beautifulLightBeam) {
+                        sound.triggerAttackRelease(["C1"], "0.01s");
+                    } else if (sound === sounds.prison || sound === sounds.demonic || sound === sounds.rage || sound === sounds.impact) {
+                        sound.triggerAttackRelease("C1", "0.01s");
+                    } else if (sound === sounds.fire || sound === sounds.desolationWind || sound === sounds.darkGloomy || sound === sounds.chains || sound === sounds.fallingBodies || sound === sounds.rebirthAndNature) {
+                        sound.triggerAttackRelease("0.01s");
+                    }
+                    // Immediately ramp down the fader to ensure it's silent after warm-up
+                    if (sound.stop) {
+                        sound.stop();
+                    }
+                }
+            });
+            console.log("All Tone.js sounds warmed up silently.");
+        }
+
+        // --- Dynamic Tone.js Loader with Retries ---
+        const TONE_JS_CDNS = [
+            "https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js", // Primary, widely used
+            "https://unpkg.com/@tonejs/tone@14.7.71/build/Tone.min.js", // Fallback, previously used unpkg
+        ];
+
+        async function loadToneJs(retryCount = 0) {
+            return new Promise(async (resolve, reject) => {
+                if (typeof Tone !== 'undefined') {
+                    console.log("loadToneJs: Tone.js ya está cargado (pre-existente).");
+                    return resolve();
+                }
+
+                if (retryCount >= TONE_JS_CDNS.length) {
+                    const finalError = "loadToneJs: Fallo al cargar Tone.js después de múltiples intentos desde diferentes CDNs.";
+                    console.error(finalError);
+                    showMessage(finalError);
+                    return reject(new Error(finalError));
+                }
+
+                const script = document.createElement('script');
+                script.src = TONE_JS_CDNS[retryCount];
+                script.async = true;
+
+                script.onload = () => {
+                    try {
+                        if (typeof Tone === 'undefined') {
+                            throw new Error("Tone.js script cargado, pero la variable global 'Tone' no está definida.");
+                        }
+                        console.log(`loadToneJs: Tone.js cargado dinámicamente con éxito desde: ${script.src}`);
+                        resolve();
+                    } catch (e) {
+                        console.error(`loadToneJs: Error de verificación post-carga para ${script.src}:`, e);
+                        // If Tone is not defined after load, try next CDN
+                        document.head.removeChild(script); // Clean up failed script
+                        loadToneJs(retryCount + 1).then(resolve).catch(reject);
+                    }
+                };
+
+                script.onerror = (e) => {
+                    console.error(`loadToneJs: Error al cargar Tone.js desde ${script.src}:`, e);
+                    document.head.removeChild(script); // Clean up failed script
+                    loadToneJs(retryCount + 1).then(resolve).catch(reject); // Try next CDN
+                };
+
+                document.head.appendChild(script);
+                console.log(`loadToneJs: Intentando cargar Tone.js desde: ${script.src} (Intento ${retryCount + 1}/${TONE_JS_CDNS.length})`);
+            });
+        }
+
+        // --- AudioContextManager Class (modified) ---
+        class AudioContextManager {
+            constructor() {
+                this.isInitialized = false;
+                this.isContextRunning = false;
+                this.userInteracted = false;
+                this.initPromise = null;
+            }
+
+            async init() {
+                if (this.isInitialized) {
+                    console.log("AudioContextManager: Ya inicializado.");
+                    return;
+                }
+
+                if (this.initPromise) {
+                    console.log("AudioContextManager: Ya hay una inicialización en curso.");
+                    return this.initPromise;
+                }
+
+                this.initPromise = new Promise(async (resolve, reject) => {
+                    console.log("AudioContextManager: Iniciando inicialización...");
+                    try {
+                        // Ensure Tone.js is loaded first
+                        await loadToneJs(); // Wait for Tone.js to load dynamically
+                        console.log("AudioContextManager: Tone.js cargado.");
+
+                        // Now Tone should be defined
+                        if (typeof Tone === 'undefined') {
+                            const errorMsg = "AudioContextManager: Error crítico: Tone.js no está definido incluso después de la carga dinámica.";
+                            console.error(errorMsg);
+                            showMessage(errorMsg);
+                            reject(new Error(errorMsg));
+                            return;
+                        }
+
+                        // Start/resume Tone.js audio context
+                        console.log("AudioContextManager: Intentando Tone.start() y Tone.context.resume()...");
+                        await Tone.start();
+                        await Tone.context.resume();
+                        this.isContextRunning = true;
+                        this.isInitialized = true;
+                        console.log("AudioContextManager: AudioContext está activo y reanudado.");
+
+                        // Initialize sounds ONLY ONCE after context is active
+                        initializeSounds();
+                        console.log("AudioContextManager: Sonidos de Tone.js inicializados.");
+
+                        // Add a global listener to ensure context stays running if suspended
+                        document.body.addEventListener('click', async () => {
+                            if (Tone.context.state !== 'running') {
+                                try {
+                                    await Tone.context.resume();
+                                    this.isContextRunning = true;
+                                    console.log("AudioContext reanudado por interacción global.");
+                                } catch (e) {
+                                    console.warn("No se pudo reanudar AudioContext en interacción global:", e);
+                                }
+                            }
+                        }, { once: true });
+
+                        resolve();
+                    } catch (error) {
+                        console.error("AudioContextManager: Error durante la inicialización:", error);
+                        showMessage("Error al iniciar el sistema de audio. Por favor, recarga la página.");
+                        reject(error);
+                    } finally {
+                        this.initPromise = null;
+                    }
+                });
+                return this.initPromise;
+            }
+
+            async playEffect(soundType, ...args) {
+                if (!this.isInitialized) {
+                    console.warn(`AudioContextManager no inicializado. Intentando inicializar y reproducir ${soundType}.`);
+                    try {
+                        await this.init(); // Attempt to initialize if not already
+                    } catch (e) {
+                        console.error(`Fallo al inicializar para reproducir ${soundType}:`, e);
+                        return;
+                    }
+                }
+
+                if (this.isContextRunning) {
+                    // Stop all currently active sounds before playing a new one
+                    stopAllSoundEffects(); // Use the helper function
+
+                    // Duck background music
+                    duckBackgroundMusic();
+
+                    // Play sound
+                    console.log(`Reproduciendo sonido: ${soundType}.`);
+                    if (sounds[soundType] && sounds[soundType].triggerAttackRelease) {
+                        if (soundType === 'celestial' || soundType === 'divineLight' || soundType === 'beautifulLightBeam') {
+                            sounds[soundType].triggerAttackRelease(["C4", "E4", "G4"], "5s");
+                        } else if (soundType === 'prison') {
+                            sounds[soundType].triggerAttackRelease("C2", "5s");
+                        } else if (soundType === 'impact') {
+                            sounds[soundType].triggerAttackRelease("C1", "1.5s");
+                        } else if (soundType === 'demonic') {
+                            sounds[soundType].triggerAttackRelease("C1", "4s");
+                        } else if (soundType === 'rage') {
+                            sounds[soundType].triggerAttackRelease("C3", "4s");
+                        } else if (soundType === 'fire' || soundType === 'desolationWind' || soundType === 'darkGloomy') {
+                            sounds[soundType].triggerAttackRelease("5s");
+                        } else if (soundType === 'chains') {
+                            sounds[soundType].triggerAttackRelease("1s");
+                        } else if (soundType === 'fallingBodies') {
+                            sounds[soundType].triggerAttackRelease("2s");
+                        } else if (soundType === 'rebirthAndNature') {
+                            sounds[soundType].triggerAttackRelease("7s"); // Longer duration for nature scene
+                        } else if (soundType === 'silence') {
+                            // Do nothing for silence, just ensure other sounds stop
+                        } else {
+                            sounds[soundType].triggerAttackRelease("8n"); // Default short duration
+                        }
+                        activeSounds.add(soundType);
+                    } else {
+                        console.warn(`Sonido ${soundType} no encontrado o no tiene método triggerAttackRelease.`);
+                    }
+                } else {
+                    console.warn(`AudioContext no está funcionando para reproducir ${soundType}. Esperando interacción del usuario.`);
+                    showMessage("El audio no se pudo reproducir. Por favor, asegúrate de haber iniciado la música principal.");
+                }
+            }
+        }
+
+        const audioContextManager = new AudioContextManager();
+
+        // Particle Configurations Map
+        const particleConfigs = {
+            'particles-js-1': {
+                "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-3': {
+                "particles": { "number": { "value": 100, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#ff4500", "#ffa500", "#ffd700"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 4, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 3, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-4': {
+                "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#808080", "#a9a9a9", "#c0c0c0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.4, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } }, "size": { "value": 6, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-5': {
+                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFFFFF", "#FFFACD", "#FFD700"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3, "sync": false } }, "size": { "value": 5, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-6': {
+                "particles": { "number": { "value": 7, "density": { "enable": true, "value_area": 250 } }, "color": { "value": ["#FFFFFF", "#FFD700", "#F0E68C"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 0.3, "opacity_min": 0.2, "sync": false } }, "size": { "value": 25, "random": true, "anim": { "enable": true, "speed": 1.5, "size_min": 8, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.2, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-7': {
+                "particles": { "number": { "value": 15, "density": { "enable": true, "value_area": 300 } }, "color": { "value": ["#ADD8E6", "#FFFFFF", "#B0E0E6"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.7, "random": false, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3, "sync": false } }, "size": { "value": 8, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 2, "direction": "top", "random": false, "straight": true, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-8': {
+                "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#E0FFFF", "#F0F8FF", "#F5F5DC"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.4, "random": true, "anim": { "enable": true, "speed": 0.3, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-9': {
+                "particles": { "number": { "value": 120, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#d2b48c", "#a0522d", "#b0c4de"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 0.2, "opacity_min": 0.05, "sync": false } }, "size": { "value": 1.5, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.3, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-10': {
+                "particles": { "number": { "value": 20, "density": { "enable": true, "value_area": 500 } }, "color": { "value": ["#ADD8E6", "#E0FFFF", "#F0F8FF"] }, "shape": { "type": "line", "stroke": { "width": 1, "color": "#FFFFFF" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.6, "random": false, "anim": { "enable": true, "speed": 0.8, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 1.5, "direction": "bottom", "random": false, "straight": true, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-12': {
+                "particles": { "number": { "value": 100, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#d2b48c", "#a0522d", "#c0c0c0", "#808080"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.4, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2.5, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            'particles-js-13': {
+                "particles": { "number": { "value": 150, "density": { "enable": true, "value_area": 1000 } }, "color": { "value": ["#808080", "#a9a9a9", "#c0c0c0", "#e0e0e0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.05, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            // New particle config for Gabriel's feathers 
+            'particles-js-feathers': {
+                "particles": { "number": { "value": 40, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFFFFF", "#F0F0F0", "#E0E0E0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 0.2, "opacity_min": 0.1, "sync": false } }, "size": { "value": 4, "random": true, "anim": { "enable": true, "speed": 3, "size_min": 0.5, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.5, "direction": "bottom", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            // New particle config for fire and smoke 
+            'particles-js-fire-smoke': {
+                "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FF4500", "#8B0000", "#404040", "#606060"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 0.8, "opacity_min": 0.1, "sync": false } }, "size": { "value": 5, "random": true, "anim": { "enable": true, "speed": 7, "size_min": 0.5, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1.5, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            // New particle config for rebirth 
+            'particles-js-rebirth': {
+                "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#E0FFFF", "#F0FFFF", "#ADD8E6", "#B0E0E6"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 0.3, "opacity_min": 0.2, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": true, "speed": 4, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.8, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            // New particle config for golden sword 
+            'particles-js-sword': {
+                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFD700", "#FFEC8B", "#DAA520"] }, "shape": { "type": "star", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, /* Increased speed */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 7, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Increased speed */
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            // New particle config for celestial blue shield 
+            'particles-js-shield': {
+                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#ADD8E6", "#87CEEB", "#4682B4"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 0.4, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2.5, "random": true, "anim": { "enable": true, "speed": 9, "size_min": 0.1, "sync": false } }, /* Increased speed */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 6, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Increased speed */
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            }
+        };
+
+        const initializedParticleSystems = new Set();
+
+        function initializeParticleSystem(elementId) {
+            if (!initializedParticleSystems.has(elementId) && particleConfigs[elementId]) {
+                particlesJS(elementId, particleConfigs[elementId]);
+                initializedParticleSystems.add(elementId);
+                console.log(`Initialized particles.js for ${elementId}`);
+            }
+        }
+
+        // Intersection Observer for images
+        const imageContainers = document.querySelectorAll('.image-container');
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.5 // Trigger when 50% of the element is visible
+        };
+
+        const imageObserver = new IntersectionObserver(async (entries, observer) => {
+            for (const entry of entries) {
+                const soundType = entry.target.dataset.soundType;
+                const particlesIds = entry.target.dataset.particlesIds;
+                const imageElement = entry.target.querySelector('.chapter-image');
+
+                // Apply/remove zoom blur and shake for Belcebú (image-13)
+                if (imageElement && imageElement.id === 'image-13') {
+                    if (entry.isIntersecting) {
+                        imageElement.classList.add('zoom-blur-shake');
+                    } else {
+                        imageElement.classList.remove('zoom-blur-shake');
+                    }
+                }
+
+                // Apply/remove slow zoom for Gabriel (image-9)
+                if (imageElement && imageElement.id === 'image-9') {
+                    if (entry.isIntersecting) {
+                        imageElement.classList.add('slow-zoom-in');
+                    } else {
+                        imageElement.classList.remove('slow-zoom-in');
+                    }
+                }
+
+                if (soundType) { // Check if soundType is defined
+                    if (entry.isIntersecting) {
+                        try {
+                            // Play sound using the AudioContextManager
+                            await audioContextManager.playEffect(soundType);
+
+                            // Initialize particles
+                            if (particlesIds) {
+                                particlesIds.split(',').forEach(id => {
+                                    initializeParticleSystem(id.trim());
+                                });
+                            }
+                        } catch (error) {
+                            console.error(`Error al reproducir el sonido de ${soundType}:`, error);
+                            showMessage(`Error al reproducir el sonido de ${soundType}.`);
+                        }
+                    } else {
+                        // If the sound was triggered and is now out of view, stop it with a fade-out.
+                        if (activeSounds.has(soundType)) {
+                            console.log(`Deteniendo sonido: ${soundType}.`);
+                            if (sounds[soundType] && sounds[soundType].stop) {
+                                sounds[soundType].stop();
+                            }
+                            activeSounds.delete(soundType);
+
+                            // If no other effects are active, restore background music
+                            if (activeSounds.size === 0) {
+                                restoreBackgroundMusic();
+                            }
+                        }
+                    }
+                }
+            }
+        }, observerOptions);
+
+
+        // Ensure toggle button adjusts on load and resize
+        window.addEventListener('load', () => {
+            musicControls.classList.remove('open');
+            musicToggle.style.right = '1.5rem';
+            backgroundMusic.volume = volumeSlider.value;
+
+            // Check for dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                modeToggle.textContent = 'Modo Claro';
+            }
+
+            // Initialize global particles.js on load
+            particlesJS('particles-js-11', {
+                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 1500 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.2, "random": true, "anim": { "enable": true, "speed": 0.1, "opacity_min": 0.05, "sync": false } }, "size": { "value": 1, "random": true, "anim": { "enable": true, "speed": 0.5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.1, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            });
+
+            // Observe all image containers
+            imageContainers.forEach(container => {
+                imageObserver.observe(container);
+            });
+
+            // Event listener for start music button
+            startMusicButton.addEventListener('click', async () => {
+                console.log("startMusicButton: Click detectado. Iniciando proceso de audio...");
+                clearInterval(fadeInterval); // Clear any existing fade interval
+
+                try {
+                    // Initialize the audio context and sounds via AudioContextManager
+                    console.log("startMusicButton: Llamando a audioContextManager.init()...");
+                    await audioContextManager.init();
+                    console.log("startMusicButton: audioContextManager.init() completado.");
+
+                    // Now that AudioContext is active, try to play the background music
+                    console.log("startMusicButton: Llamando a fadeInMusic() para iniciar la reproducción...");
+                    await fadeInMusic();
+                    console.log("startMusicButton: fadeInMusic() completado. Música debería estar sonando.");
+
+                } catch (error) {
+                    console.error("startMusicButton: Error crítico al iniciar el audio principal:", error);
+                    showMessage(`Error al iniciar el audio principal: ${error.message}. Asegúrate de que la URL de la música es un enlace directo a un archivo de audio.`);
+                    musicStartOverlay.style.display = 'none'; // IMPORTANT: Hide overlay even on error
+                }
+            });
+        });
+
+        // Event listener for music toggle button
+        musicToggle.addEventListener('click', () => {
+            musicControls.classList.toggle('open');
+            if (musicControls.classList.contains('open')) {
+                musicToggle.style.right = `${musicControls.offsetWidth + 1.5 * 16}px`;
+            } else {
+                musicToggle.style.right = '1.5rem';
+            }
+        });
+
+        // Event listener for play/pause button
+        playPauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                isPlaying = false;
+                playPauseBtn.textContent = 'Reproducir';
+                console.log("Música pausada.");
+            } else {
+                fadeInMusic(); // This will handle playing and updating isPlaying and button text
+                console.log("Música reanudada.");
+            }
+        });
+
+        // Event listener for stop button
+        stopBtn.addEventListener('click', () => {
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
+            isPlaying = false;
+            playPauseBtn.textContent = 'Reproducir';
+            console.log("Música detenida.");
+        });
+
+        // Event listener for load music button
+        loadMusicBtn.addEventListener('click', async () => {
+            const newUrl = musicUrlInput.value.trim();
+            if (newUrl) {
+                try {
+                    // Check if the URL is valid and supported
+                    const response = await fetch(newUrl, { method: 'HEAD' });
+                    if (!response.ok || !response.headers.get('Content-Type').startsWith('audio')) {
+                        throw new Error('URL no válida o no es un archivo de audio.');
+                    }
+
+                    backgroundMusic.src = newUrl;
+                    backgroundMusic.load(); // Load the new source
+                    await fadeInMusic(); // Attempt to play the new music
+                    showMessage('Música cargada y reproduciéndose.');
+                } catch (error) {
+                    console.error("Error al cargar nueva música:", error);
+                    showMessage(`Error al cargar música: ${error.message}. Asegúrate de que es un enlace directo a un archivo de audio.`);
+                }
+            } else {
+                showMessage('Por favor, introduce una URL de música.');
+            }
+        });
+
+
+        window.addEventListener('resize', () => {
+            if (musicControls.classList.contains('open')) {
+                musicToggle.style.right = `${musicControls.offsetWidth + 1.5 * 16}px`;
+            }
+        });
+
+        // Dark Mode Toggle
+        modeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                modeToggle.textContent = 'Modo Claro';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                modeToggle.textContent = 'Modo Oscuro';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Scroll to Top Button functionality
+        window.addEventListener('scroll', () => {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
