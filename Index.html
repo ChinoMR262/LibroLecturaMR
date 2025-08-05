@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capítulo 1: SERES DEL NOVENO UNIVERSO</title>
+    <title>Index: SERES DEL NOVENO UNIVERSO</title> <!-- Título actualizado a "Index" -->
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- particles.js CDN para animación de partículas -->
@@ -2267,7 +2267,9 @@
                 } catch (error) {
                     console.error("startMusicButton: Error crítico al iniciar el audio principal:", error);
                     showMessage(`Error al iniciar el audio principal: ${error.message}. Asegúrate de que la URL de la música es un enlace directo a un archivo de audio.`);
-                    musicStartOverlay.style.display = 'none'; // IMPORTANT: Hide overlay even on error
+                } finally {
+                    // IMPORTANT: Hide overlay even if there's an error playing music, so the user can read.
+                    musicStartOverlay.style.display = 'none';
                 }
             });
         });
