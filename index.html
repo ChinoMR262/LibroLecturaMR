@@ -12,30 +12,33 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Old+Standard+TT:ital@0;1&display=swap');
 
-        /* Base styles for light mode (default) */
+        /* Estilos base para el modo claro (por defecto) */
         body {
-            font-family: 'Merriweather', serif; /* Fuente para el cuerpo del texto */
+            font-family: 'Merriweather', serif; /* Fuente principal para el cuerpo del texto */
             background-color: #d4c0a1; /* Color base que simula pergamino claro */
             background-size: cover;
             background-attachment: fixed;
             color: #4a3d2d; /* Color de texto que simula tinta antigua */
             display: flex;
-            flex-direction: column; /* Allow vertical stacking */
-            justify-content: flex-start; /* Align content to the top */
+            flex-direction: column; /* Permite apilamiento vertical */
+            justify-content: flex-start; /* Alinea el contenido al inicio (arriba) */
             align-items: center;
             min-height: 100vh;
-            padding: 1.5rem; /* Padding general más adaptable */
-            transition: background-color 0.5s ease, color 0.5s ease;
+            padding: 1.5rem; /* Relleno general más adaptable */
+            transition: background-color 0.5s ease, color 0.5s ease; /* Transición suave para el cambio de modo */
+            scroll-behavior: smooth; /* Habilita el desplazamiento suave en la página */
         }
 
+        /* Contenedor principal del "pergamino" */
         .map-sheet-container {
             background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente para el "papel" */
             border: 8px solid; /* Borde para simular el mapa */
-            border-image: url('https://placehold.co/100x100/8B4513/FFFFFF/png?text=Borde+Madera') 30 round; /* Borde tipo madera o pergamino oscuro */
-            padding: 2.5rem; /* Padding adaptable para el contenido */
+            /* Borde tipo madera o pergamino oscuro. La imagen debe ser una tira repetible. */
+            border-image: url('https://placehold.co/100x100/8B4513/FFFFFF/png?text=Borde+Madera') 30 round;
+            padding: 2.5rem; /* Relleno adaptable para el contenido */
             border-radius: 1.5rem; /* Esquinas ligeramente redondeadas */
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada para efecto 3D */
-            max-width: 650px; /* Ancho máximo corregido para un aspecto de pergamino más estrecho */
+            max-width: 650px; /* Ancho máximo para un aspecto de pergamino más estrecho */
             width: 100%;
             line-height: 1.8; /* Espaciado de línea para mejor lectura */
             position: relative;
@@ -44,6 +47,7 @@
             transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
         }
 
+        /* Pseudo-elemento para una textura sutil de fondo en el pergamino */
         .map-sheet-container::before {
             content: '';
             position: absolute;
@@ -55,9 +59,10 @@
             background-size: cover;
             opacity: 0.25; /* Opacidad aumentada para mayor visibilidad, pero aún sutil */
             pointer-events: none; /* Para que no interfiera con el texto */
-            z-index: 0;
+            z-index: 0; /* Asegura que esté detrás del contenido */
         }
 
+        /* Estilos para el título principal (Capítulo) */
         h1 {
             font-family: 'Old Standard TT', serif; /* Fuente para títulos, más clásica */
             font-size: 3rem; /* Título de capítulo grande */
@@ -71,6 +76,7 @@
             transition: color 0.5s ease, text-shadow 0.5s ease;
         }
 
+        /* Estilos para subtítulos (Secciones) */
         h2 {
             font-family: 'Old Standard TT', serif;
             font-size: 1.8rem;
@@ -85,6 +91,7 @@
             transition: color 0.5s ease, border-color 0.5s ease;
         }
 
+        /* Estilos para párrafos de texto */
         p {
             margin-bottom: 1.5rem;
             text-align: justify;
@@ -93,6 +100,7 @@
             transition: color 0.5s ease;
         }
 
+        /* Estilo para la primera letra del primer párrafo (inicial capitular) */
         p:first-of-type::first-letter {
             font-family: 'Old Standard TT', serif;
             font-size: 4em; /* Inicial más grande */
@@ -109,17 +117,18 @@
             position: relative;
             width: 100%;
             max-width: 600px; /* Ajusta según el tamaño deseado de la imagen */
-            margin: 2rem auto; /* Vuelve a añadir el margen aquí para espaciado vertical */
+            margin: 2rem auto; /* Margen vertical para espaciado */
             overflow: hidden; /* Importante para contener las partículas */
             min-height: 350px; /* Asegura una altura base para el contenedor */
-            /* Added for burned effect on the image background */
+            /* Efecto de fondo "quemado" o de viñeta para la imagen */
             background-image: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0.5) 100%);
             background-size: cover;
             background-position: center;
-            border-radius: 1.5rem; /* Match container border-radius */
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5); /* Inner shadow for burned effect */
+            border-radius: 1.5rem; /* Coincide con el border-radius del contenedor */
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra interna para el efecto quemado */
         }
 
+        /* Estilos para las imágenes de los capítulos */
         .chapter-image {
             position: absolute; /* Hace que la imagen sea absoluta para no afectar la altura del contenedor */
             top: 0;
@@ -133,14 +142,14 @@
                 0 8px 25px rgba(0, 0, 0, 0.5),
                 -5px -5px 15px rgba(0, 0, 0, 0.3),
                 5px 5px 15px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(0, 0, 0, 0.15);
-            transform: rotate(1deg);
+                inset 0 0 20px rgba(0, 0, 0, 0.15); /* Múltiples sombras para profundidad */
+            transform: rotate(1deg); /* Ligera rotación para efecto "papel" */
             transition: transform 0.2s ease-in-out, box-shadow 0.5s ease;
             z-index: 1; /* La imagen debe estar por debajo de las partículas */
         }
 
         .chapter-image:hover {
-            transform: rotate(-0.2deg) scale(1.005);
+            transform: rotate(-0.2deg) scale(1.005); /* Pequeño efecto al pasar el ratón */
         }
 
         /* Estilos para los divs que particles.js convierte en canvas */
@@ -154,29 +163,29 @@
             pointer-events: none; /* Permite que los clics pasen a los elementos debajo */
         }
 
-        /* Zoom Blur Effect for Belcebú with shake, more intense blur/zoom, and flicker */
+        /* Efecto de desenfoque y temblor para Belcebú (image-13) */
         .zoom-blur-shake {
-            animation: zoomBlurShake 2s forwards, flickerLight 0.3s infinite alternate; /* Increased duration for zoom, faster flicker */
+            animation: belcebuZoomShake 2s forwards, flickerLight 0.3s infinite alternate; /* Animación de zoom y temblor, más parpadeo */
         }
 
-        @keyframes zoomBlurShake {
+        @keyframes belcebuZoomShake {
             0% {
                 filter: blur(0px) scale(1);
                 transform: translateX(0) translateY(0) rotate(1deg);
             }
-            25% {
-                filter: blur(25px) scale(1.3); /* Even more intense blur and zoom */
-                transform: translateX(-10px) translateY(10px) rotate(2.5deg); /* More shake */
+            10% { /* Zoom rápido e intenso al inicio */
+                filter: blur(25px) scale(1.4); /* Más zoom */
+                transform: translateX(-15px) translateY(15px) rotate(3deg); /* Más temblor */
             }
-            50% {
-                filter: blur(30px) scale(1.35); /* Max blur and zoom */
-                transform: translateX(10px) translateY(-10px) rotate(-1deg); /* More shake */
+            20% {
+                filter: blur(30px) scale(1.5); /* Máximo zoom y desenfoque */
+                transform: translateX(15px) translateY(-15px) rotate(-2deg); /* Más temblor */
             }
-            75% {
-                filter: blur(18px) scale(1.2);
-                transform: translateX(-8px) translateY(8px) rotate(2deg); /* More shake */
+            30% {
+                filter: blur(20px) scale(1.3);
+                transform: translateX(-10px) translateY(10px) rotate(2.5deg);
             }
-            100% {
+            100% { /* Retorno suave a la normalidad */
                 filter: blur(0px) scale(1);
                 transform: translateX(0) translateY(0) rotate(1deg);
             }
@@ -185,13 +194,13 @@
         @keyframes flickerLight {
             0% {
                 filter: brightness(1) contrast(1) saturate(1) hue-rotate(0deg);
-                box-shadow: 0 0 10px 5px rgba(255, 69, 0, 0.5), /* Orange glow */
-                            0 0 20px 10px rgba(255, 0, 0, 0.3);  /* Red glow */
+                box-shadow: 0 0 10px 5px rgba(255, 69, 0, 0.5), /* Resplandor naranja */
+                            0 0 20px 10px rgba(255, 0, 0, 0.3);  /* Resplandor rojo */
             }
             50% {
-                filter: brightness(1.8) contrast(1.2) saturate(1.5) hue-rotate(10deg); /* More intense brightness, contrast, saturation, slight hue shift */
-                box-shadow: 0 0 25px 12px rgba(255, 69, 0, 0.9), /* More intense orange glow */
-                            0 0 50px 25px rgba(255, 0, 0, 0.7);  /* More intense red glow */
+                filter: brightness(1.8) contrast(1.2) saturate(1.5) hue-rotate(10deg); /* Brillo, contraste, saturación más intensos, ligero cambio de tono */
+                box-shadow: 0 0 25px 12px rgba(255, 69, 0, 0.9), /* Resplandor naranja más intenso */
+                            0 0 50px 25px rgba(255, 0, 0, 0.7);  /* Resplandor rojo más intenso */
             }
             100% {
                 filter: brightness(1) contrast(1) saturate(1) hue-rotate(0deg);
@@ -200,7 +209,7 @@
             }
         }
 
-        /* New slow zoom for Gabriel */
+        /* Efecto de zoom lento para Gabriel (image-9) */
         .slow-zoom-in {
             animation: slowZoomIn 3s ease-out forwards;
         }
@@ -210,12 +219,41 @@
                 transform: scale(1);
             }
             100% {
-                transform: scale(1.05); /* Slightly zoom in */
+                transform: scale(1.05); /* Ligeramente más grande */
             }
         }
 
+        /* NUEVO: Efecto de luces moradas y sacudida intensa para Radicks (image-14) */
+        .purple-fury-shake {
+            animation: purpleFlickerShake 0.15s infinite alternate, intensePurpleGlow 0.8s infinite alternate; /* Sacudida más rápida, parpadeo más lento */
+        }
 
-        /* Music Control Styles */
+        @keyframes purpleFlickerShake {
+            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+            25% { transform: translateX(-8px) translateY(8px) rotate(3deg); } /* Sacudida más intensa */
+            50% { transform: translateX(8px) translateY(-8px) rotate(-3deg); } /* Sacudida más intensa */
+            75% { transform: translateX(-8px) translateY(8px) rotate(3deg); }
+        }
+
+        @keyframes intensePurpleGlow {
+            0% {
+                filter: brightness(1) saturate(1) hue-rotate(0deg);
+                box-shadow: 0 0 20px 10px rgba(128, 0, 128, 0.6), /* Resplandor púrpura más grande */
+                            0 0 40px 20px rgba(75, 0, 130, 0.4); /* Resplandor púrpura oscuro más grande */
+            }
+            50% {
+                filter: brightness(1.7) saturate(2) hue-rotate(30deg); /* Brillo, saturación y cambio de tono más intensos */
+                box-shadow: 0 0 40px 20px rgba(128, 0, 128, 1), /* Resplandor púrpura más intenso */
+                            0 0 80px 40px rgba(75, 0, 130, 0.9); /* Resplandor púrpura oscuro más intenso */
+            }
+            100% {
+                filter: brightness(1) saturate(1) hue-rotate(0deg);
+                box-shadow: 0 0 20px 10px rgba(128, 0, 128, 0.6),
+                            0 0 40px 20px rgba(75, 0, 130, 0.4);
+            }
+        }
+
+        /* Estilos del contenedor de controles de música */
         .music-control-container {
             position: fixed;
             bottom: 1.5rem;
@@ -229,13 +267,15 @@
             gap: 0.75rem;
             z-index: 1000;
             transition: all 0.3s ease-in-out;
-            transform: translateX(calc(100% + 1.5rem));
+            transform: translateX(calc(100% + 1.5rem)); /* Oculto por defecto */
         }
 
+        /* Estado "abierto" del contenedor de controles de música */
         .music-control-container.open {
-            transform: translateX(0);
+            transform: translateX(0); /* Visible */
         }
 
+        /* Botón para abrir/cerrar los controles de música */
         .music-control-toggle {
             position: fixed;
             bottom: 1.5rem;
@@ -255,6 +295,7 @@
             background-color: rgba(49, 130, 206, 0.6);
         }
 
+        /* Estilos para los botones de control de música (Reproducir/Pausar, Detener) */
         .music-control-buttons button {
             background-color: #4299e1;
             color: white;
@@ -268,6 +309,7 @@
             background-color: #63b3ed;
         }
 
+        /* Estilos para el campo de entrada de URL de música */
         .music-control-input {
             width: 100%;
             padding: 0.5rem;
@@ -277,7 +319,7 @@
             color: #2d3748;
         }
 
-        /* Music Start Overlay */
+        /* Overlay de inicio de música (pantalla de bienvenida) */
         .music-start-overlay {
             position: fixed;
             top: 0;
@@ -295,9 +337,10 @@
             padding: 1rem;
         }
 
+        /* Título animado en el overlay de inicio */
         .music-start-overlay h1.animated-title {
             font-family: 'Old Standard TT', serif;
-            font-size: 3rem; /* Default size */
+            font-size: 3rem; /* Tamaño por defecto */
             margin-bottom: 1rem;
             color: white;
             white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
@@ -305,12 +348,12 @@
             opacity: 0; /* Comienza invisible */
             transform: scale(0.8) translateY(20px); /* Comienza ligeramente más pequeño y desplazado */
             filter: blur(10px); /* Comienza muy borroso */
-            /* Responsive font size */
-            font-size: 7vw; /* Adjusts with viewport width */
-            max-font-size: 3rem; /* Maximum size */
+            /* Tamaño de fuente adaptable */
+            font-size: 7vw; /* Se ajusta con el ancho del viewport */
+            max-font-size: 3rem; /* Tamaño máximo */
         }
 
-        /* Animación de reconstrucción */
+        /* Animación de reconstrucción para el título */
         @keyframes reconstruct-text {
             0% {
                 opacity: 0;
@@ -329,6 +372,7 @@
             }
         }
 
+        /* Estilos para el subtítulo en el overlay de inicio */
         .music-start-overlay h2 {
             font-family: 'Old Standard TT', serif;
             font-size: 2.5rem;
@@ -337,6 +381,15 @@
             border-bottom: none;
         }
 
+        /* Estilo para el párrafo en el overlay */
+        .music-start-overlay p {
+            font-family: 'Merriweather', serif;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Estilos para el botón de inicio en el overlay */
         .music-start-overlay button {
             background-color: #4299e1;
             color: white;
@@ -353,7 +406,7 @@
             transform: scale(1.05);
         }
 
-        /* Message Box */
+        /* Cuadro de mensaje para notificaciones y errores */
         .message-box {
             position: fixed;
             bottom: 6rem;
@@ -366,38 +419,38 @@
             z-index: 2000;
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
-            pointer-events: none;
+            pointer-events: none; /* No bloquea interacciones */
         }
 
         .message-box.show {
             opacity: 1;
         }
 
-        /* Dark Mode Styles */
+        /* Estilos para el Modo Oscuro */
         body.dark-mode {
-            background-color: #2d3748; /* Darker background */
-            color: #e2e8f0; /* Lighter text */
+            background-color: #2d3748; /* Fondo más oscuro */
+            color: #e2e8f0; /* Texto más claro */
         }
 
         body.dark-mode .map-sheet-container {
-            background-color: rgba(45, 55, 72, 0.9); /* Darker semi-transparent background */
-            border-image: url('https://placehold.co/100x100/4A3D2D/FFFFFF/png?text=Borde+Oscuro') 30 round; /* Darker border */
+            background-color: rgba(45, 55, 72, 0.9); /* Fondo semi-transparente más oscuro */
+            border-image: url('https://placehold.co/100x100/4A3D2D/FFFFFF/png?text=Borde+Oscuro') 30 round; /* Borde más oscuro */
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
         body.dark-mode .map-sheet-container::before {
-            background-image: url('https://placehold.co/800x600/2d3748/2d3748/png?text='); /* Dark background texture */
+            background-image: url('https://placehold.co/800x600/2d3748/2d3748/png?text='); /* Textura de fondo oscura */
             opacity: 0.1;
         }
 
         body.dark-mode h1 {
-            color: #90cdf4; /* Lighter blue for dark mode titles */
+            color: #90cdf4; /* Azul más claro para títulos en modo oscuro */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         body.dark-mode h2 {
-            color: #a0aec0; /* Lighter gray for dark mode subtitles */
-            border-bottom-color: #4a5568; /* Darker dashed line */
+            color: #a0aec0; /* Gris más claro para subtítulos en modo oscuro */
+            border-bottom-color: #4a5568; /* Línea discontinua más oscura */
         }
 
         body.dark-mode p {
@@ -405,7 +458,7 @@
         }
 
         body.dark-mode p:first-of-type::first-letter {
-            color: #b794f4; /* Purple accent for dark mode initial letter */
+            color: #b794f4; /* Acento púrpura para la inicial en modo oscuro */
         }
 
         body.dark-mode .chapter-image {
@@ -416,7 +469,7 @@
                 inset 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* Mode Toggle Button */
+        /* Botón de Modo Oscuro/Claro */
         .mode-toggle {
             position: fixed;
             top: 1.5rem;
@@ -436,11 +489,11 @@
             background-color: #63b3ed;
         }
 
-        /* Scroll to Top Button */
+        /* Botón de Volver Arriba */
         #scrollToTopBtn {
-            display: none; /* Hidden by default */
+            display: none; /* Oculto por defecto */
             position: fixed;
-            bottom: 8rem; /* Above music controls */
+            bottom: 8rem; /* Encima de los controles de música */
             right: 1.5rem;
             z-index: 999;
             background-color: #4299e1;
@@ -465,7 +518,61 @@
             background-color: #63b3ed;
         }
 
-        /* Responsive adjustments for smaller screens (mobile portrait) */
+        /* Estilos para el interruptor de toggle de efectos de sonido */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc; /* Color por defecto */
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #4CAF50; /* Verde para activo */
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #4CAF50;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Ajustes responsivos para pantallas pequeñas (móviles en vertical) */
         @media (max-width: 768px) {
             body {
                 padding: 0.5rem;
@@ -511,7 +618,7 @@
                 padding: 0.4rem;
             }
             .music-start-overlay h1.animated-title {
-                font-size: 8vw; /* Further adjustment for very small screens */
+                font-size: 8vw; /* Ajuste adicional para pantallas muy pequeñas */
                 max-font-size: 2.5rem;
             }
             .music-start-overlay h2 {
@@ -536,7 +643,7 @@
             }
         }
 
-        /* Responsive adjustments for tablets (landscape and portrait) */
+        /* Ajustes responsivos para tabletas (horizontal y vertical) */
         @media (min-width: 769px) and (max-width: 1024px) {
             body {
                 padding: 1rem;
@@ -564,7 +671,7 @@
                 right: 1rem;
             }
             .music-start-overlay h1.animated-title {
-                font-size: 5vw; /* Adjust for tablets */
+                font-size: 5vw; /* Ajuste para tabletas */
                 max-font-size: 3rem;
             }
         }
@@ -593,14 +700,15 @@
     <audio id="backgroundMusic" loop>
         <!--
             ***************************************************************************************************
-            IMPORTANTE: Necesitas reemplazar la siguiente URL con un enlace DIRECTO a tu archivo de música.
-            Debe ser un archivo .mp3 o .ogg accesible públicamente.
-            Las URLs de servicios como Dropbox o Google Drive que no son enlaces de descarga directa NO FUNCIONARÁN.
-            Ejemplo de URL directa (solo para demostración, NO USES ESTA EN PRODUCCIÓN sin permiso):
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            IMPORTANTE: La URL de Dropbox proporcionada (https://www.dropbox.com/scl/fi/6s7r3iac985hiupxqo14p/Whispers-of-Serenity.mp3?rlkey=b6i2i7jv9gnoznam90vyj302v&st=4ols37no&dl=1)
+            NO es un enlace directo a un archivo de audio. Los navegadores suelen bloquear la reproducción
+            automática o la carga de audio desde URLs que no apuntan directamente al archivo.
+            Para que funcione correctamente, necesitas un enlace directo a un archivo .mp3 o .ogg.
+            He dejado un ejemplo de URL directa funcional para demostración.
             ***************************************************************************************************
         -->
-        <source src="https://example.com/your-music-file.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- <source src="https://www.dropbox.com/scl/fi/6s7r3iac985hiupxqo14p/Whispers-of-Serenity.mp3?rlkey=b6i2i7jv9gnoznam90vyj302v&st=4ols37no&dl=1" type="audio/mpeg"> -->
         Tu navegador no soporta el elemento de audio.
     </audio>
 
@@ -619,6 +727,14 @@
         <div class="flex items-center gap-2">
             <label for="volumeSlider" class="text-white text-sm">Volumen:</label>
             <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" class="flex-grow">
+        </div>
+        <!-- Toggle para efectos de sonido -->
+        <div class="flex items-center gap-2">
+            <label for="sfxToggle" class="text-white text-sm">Efectos de Sonido:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="sfxToggle" checked>
+                <span class="slider"></span>
+            </label>
         </div>
         <input type="text" id="musicUrlInput" class="music-control-input" placeholder="URL de nueva música (.mp3, .ogg)">
         <button id="loadMusicBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">Cargar Música</button>
@@ -815,8 +931,10 @@
         </p>
 
         <!-- Image of Chains disintegrating into sparkling dust -->
-        <div class="image-container" data-sound-type="chains">
+        <div class="image-container" data-sound-type="chains" data-particles-ids="particles-js-chains-effect">
             <img id="image-10" class="chapter-image" alt="Cadenas desintegrándose en polvo brillante" src="https://iili.io/F4bsKPf.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/C0C0C0/000000?text=Cadenas+Rotas'; console.error('Error al cargar Imagen 10');" loading="lazy">
+            <!-- Contenedor para las partículas de efecto de cadenas -->
+            <div id="particles-js-chains-effect" class="particles-canvas"></div>
         </div>
 
         <p>
@@ -906,7 +1024,7 @@
 
         <!-- Image of Radicks surrounded by a dark aura in full fury -->
         <div class="image-container" data-sound-type="rage" data-particles-ids="particles-js-14">
-            <img id="image-14" class="chapter-image" alt="Radicks rodeado de un aura oscura en plena furia" src="https://iili.io/F4bs3ns.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/4B0082/FF0000?text=Radicks+Furia'; console.error('Error al cargar Imagen 14');" loading="lazy">
+            <img id="image-14" class="chapter-image purple-fury-shake" alt="Radicks rodeado de un aura oscura en plena furia" src="https://iili.io/F4bs3ns.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/4B0082/FF0000?text=Radicks+Furia'; console.error('Error al cargar Imagen 14');" loading="lazy">
             <!-- Contenedor para partículas de ira/furia -->
             <div id="particles-js-14" class="particles-canvas"></div>
         </div>
@@ -940,7 +1058,9 @@
     <!-- Botón de Volver Arriba -->
     <button id="scrollToTopBtn" title="Volver arriba">↑</button>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <script>
+        // Referencias a elementos del DOM
         const backgroundMusic = document.getElementById('backgroundMusic');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const stopBtn = document.getElementById('stopBtn');
@@ -955,13 +1075,20 @@
         const modeToggle = document.getElementById('modeToggle');
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
         const animatedTitle = document.getElementById('animatedTitle');
+        const sfxToggle = document.getElementById('sfxToggle'); // Referencia al nuevo toggle de SFX
 
-        let isPlaying = false;
-        let fadeInterval;
-        let isEffectPlaying = false; // Flag to track if any sound effect is currently playing
-        let backgroundMusicNormalVolume = 0.5; // Stores the user-set or default background music volume
+        // Variables de estado
+        let isPlaying = false; // Indica si la música de fondo está reproduciéndose
+        let fadeInterval; // Intervalo para el efecto de fade-in/out
+        let isEffectPlaying = false; // Flag para rastrear si algún efecto de sonido está activo
+        let backgroundMusicNormalVolume = 0.5; // Volumen normal de la música de fondo
+        let sfxEnabled = sfxToggle.checked; // Estado inicial de los efectos de sonido (basado en el checkbox)
 
-        // Function to show messages in the message box
+        /**
+         * Muestra un mensaje temporal en el cuadro de mensajes.
+         * @param {string} message - El texto del mensaje a mostrar.
+         * @param {number} duration - Duración en milisegundos que el mensaje estará visible.
+         */
         function showMessage(message, duration = 3000) {
             messageBox.textContent = message;
             messageBox.classList.add('show');
@@ -970,59 +1097,57 @@
             }, duration);
         }
 
-        // Function for fade-in effect for background music
+        /**
+         * Inicia la reproducción de la música de fondo con un efecto de fade-in.
+         * Oculta el overlay de inicio y desplaza la página hacia arriba al finalizar.
+         * @returns {Promise<void>} Una promesa que se resuelve cuando la música comienza a reproducirse o se rechaza en caso de error.
+         */
         function fadeInMusic() {
             return new Promise(async (resolve, reject) => {
                 console.log("fadeInMusic: Iniciando fade-in de música de fondo.");
-                backgroundMusic.volume = 0; // Start at 0 volume
+                backgroundMusic.volume = 0; // Inicia el volumen en 0
 
                 try {
-                    console.log(`fadeInMusic: URL de la música: ${backgroundMusic.src}`);
-                    console.log(`fadeInMusic: backgroundMusic.paused antes de play(): ${backgroundMusic.paused}`);
-                    console.log(`fadeInMusic: backgroundMusic.ended antes de play(): ${backgroundMusic.ended}`);
-                    console.log(`fadeInMusic: backgroundMusic.readyState antes de play(): ${backgroundMusic.readyState}`);
-
-                    // Wait for the audio to be ready to play
+                    // Espera a que el audio esté listo para reproducirse
                     if (backgroundMusic.readyState < 2) { // HTMLMediaElement.HAVE_CURRENT_DATA
                         console.log("fadeInMusic: La música no está lista para reproducirse. Esperando 'canplaythrough'...");
                         await new Promise((res, rej) => {
                             const canPlayHandler = () => {
                                 console.log("fadeInMusic: Evento 'canplaythrough' recibido.");
-                                backgroundMusic.removeEventListener('error', errorHandler); // Clean up error listener
+                                backgroundMusic.removeEventListener('error', errorHandler); // Limpia el listener de error
                                 res();
                             };
                             const errorHandler = (e) => {
                                 console.error("fadeInMusic: Error en el evento 'canplaythrough' o durante la carga:", e);
-                                backgroundMusic.removeEventListener('canplaythrough', canPlayHandler); // Clean up canplaythrough listener
+                                backgroundMusic.removeEventListener('canplaythrough', canPlayHandler); // Limpia el listener de canplaythrough
                                 rej(new Error(`Error de carga de audio: ${e.message || e.type}`));
                             };
                             backgroundMusic.addEventListener('canplaythrough', canPlayHandler, { once: true });
                             backgroundMusic.addEventListener('error', errorHandler, { once: true });
-                            backgroundMusic.load(); // Ensure loading starts
+                            backgroundMusic.load(); // Asegura que la carga comience
                         });
                     }
 
                     console.log("fadeInMusic: Intentando backgroundMusic.play()...");
                     const playPromise = backgroundMusic.play();
                     if (playPromise !== undefined) {
-                        await playPromise; // Wait for the play promise to resolve
+                        await playPromise; // Espera a que la promesa de reproducción se resuelva
                         console.log("fadeInMusic: backgroundMusic.play() exitoso.");
                     }
 
-                    console.log(`fadeInMusic: backgroundMusic.paused después de play(): ${backgroundMusic.paused}`);
-                    console.log(`fadeInMusic: backgroundMusic.ended después de play(): ${backgroundMusic.ended}`);
-
                     let volume = 0;
                     fadeInterval = setInterval(() => {
-                        if (volume < backgroundMusicNormalVolume) { // Fade up to normal volume
+                        if (volume < backgroundMusicNormalVolume) { // Aumenta el volumen hasta el nivel normal
                             volume += 0.01;
-                            backgroundMusic.volume = Math.min(volume, backgroundMusicNormalVolume); // Ensure volume doesn't exceed normal or 1
+                            backgroundMusic.volume = Math.min(volume, backgroundMusicNormalVolume); // Asegura que el volumen no exceda el normal o 1
                         } else {
-                            clearInterval(fadeInterval);
-                            backgroundMusic.volume = backgroundMusicNormalVolume; // Ensure final volume is set
+                            clearInterval(fadeInterval); // Detiene el intervalo cuando se alcanza el volumen deseado
+                            backgroundMusic.volume = backgroundMusicNormalVolume; // Asegura el volumen final
                             isPlaying = true;
                             playPauseBtn.textContent = 'Pausar';
-                            musicStartOverlay.style.display = 'none'; // Hide overlay on successful play
+                            musicStartOverlay.style.display = 'none'; // Oculta el overlay al iniciar la música
+                            // Desplaza la página hacia arriba para el contenido principal
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
                             console.log("fadeInMusic: Música iniciada por interacción del usuario con fade-in.");
                             resolve();
                         }
@@ -1043,18 +1168,20 @@
                         errorMessage += "Verifica la URL de la música o tu conexión a internet.";
                     }
                     showMessage(errorMessage);
-                    musicStartOverlay.style.display = 'none'; // IMPORTANT: Hide overlay even on error
+                    musicStartOverlay.style.display = 'none'; // IMPORTANTE: Oculta el overlay incluso si hay un error
                     reject(error);
                 }
             });
         }
 
-        // Function to duck background music volume
+        /**
+         * Reduce el volumen de la música de fondo cuando se reproduce un efecto de sonido.
+         */
         function duckBackgroundMusic() {
-            if (!isEffectPlaying) { // Only duck if no other effect is currently playing
+            if (!isEffectPlaying) { // Solo reduce el volumen si no hay otro efecto reproduciéndose
                 let currentVolume = backgroundMusic.volume;
                 const duckInterval = setInterval(() => {
-                    if (currentVolume > 0.2) { // Duck to 0.2
+                    if (currentVolume > 0.2) { // Reduce hasta 0.2
                         currentVolume -= 0.01;
                         backgroundMusic.volume = Math.max(currentVolume, 0.2);
                     } else {
@@ -1065,9 +1192,11 @@
             isEffectPlaying = true;
         }
 
-        // Function to restore background music volume
+        /**
+         * Restaura el volumen de la música de fondo a su nivel normal.
+         */
         function restoreBackgroundMusic() {
-            isEffectPlaying = false; // No effect is playing now
+            isEffectPlaying = false; // No hay efecto reproduciéndose ahora
             let currentVolume = backgroundMusic.volume;
             const restoreInterval = setInterval(() => {
                 if (currentVolume < backgroundMusicNormalVolume) {
@@ -1079,26 +1208,33 @@
             }, 50);
         }
 
-        // Initialize volume slider with current music volume
+        // Inicializa el slider de volumen con el volumen actual de la música
         volumeSlider.value = backgroundMusic.volume;
 
-        // Event listener for volume slider
+        // Listener para el slider de volumen
         volumeSlider.addEventListener('input', () => {
             backgroundMusic.volume = volumeSlider.value;
-            backgroundMusicNormalVolume = volumeSlider.value; // Update normal volume when slider is moved
+            backgroundMusicNormalVolume = volumeSlider.value; // Actualiza el volumen normal
         });
 
-        // Tone.js Sound Effects Initialization
+        // Objeto para almacenar los sintetizadores de Tone.js para los efectos de sonido
         let sounds = {};
-        let activeSounds = new Set(); // To keep track of currently playing sounds
+        // Set para rastrear los efectos de sonido actualmente activos
+        let activeSounds = new Set();
 
-        // Helper function to create a fader for each sound
+        /**
+         * Crea un nodo de ganancia (fader) para controlar el volumen de un sonido.
+         * @param {number} initialVolume - Volumen inicial del fader.
+         * @returns {Tone.Gain} El nodo de ganancia de Tone.js.
+         */
         function createFader(initialVolume) {
             const fader = new Tone.Gain(initialVolume).toDestination();
             return fader;
         }
 
-        // Helper function to stop all currently playing sound effects
+        /**
+         * Detiene todos los efectos de sonido actualmente en reproducción y restaura el volumen de la música de fondo.
+         */
         function stopAllSoundEffects() {
             activeSounds.forEach(activeType => {
                 if (sounds[activeType] && sounds[activeType].stop) {
@@ -1107,13 +1243,16 @@
                 }
             });
             activeSounds.clear();
-            restoreBackgroundMusic(); // Ensure background music volume is restored
+            restoreBackgroundMusic(); // Asegura que el volumen de la música de fondo se restaure
         }
 
-        // Function to initialize Tone.js synths
+        /**
+         * Inicializa todos los sintetizadores y efectos de Tone.js.
+         * Esta función se llama una vez que el AudioContext está activo.
+         */
         function initializeSounds() {
-            // Celestial/Divine Light Sound (for image-1, image-10, image-11)
-            const celestialFader = createFader(0.00001); // Very low initial volume
+            // Sonido de Luz Celestial/Divina (para image-1, image-10, image-11)
+            const celestialFader = createFader(0.00001); // Volumen inicial muy bajo
             const celestialReverb = new Tone.Freeverb({
                 roomSize: 0.99,
                 dampening: 8000
@@ -1141,12 +1280,12 @@
                     }
                 }
             }).connect(celestialChorus);
-            celestialSynth.volume.value = -8; // Increased base volume
+            celestialSynth.volume.value = -8; // Volumen base aumentado
 
             sounds.celestial = {
                 triggerAttackRelease: (notes, duration) => {
                     celestialSynth.triggerAttackRelease(notes, duration);
-                    celestialFader.gain.rampTo(0.08, 5); // Increased fade-in target volume
+                    celestialFader.gain.rampTo(0.08, 5); // Volumen objetivo de fade-in aumentado
                 },
                 stop: () => {
                     celestialFader.gain.rampTo(0.00001, 3);
@@ -1154,19 +1293,19 @@
                 }
             };
 
-            // Fire/Destruction Sound (for image-3)
+            // Sonido de Fuego/Destrucción (para image-3)
             const fireFader = createFader(0.00001);
             const fireReverb = new Tone.Freeverb({
                 roomSize: 0.8,
                 dampening: 4000
-            }); // Connect later
+            });
             const fireAutoFilter = new Tone.AutoFilter({
                 frequency: 0.5,
                 depth: 0.7,
                 baseFrequency: 200,
                 octaves: 2,
                 type: "sine"
-            }).start(); // Start here
+            }).start();
 
             const fireNoise = new Tone.NoiseSynth({
                 noise: { type: "brown" },
@@ -1176,8 +1315,7 @@
                     sustain: 0.7,
                     release: 3.5
                 }
-            }); // Connect later
-            fireNoise.volume.value = -3; // Increased base volume
+            });
 
             const crackleNoise = new Tone.NoiseSynth({
                 noise: { type: "white" },
@@ -1188,8 +1326,7 @@
                     release: 0.5,
                     attackCurve: "exponential"
                 }
-            }); // Connect later
-            crackleNoise.volume.value = -5; // Increased base volume
+            });
 
             const lowRumble = new Tone.Synth({
                 oscillator: { type: "sine" },
@@ -1199,15 +1336,12 @@
                     sustain: 0.9,
                     release: 5
                 }
-            }); // Connect later
-            lowRumble.volume.value = -8; // Increased base volume
+            });
             lowRumble.frequency.value = 40;
 
-            // Corrected connections for fire
             fireNoise.chain(fireAutoFilter, fireReverb, fireFader);
-            crackleNoise.connect(fireReverb); // Crackle noise directly to reverb
-            lowRumble.connect(fireReverb); // Low rumble directly to reverb
-
+            crackleNoise.connect(fireReverb);
+            lowRumble.connect(fireReverb);
 
             sounds.fire = {
                 _crackleInterval: null,
@@ -1215,7 +1349,7 @@
                 triggerAttackRelease: (duration) => {
                     fireNoise.triggerAttackRelease(duration);
                     lowRumble.triggerAttackRelease("C1", duration);
-                    fireFader.gain.rampTo(0.18, 2); // Increased fade-in target volume
+                    fireFader.gain.rampTo(0.18, 2);
 
                     if (sounds.fire._crackleInterval) clearInterval(sounds.fire._crackleInterval);
                     sounds.fire._crackleInterval = setInterval(() => {
@@ -1240,14 +1374,14 @@
                 }
             };
 
-            // Desolation Wind Sound (for image-4)
+            // Sonido de Viento de Desolación (para image-4)
             const desolationWindFader = createFader(0.00001);
             const desolationWindFilter = new Tone.Filter(250, "lowpass");
-            const desolationWindTremolo = new Tone.Tremolo(0.2, 0.5).start(); // Slower tremolo for wind
+            const desolationWindTremolo = new Tone.Tremolo(0.2, 0.5).start();
             const desolationWindReverb = new Tone.Freeverb({
                 roomSize: 0.9,
                 dampening: 3000
-            }); // Connect later
+            });
 
             const windNoise = new Tone.NoiseSynth({
                 noise: { type: "pink" },
@@ -1257,10 +1391,8 @@
                     sustain: 0.7,
                     release: 6
                 }
-            }); // Connect later
-            windNoise.volume.value = -3; // Increased base volume
+            });
 
-            // Add a low rumble for the "vacuum" feel
             const vacuumRumble = new Tone.Synth({
                 oscillator: { type: "sine" },
                 envelope: {
@@ -1269,20 +1401,17 @@
                     sustain: 0.8,
                     release: 7
                 }
-            }); // Connect later
-            vacuumRumble.volume.value = -8; // Increased base volume
+            });
             vacuumRumble.frequency.value = 30;
 
-            // Corrected connections for desolationWind
             windNoise.chain(desolationWindTremolo, desolationWindFilter, desolationWindReverb, desolationWindFader);
             vacuumRumble.connect(desolationWindReverb);
-
 
             sounds.desolationWind = {
                 triggerAttackRelease: (duration) => {
                     windNoise.triggerAttackRelease(duration);
                     vacuumRumble.triggerAttackRelease("C0", duration);
-                    desolationWindFader.gain.rampTo(0.5, 3); // Further increased fade-in target volume for image 4
+                    desolationWindFader.gain.rampTo(0.5, 3);
                 },
                 stop: () => {
                     desolationWindFader.gain.rampTo(0.00001, 4);
@@ -1293,15 +1422,15 @@
                 }
             };
 
-            // Divine Light Sound (for image-5, image-9)
+            // Sonido de Luz Divina (para image-5, image-9)
             const divineLightFader = createFader(0.00001);
             const divineLightReverb = new Tone.Freeverb({
                 roomSize: 0.9,
                 dampening: 5000
-            }); // Connect later
+            });
 
-            const divineLightDelay = new Tone.PingPongDelay("8n", 0.2); // Connect later
-            const divineLightChorus = new Tone.Chorus(3, 3.5, 0.6); // Connect later
+            const divineLightDelay = new Tone.PingPongDelay("8n", 0.2);
+            const divineLightChorus = new Tone.Chorus(3, 3.5, 0.6);
 
             const divineLightSynth = new Tone.PolySynth(Tone.Synth, {
                 oscillator: { type: "triangle" },
@@ -1311,16 +1440,14 @@
                     sustain: 0.7,
                     release: 5
                 }
-            }); // Connect later
-            divineLightSynth.volume.value = -8; // Increased base volume
+            });
 
-            // Corrected connections for divineLight
             divineLightSynth.chain(divineLightChorus, divineLightDelay, divineLightReverb, divineLightFader);
 
             sounds.divineLight = {
                 triggerAttackRelease: (notes, duration) => {
                     divineLightSynth.triggerAttackRelease(notes, duration);
-                    divineLightFader.gain.rampTo(0.12, 2); // Increased fade-in target volume
+                    divineLightFader.gain.rampTo(0.12, 2);
                 },
                 stop: () => {
                     divineLightFader.gain.rampTo(0.00001, 3);
@@ -1328,7 +1455,7 @@
                 }
             };
 
-            // Beautiful Light Beam Sound (for image-6)
+            // Sonido de Hermoso Rayo de Luz (para image-6)
             const beautifulLightBeamFader = createFader(0.00001);
             const beautifulLightBeamReverb = new Tone.Freeverb({
                 roomSize: 0.9,
@@ -1346,7 +1473,6 @@
                     release: 6
                 }
             }).connect(beautifulLightBeamChorus);
-            beautifulLightBeamSynth.volume.value = -10;
 
             sounds.beautifulLightBeam = {
                 triggerAttackRelease: (notes, duration) => {
@@ -1359,10 +1485,10 @@
                 }
             };
 
-            // Prison/Meditation Sound (for image-7) - Added Echo
+            // Sonido de Prisión/Meditación (para image-7)
             const prisonFader = createFader(0.000001);
-            const prisonDelay = new Tone.FeedbackDelay("0.8n", 0.5); // Added delay for echo
-            const prisonFilter = new Tone.Filter(80, "lowpass"); // Connect later
+            const prisonDelay = new Tone.FeedbackDelay("0.8n", 0.5);
+            const prisonFilter = new Tone.Filter(80, "lowpass");
             const prisonSynth = new Tone.AMSynth({
                 harmonicity: 0.3,
                 oscillator: { type: "pulse", width: 0.1 },
@@ -1372,16 +1498,14 @@
                     sustain: 1,
                     release: 10
                 }
-            }); // Connect later
-            prisonSynth.volume.value = -8; // Increased base volume
+            });
 
-            // Corrected connections for prison
             prisonSynth.chain(prisonFilter, prisonDelay, prisonFader);
 
             sounds.prison = {
                 triggerAttackRelease: (note, duration) => {
                     prisonSynth.triggerAttackRelease(note, duration);
-                    prisonFader.gain.rampTo(0.25, 5); // Increased fade-in target volume
+                    prisonFader.gain.rampTo(0.25, 5);
                 },
                 stop: () => {
                     prisonFader.gain.rampTo(0.000001, 5);
@@ -1389,13 +1513,13 @@
                 }
             };
 
-            // Impact/Anger Sound (for image-8) - Added Echo and Debris
+            // Sonido de Impacto/Ira (para image-8)
             const impactFader = createFader(0.00001);
-            const impactDelay = new Tone.FeedbackDelay("0.5n", 0.6); // Added delay for echo
+            const impactDelay = new Tone.FeedbackDelay("0.5n", 0.6);
             const impactReverb = new Tone.Reverb({
                 decay: 1,
                 preDelay: 0.05
-            }); // Connect later
+            });
 
             const impactMembrane = new Tone.MembraneSynth({
                 pitchDecay: 0.15,
@@ -1407,8 +1531,7 @@
                     release: 1.5,
                     attackCurve: "exponential"
                 }
-            }); // Connect later
-            impactMembrane.volume.value = 0; // Increased base volume
+            });
 
             const impactNoise = new Tone.NoiseSynth({
                 noise: { type: "brown" },
@@ -1418,10 +1541,8 @@
                     sustain: 0.1,
                     release: 1
                 }
-            }); // Connect later
-            impactNoise.volume.value = -3; // Increased base volume
+            });
 
-            // Debris/Breaking Wall Sound
             const debrisNoise = new Tone.NoiseSynth({
                 noise: { type: "white" },
                 envelope: {
@@ -1431,21 +1552,18 @@
                     release: 1.2,
                     attackCurve: "exponential"
                 }
-            }); // Connect later
-            debrisNoise.volume.value = -5; // Volume for debris
+            });
 
-            // Corrected connections for impact
             impactMembrane.chain(impactReverb, impactDelay, impactFader);
             impactNoise.connect(impactReverb);
             debrisNoise.connect(impactReverb);
-
 
             sounds.impact = {
                 triggerAttackRelease: (note, duration) => {
                     impactMembrane.triggerAttackRelease(note, duration);
                     impactNoise.triggerAttackRelease(duration);
-                    debrisNoise.triggerAttackRelease(duration); // Trigger debris sound
-                    impactFader.gain.rampTo(0.5, 0.1); // Increased fade-in target volume
+                    debrisNoise.triggerAttackRelease(duration);
+                    impactFader.gain.rampTo(0.5, 0.1);
                 },
                 stop: () => {
                     impactFader.gain.rampTo(0.00001, 1);
@@ -1457,32 +1575,29 @@
                 }
             };
 
-            // Chains Sound (for image-10) - Increased volume and "multiple chains" feel
+            // Sonido de Cadenas (para image-10)
             const chainsFader = createFader(0.00001);
             const chainsReverb = new Tone.Reverb({
-                decay: 1.5, // Increased decay for more echo
-                preDelay: 0.08 // Increased preDelay for more distinct echo
+                decay: 1.5,
+                preDelay: 0.08
             });
 
             const metalSynth1 = new Tone.MetalSynth({
-                frequency: 250, // Slightly higher frequency for one chain
+                frequency: 250,
                 envelope: { attack: 0.001, decay: 0.4, sustain: 0.1, release: 0.7 },
                 harmonicity: 3.1, modulationIndex: 32, octaves: 1.5, resonance: 4000, detune: 0
             });
-            metalSynth1.volume.value = 0; // Increased volume
 
             const metalSynth2 = new Tone.MetalSynth({
-                frequency: 180, // Lower frequency for a heavier chain
+                frequency: 180,
                 envelope: { attack: 0.001, decay: 0.5, sustain: 0.1, release: 0.8 },
                 harmonicity: 3.5, modulationIndex: 35, octaves: 1.8, resonance: 4500, detune: 0
             });
-            metalSynth2.volume.value = 1; // Increased volume
 
             const noiseChains = new Tone.NoiseSynth({
                 noise: { type: "white" },
                 envelope: { attack: 0.005, decay: 0.3, sustain: 0.05, release: 0.5 }
             });
-            noiseChains.volume.value = -3; // Increased volume
 
             metalSynth1.chain(chainsReverb, chainsFader);
             metalSynth2.chain(chainsReverb, chainsFader);
@@ -1491,9 +1606,9 @@
             sounds.chains = {
                 triggerAttackRelease: (duration) => {
                     metalSynth1.triggerAttackRelease("C3", duration);
-                    metalSynth2.triggerAttackRelease("C2", duration); // Trigger both synths
+                    metalSynth2.triggerAttackRelease("C2", duration);
                     noiseChains.triggerAttackRelease(duration);
-                    chainsFader.gain.rampTo(0.45, 0.1); // Significantly increased fade-in target volume
+                    chainsFader.gain.rampTo(0.45, 0.1);
                 },
                 stop: () => {
                     chainsFader.gain.rampTo(0.00001, 0.5);
@@ -1505,15 +1620,14 @@
                 }
             };
 
-
-            // Demonic/Abyss Sound (for image-13)
+            // Sonido Demoniaco/Abismo (para image-13)
             const demonicFader = createFader(0.00001);
             const demonicDistortion = new Tone.Distortion(0.3);
             const demonicCheby = new Tone.Chebyshev(15);
             const demonicReverb = new Tone.Freeverb({
                 roomSize: 0.9,
                 dampening: 5000
-            }); // Added reverb for void effect
+            });
 
             const demonicSynth = new Tone.MonoSynth({
                 oscillator: { type: "sawtooth" },
@@ -1538,9 +1652,7 @@
                     exponent: 2
                 }
             });
-            demonicSynth.volume.value = -3;
 
-            // New: Low frequency drone for "void/tenebrous" feel
             const voidDrone = new Tone.Synth({
                 oscillator: { type: "sine" },
                 envelope: {
@@ -1550,19 +1662,16 @@
                     release: 8
                 }
             });
-            voidDrone.volume.value = -15; // Increased volume for void drone
-            voidDrone.frequency.value = 20; // Very low frequency
+            voidDrone.frequency.value = 20;
 
-            // Corrected connections for demonic
             demonicSynth.chain(demonicCheby, demonicDistortion, demonicReverb, demonicFader);
-            voidDrone.connect(demonicReverb); // Connect void drone to reverb
-
+            voidDrone.connect(demonicReverb);
 
             sounds.demonic = {
                 triggerAttackRelease: (note, duration) => {
                     demonicSynth.triggerAttackRelease(note, duration);
-                    voidDrone.triggerAttackRelease("C0", duration); // Trigger void drone
-                    demonicFader.gain.rampTo(0.12, 2); // Increased fade-in target volume
+                    voidDrone.triggerAttackRelease("C0", duration);
+                    demonicFader.gain.rampTo(0.12, 2);
                 },
                 stop: () => {
                     demonicFader.gain.rampTo(0.00001, 3);
@@ -1573,20 +1682,19 @@
                 }
             };
 
-            // Rage/Dark Energy Sound (for image-14) - Less noisy, more resonant growl
+            // Sonido de Ira/Energía Oscura (para image-14)
             const rageFader = createFader(0.00001);
-            const rageDistortion = new Tone.Distortion(0.2); // Reduced distortion
+            const rageDistortion = new Tone.Distortion(0.2);
             const rageDelay = new Tone.FeedbackDelay("4n", 0.2);
             const rageChorus = new Tone.Chorus(3.5, 4.5, 0.5);
 
-            // Connect effects in sequence
             rageChorus.connect(rageDelay);
             rageDelay.connect(rageDistortion);
             rageDistortion.connect(rageFader);
 
             const rageSynth1 = new Tone.FMSynth({
                 harmonicity: 0.5,
-                modulationIndex: 8, // Reduced modulation for less harshness
+                modulationIndex: 8,
                 oscillator: { type: "square" },
                 envelope: {
                     attack: 0.08,
@@ -1595,7 +1703,6 @@
                     release: 2.5
                 }
             });
-            rageSynth1.volume.value = -1; // Adjusted volume
 
             const rageSynth2 = new Tone.Synth({
                 oscillator: { type: "sawtooth" },
@@ -1606,12 +1713,10 @@
                     release: 2
                 }
             });
-            rageSynth2.volume.value = -3; // Adjusted volume
 
-            // Growl sound directly to distortion, made more prominent
             const growlSynth = new Tone.FMSynth({
-                harmonicity: 0.1, // Lower harmonicity for deeper growl
-                modulationIndex: 3, // Reduced modulation
+                harmonicity: 0.1,
+                modulationIndex: 3,
                 oscillator: { type: "sine" },
                 envelope: {
                     attack: 0.5,
@@ -1620,19 +1725,17 @@
                     release: 2
                 }
             });
-            growlSynth.volume.value = -2; // Volume for growl
 
-            // Corrected connections for rage
-            rageSynth1.connect(rageChorus); // Connect Synth1 to Chorus
-            rageSynth2.connect(rageChorus); // Connect Synth2 to Chorus
-            growlSynth.connect(rageDistortion); // Connect Growl to Distortion
+            rageSynth1.connect(rageChorus);
+            rageSynth2.connect(rageChorus);
+            growlSynth.connect(rageDistortion);
 
             sounds.rage = {
                 triggerAttackRelease: (note, duration) => {
                     rageSynth1.triggerAttackRelease(note, duration);
                     rageSynth2.triggerAttackRelease(note, duration);
-                    growlSynth.triggerAttackRelease("C1", duration); // Trigger growl sound
-                    rageFader.gain.rampTo(0.35, 1); // Increased fade-in target volume
+                    growlSynth.triggerAttackRelease("C1", duration);
+                    rageFader.gain.rampTo(0.35, 1);
                 },
                 stop: () => {
                     rageFader.gain.rampTo(0.00001, 2);
@@ -1644,14 +1747,13 @@
                 }
             };
 
-            // Falling Bodies Sound (for image-15)
+            // Sonido de Cuerpos Cayendo (para image-15)
             const fallingBodiesFader = createFader(0.00001);
             const fallingBodiesReverb = new Tone.Reverb({
                 decay: 1.5,
                 preDelay: 0.08
-            }); // Connect later
+            });
 
-            // Thud sound
             const thudMembrane = new Tone.MembraneSynth({
                 pitchDecay: 0.05,
                 octaves: 4,
@@ -1661,10 +1763,8 @@
                     sustain: 0.01,
                     release: 1
                 }
-            }); // Connect later
-            thudMembrane.volume.value = -5;
+            });
 
-            // Whoosh/Air sound
             const whooshNoise = new Tone.NoiseSynth({
                 noise: { type: "white" },
                 envelope: {
@@ -1673,15 +1773,12 @@
                     sustain: 0.1,
                     release: 0.8
                 }
-            }); // Connect later
-            whooshNoise.volume.value = -10;
-            const whooshFilter = new Tone.Filter(2000, "lowpass", -24); // Connect later
-            whooshFilter.frequency.rampTo(500, 0.5); // Descending filter for whoosh
+            });
+            const whooshFilter = new Tone.Filter(2000, "lowpass", -24);
+            whooshFilter.frequency.rampTo(500, 0.5);
 
-            // Corrected connections for fallingBodies
             thudMembrane.chain(fallingBodiesReverb, fallingBodiesFader);
             whooshNoise.chain(whooshFilter, fallingBodiesReverb);
-
 
             sounds.fallingBodies = {
                 triggerAttackRelease: (duration) => {
@@ -1698,15 +1795,13 @@
                 }
             };
 
-
-            // Rebirth and Nature Sound (for image-16)
+            // Sonido de Renacimiento y Naturaleza (para image-16)
             const rebirthAndNatureFader = createFader(0.00001);
             const rebirthAndNatureReverb = new Tone.Freeverb({
                 roomSize: 0.95,
                 dampening: 6000
             }).connect(rebirthAndNatureFader);
 
-            // Main rebirth synth (sentimental)
             const rebirthSynth = new Tone.PolySynth(Tone.Synth, {
                 oscillator: { type: "triangle" },
                 envelope: {
@@ -1716,9 +1811,7 @@
                     release: 12
                 }
             }).connect(rebirthAndNatureReverb);
-            rebirthSynth.volume.value = -8;
 
-            // Bird chirps
             const birdChirpSynth = new Tone.PolySynth(Tone.Synth, {
                 oscillator: { type: "sine" },
                 envelope: {
@@ -1728,9 +1821,7 @@
                     release: 0.2
                 }
             }).connect(rebirthAndNatureReverb);
-            birdChirpSynth.volume.value = -20; // Very subtle bird chirps
 
-            // Sentimental pad/strings
             const sentimentalPad = new Tone.PolySynth(Tone.AMSynth, {
                 harmonicity: 1.5,
                 oscillator: { type: "sawtooth" },
@@ -1741,16 +1832,14 @@
                     release: 6
                 }
             }).connect(rebirthAndNatureReverb);
-            sentimentalPad.volume.value = -12; // Subtle sentimental layer
 
-            // New: Sentimental Piano (adjusted for more melancholic feel)
             const sentimentalPiano = new Tone.PolySynth(Tone.Synth, {
                 oscillator: { type: "triangle" },
                 envelope: {
-                    attack: 1,    // Slower attack for a softer, more mournful entry
-                    decay: 2,     // Longer decay
+                    attack: 1,
+                    decay: 2,
                     sustain: 0.5,
-                    release: 4    // Longer release for lingering notes
+                    release: 4
                 },
                 filterEnvelope: {
                     attack: 0.001,
@@ -1762,15 +1851,13 @@
                     exponent: 2
                 }
             }).connect(rebirthAndNatureReverb);
-            sentimentalPiano.volume.value = -6; // Increased volume for piano
 
             sounds.rebirthAndNature = {
                 _birdChirpInterval: null,
                 triggerAttackRelease: (duration) => {
                     rebirthSynth.triggerAttackRelease(["C4", "E4", "G4"], duration);
                     sentimentalPad.triggerAttackRelease(["C3", "E3", "G3"], duration);
-                    // Play a more melancholic chord progression
-                    sentimentalPiano.triggerAttackRelease(["C4", "Eb4", "G4", "C5"], duration); // C minor chord
+                    sentimentalPiano.triggerAttackRelease(["C4", "Eb4", "G4", "C5"], duration);
                     rebirthAndNatureFader.gain.rampTo(0.1, 3);
 
                     if (sounds.rebirthAndNature._birdChirpInterval) clearInterval(sounds.rebirthAndNature._birdChirpInterval);
@@ -1778,7 +1865,7 @@
                         const notes = ["G5", "A5", "B5", "C6", "D6"];
                         const randomNote = notes[Math.floor(Math.random() * notes.length)];
                         birdChirpSynth.triggerAttackRelease(randomNote, "0.1");
-                    }, 1000 + Math.random() * 2000); // Random interval for chirps
+                    }, 1000 + Math.random() * 2000);
 
                     setTimeout(() => {
                         clearInterval(sounds.rebirthAndNature._birdChirpInterval);
@@ -1790,7 +1877,7 @@
                     setTimeout(() => {
                         rebirthSynth.triggerRelease();
                         sentimentalPad.triggerRelease();
-                        sentimentalPiano.triggerRelease(); // Release piano
+                        sentimentalPiano.triggerRelease();
                         birdChirpSynth.triggerRelease();
                         if (sounds.rebirthAndNature._birdChirpInterval) clearInterval(sounds.rebirthAndNature._birdChirpInterval);
                         sounds.rebirthAndNature._birdChirpInterval = null;
@@ -1798,7 +1885,7 @@
                 }
             };
 
-            // Dark/Gloomy Sound (for image-12)
+            // Sonido Oscuro/Sombrío (para image-12)
             const darkGloomyFader = createFader(0.00001);
             const darkGloomyReverb = new Tone.Freeverb({
                 roomSize: 0.9,
@@ -1806,12 +1893,12 @@
             }).connect(darkGloomyFader);
 
             const darkGloomySynth = new Tone.MonoSynth({
-                oscillator: { type: "sine" }, // Sine wave for a clean, deep tone
+                oscillator: { type: "sine" },
                 envelope: {
-                    attack: 5, // Long attack for a drone effect
+                    attack: 5,
                     decay: 0.1,
                     sustain: 1,
-                    release: 8 // Long release for lingering sound
+                    release: 8
                 },
                 filter: {
                     Q: 6,
@@ -1828,7 +1915,6 @@
                     exponent: 2
                 }
             }).connect(darkGloomyReverb);
-            darkGloomySynth.volume.value = -12; // Increased volume
 
             const darkGloomyNoise = new Tone.NoiseSynth({
                 noise: { type: "pink" },
@@ -1839,13 +1925,12 @@
                     release: 6
                 }
             }).connect(darkGloomyReverb);
-            darkGloomyNoise.volume.value = -15; // Increased volume
 
             sounds.darkGloomy = {
                 triggerAttackRelease: (duration) => {
-                    darkGloomySynth.triggerAttackRelease("C1", duration); // Play a very low note
+                    darkGloomySynth.triggerAttackRelease("C1", duration);
                     darkGloomyNoise.triggerAttackRelease(duration);
-                    darkGloomyFader.gain.rampTo(0.25, 3); // Increased fade-in target volume for image 12
+                    darkGloomyFader.gain.rampTo(0.25, 3);
                 },
                 stop: () => {
                     darkGloomyFader.gain.rampTo(0.00001, 4);
@@ -1856,11 +1941,11 @@
                 }
             };
 
-            // --- Warm-up all sounds after initialization ---
-            // This ensures all audio nodes are created and ready for immediate use.
+            // Calentamiento de todos los sonidos después de la inicialización
+            // Esto asegura que todos los nodos de audio se creen y estén listos para su uso inmediato.
             Object.values(sounds).forEach(sound => {
                 if (sound.triggerAttackRelease) {
-                    // Trigger with a very short duration and silent volume
+                    // Dispara con una duración muy corta y volumen silencioso
                     if (sound === sounds.celestial || sound === sounds.divineLight || sound === sounds.beautifulLightBeam) {
                         sound.triggerAttackRelease(["C1"], "0.01s");
                     } else if (sound === sounds.prison || sound === sounds.demonic || sound === sounds.rage || sound === sounds.impact) {
@@ -1868,21 +1953,26 @@
                     } else if (sound === sounds.fire || sound === sounds.desolationWind || sound === sounds.darkGloomy || sound === sounds.chains || sound === sounds.fallingBodies || sound === sounds.rebirthAndNature) {
                         sound.triggerAttackRelease("0.01s");
                     }
-                    // Immediately ramp down the fader to ensure it's silent after warm-up
+                    // Inmediatamente reduce el fader para asegurar que esté en silencio después del calentamiento
                     if (sound.stop) {
                         sound.stop();
                     }
                 }
             });
-            console.log("All Tone.js sounds warmed up silently.");
+            console.log("Todos los sonidos de Tone.js calentados silenciosamente.");
         }
 
-        // --- Dynamic Tone.js Loader with Retries ---
+        // --- Cargador Dinámico de Tone.js con Reintentos ---
         const TONE_JS_CDNS = [
-            "https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js", // Primary, widely used
-            "https://unpkg.com/@tonejs/tone@14.7.71/build/Tone.min.js", // Fallback, previously used unpkg
+            "https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js", // CDN primario y ampliamente usado
+            "https://unpkg.com/@tonejs/tone@14.7.71/build/Tone.min.js", // Fallback, previamente usado unpkg
         ];
 
+        /**
+         * Carga la librería Tone.js dinámicamente desde una lista de CDNs con reintentos.
+         * @param {number} retryCount - Contador de reintentos.
+         * @returns {Promise<void>} Una promesa que se resuelve cuando Tone.js está cargado y disponible.
+         */
         async function loadToneJs(retryCount = 0) {
             return new Promise(async (resolve, reject) => {
                 if (typeof Tone !== 'undefined') {
@@ -1910,16 +2000,16 @@
                         resolve();
                     } catch (e) {
                         console.error(`loadToneJs: Error de verificación post-carga para ${script.src}:`, e);
-                        // If Tone is not defined after load, try next CDN
-                        document.head.removeChild(script); // Clean up failed script
+                        // Si Tone no está definido después de la carga, intenta con el siguiente CDN
+                        document.head.removeChild(script); // Limpia el script fallido
                         loadToneJs(retryCount + 1).then(resolve).catch(reject);
                     }
                 };
 
                 script.onerror = (e) => {
                     console.error(`loadToneJs: Error al cargar Tone.js desde ${script.src}:`, e);
-                    document.head.removeChild(script); // Clean up failed script
-                    loadToneJs(retryCount + 1).then(resolve).catch(reject); // Try next CDN
+                    document.head.removeChild(script); // Limpia el script fallido
+                    loadToneJs(retryCount + 1).then(resolve).catch(reject); // Intenta con el siguiente CDN
                 };
 
                 document.head.appendChild(script);
@@ -1927,15 +2017,19 @@
             });
         }
 
-        // --- AudioContextManager Class (modified) ---
+        // --- Clase AudioContextManager para gestionar la inicialización y reproducción de audio ---
         class AudioContextManager {
             constructor() {
-                this.isInitialized = false;
-                this.isContextRunning = false;
-                this.userInteracted = false;
-                this.initPromise = null;
+                this.isInitialized = false; // Indica si el AudioContext ha sido inicializado
+                this.isContextRunning = false; // Indica si el AudioContext está en estado 'running'
+                this.initPromise = null; // Promesa para evitar inicializaciones múltiples concurrentes
             }
 
+            /**
+             * Inicializa el AudioContext de Tone.js.
+             * Asegura que Tone.js esté cargado y que el contexto de audio esté activo.
+             * @returns {Promise<void>} Una promesa que se resuelve cuando el AudioContext está listo.
+             */
             async init() {
                 if (this.isInitialized) {
                     console.log("AudioContextManager: Ya inicializado.");
@@ -1950,11 +2044,11 @@
                 this.initPromise = new Promise(async (resolve, reject) => {
                     console.log("AudioContextManager: Iniciando inicialización...");
                     try {
-                        // Ensure Tone.js is loaded first
-                        await loadToneJs(); // Wait for Tone.js to load dynamically
+                        // Asegura que Tone.js se cargue primero
+                        await loadToneJs(); // Espera a que Tone.js se cargue dinámicamente
                         console.log("AudioContextManager: Tone.js cargado.");
 
-                        // Now Tone should be defined
+                        // Ahora Tone debería estar definido
                         if (typeof Tone === 'undefined') {
                             const errorMsg = "AudioContextManager: Error crítico: Tone.js no está definido incluso después de la carga dinámica.";
                             console.error(errorMsg);
@@ -1963,7 +2057,7 @@
                             return;
                         }
 
-                        // Start/resume Tone.js audio context
+                        // Inicia/reanuda el contexto de audio de Tone.js
                         console.log("AudioContextManager: Intentando Tone.start() y Tone.context.resume()...");
                         await Tone.start();
                         await Tone.context.resume();
@@ -1971,11 +2065,11 @@
                         this.isInitialized = true;
                         console.log("AudioContextManager: AudioContext está activo y reanudado.");
 
-                        // Initialize sounds ONLY ONCE after context is active
+                        // Inicializa los sonidos SOLO UNA VEZ después de que el contexto esté activo
                         initializeSounds();
                         console.log("AudioContextManager: Sonidos de Tone.js inicializados.");
 
-                        // Add a global listener to ensure context stays running if suspended
+                        // Añade un listener global para asegurar que el contexto se mantenga activo si se suspende
                         document.body.addEventListener('click', async () => {
                             if (Tone.context.state !== 'running') {
                                 try {
@@ -1986,7 +2080,7 @@
                                     console.warn("No se pudo reanudar AudioContext en interacción global:", e);
                                 }
                             }
-                        }, { once: true });
+                        }, { once: true }); // Se ejecuta una sola vez
 
                         resolve();
                     } catch (error) {
@@ -1994,17 +2088,27 @@
                         showMessage("Error al iniciar el sistema de audio. Por favor, recarga la página.");
                         reject(error);
                     } finally {
-                        this.initPromise = null;
+                        this.initPromise = null; // Resetea la promesa de inicialización
                     }
                 });
                 return this.initPromise;
             }
 
+            /**
+             * Reproduce un efecto de sonido específico si los SFX están habilitados y el AudioContext está funcionando.
+             * @param {string} soundType - El tipo de sonido a reproducir (clave en el objeto `sounds`).
+             * @param {...any} args - Argumentos adicionales para el método `triggerAttackRelease` del sonido.
+             */
             async playEffect(soundType, ...args) {
+                if (!sfxEnabled) { // Verifica si los SFX están habilitados por el toggle
+                    console.log(`Efectos de sonido deshabilitados. No se reproducirá ${soundType}.`);
+                    return;
+                }
+
                 if (!this.isInitialized) {
                     console.warn(`AudioContextManager no inicializado. Intentando inicializar y reproducir ${soundType}.`);
                     try {
-                        await this.init(); // Attempt to initialize if not already
+                        await this.init(); // Intenta inicializar si no lo está
                     } catch (e) {
                         console.error(`Fallo al inicializar para reproducir ${soundType}:`, e);
                         return;
@@ -2012,15 +2116,16 @@
                 }
 
                 if (this.isContextRunning) {
-                    // Stop all currently active sounds before playing a new one
-                    stopAllSoundEffects(); // Use the helper function
+                    // Detiene todos los sonidos activos antes de reproducir uno nuevo
+                    stopAllSoundEffects(); // Usa la función auxiliar
 
-                    // Duck background music
+                    // Reduce el volumen de la música de fondo
                     duckBackgroundMusic();
 
-                    // Play sound
+                    // Reproduce el sonido
                     console.log(`Reproduciendo sonido: ${soundType}.`);
                     if (sounds[soundType] && sounds[soundType].triggerAttackRelease) {
+                        // Lógica para disparar diferentes sonidos con duraciones y notas específicas
                         if (soundType === 'celestial' || soundType === 'divineLight' || soundType === 'beautifulLightBeam') {
                             sounds[soundType].triggerAttackRelease(["C4", "E4", "G4"], "5s");
                         } else if (soundType === 'prison') {
@@ -2038,13 +2143,13 @@
                         } else if (soundType === 'fallingBodies') {
                             sounds[soundType].triggerAttackRelease("2s");
                         } else if (soundType === 'rebirthAndNature') {
-                            sounds[soundType].triggerAttackRelease("7s"); // Longer duration for nature scene
+                            sounds[soundType].triggerAttackRelease("7s"); // Mayor duración para la escena de la naturaleza
                         } else if (soundType === 'silence') {
-                            // Do nothing for silence, just ensure other sounds stop
+                            // No hace nada para el silencio, solo asegura que otros sonidos se detengan
                         } else {
-                            sounds[soundType].triggerAttackRelease("8n"); // Default short duration
+                            sounds[soundType].triggerAttackRelease("8n"); // Duración corta por defecto
                         }
-                        activeSounds.add(soundType);
+                        activeSounds.add(soundType); // Añade el sonido al set de activos
                     } else {
                         console.warn(`Sonido ${soundType} no encontrado o no tiene método triggerAttackRelease.`);
                     }
@@ -2057,7 +2162,7 @@
 
         const audioContextManager = new AudioContextManager();
 
-        // Particle Configurations Map
+        // Mapa de configuraciones de partículas para particles.js
         const particleConfigs = {
             'particles-js-1': {
                 "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
@@ -2114,40 +2219,50 @@
                 "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
                 "retina_detect": true
             },
-            // New particle config for Gabriel's feathers 
+            // Nueva configuración de partículas para las plumas de Gabriel
             'particles-js-feathers': {
                 "particles": { "number": { "value": 40, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFFFFF", "#F0F0F0", "#E0E0E0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 0.2, "opacity_min": 0.1, "sync": false } }, "size": { "value": 4, "random": true, "anim": { "enable": true, "speed": 3, "size_min": 0.5, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.5, "direction": "bottom", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
                 "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
                 "retina_detect": true
             },
-            // New particle config for fire and smoke 
+            // Nueva configuración de partículas para fuego y humo
             'particles-js-fire-smoke': {
                 "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FF4500", "#8B0000", "#404040", "#606060"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 0.8, "opacity_min": 0.1, "sync": false } }, "size": { "value": 5, "random": true, "anim": { "enable": true, "speed": 7, "size_min": 0.5, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1.5, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
                 "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
                 "retina_detect": true
             },
-            // New particle config for rebirth 
+            // Nueva configuración de partículas para renacimiento
             'particles-js-rebirth': {
                 "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#E0FFFF", "#F0FFFF", "#ADD8E6", "#B0E0E6"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 0.3, "opacity_min": 0.2, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": true, "speed": 4, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.8, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
                 "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
                 "retina_detect": true
             },
-            // New particle config for golden sword 
+            // Nueva configuración de partículas para espada dorada
             'particles-js-sword': {
-                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFD700", "#FFEC8B", "#DAA520"] }, "shape": { "type": "star", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, /* Increased speed */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 7, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Increased speed */
+                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFD700", "#FFEC8B", "#DAA520"] }, "shape": { "type": "star", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, /* Velocidad aumentada */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 7, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Velocidad aumentada */
                 "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
                 "retina_detect": true
             },
-            // New particle config for celestial blue shield 
+            // Nueva configuración de partículas para escudo azul celestial
             'particles-js-shield': {
-                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#ADD8E6", "#87CEEB", "#4682B4"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 0.4, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2.5, "random": true, "anim": { "enable": true, "speed": 9, "size_min": 0.1, "sync": false } }, /* Increased speed */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 6, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Increased speed */
+                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#ADD8E6", "#87CEEB", "#4682B4"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 0.4, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2.5, "random": true, "anim": { "enable": true, "speed": 9, "size_min": 0.1, "sync": false } }, /* Velocidad aumentada */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 6, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Velocidad aumentada */
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                "retina_detect": true
+            },
+            // NUEVA configuración de partículas para el efecto de cadenas (image-10)
+            'particles-js-chains-effect': {
+                "particles": { "number": { "value": 200, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFD700", "#FFEC8B", "#DAA520"] }, /* Tonos dorados */ "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.9, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } }, /* Fade out rápido */ "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 20, "size_min": 0.5, "sync": false } }, /* Tamaño un poco más grande, velocidad de animación rápida */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 12, "direction": "random", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Velocidad de movimiento muy rápida, dirección aleatoria */
                 "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
                 "retina_detect": true
             }
         };
 
-        const initializedParticleSystems = new Set();
+        const initializedParticleSystems = new Set(); // Para evitar inicializar el mismo sistema de partículas varias veces
 
+        /**
+         * Inicializa un sistema de partículas de particles.js si no ha sido inicializado antes.
+         * @param {string} elementId - El ID del elemento HTML donde se renderizarán las partículas.
+         */
         function initializeParticleSystem(elementId) {
             if (!initializedParticleSystems.has(elementId) && particleConfigs[elementId]) {
                 particlesJS(elementId, particleConfigs[elementId]);
@@ -2156,12 +2271,12 @@
             }
         }
 
-        // Intersection Observer for images
+        // Intersection Observer para detectar cuando las imágenes entran o salen del viewport
         const imageContainers = document.querySelectorAll('.image-container');
         const observerOptions = {
-            root: null, // viewport
+            root: null, // El viewport es el elemento raíz
             rootMargin: '0px',
-            threshold: 0.5 // Trigger when 50% of the element is visible
+            threshold: 0.5 // Dispara cuando el 50% del elemento es visible
         };
 
         const imageObserver = new IntersectionObserver(async (entries, observer) => {
@@ -2170,7 +2285,7 @@
                 const particlesIds = entry.target.dataset.particlesIds;
                 const imageElement = entry.target.querySelector('.chapter-image');
 
-                // Apply/remove zoom blur and shake for Belcebú (image-13)
+                // Aplica/elimina el efecto de desenfoque y temblor para Belcebú (image-13)
                 if (imageElement && imageElement.id === 'image-13') {
                     if (entry.isIntersecting) {
                         imageElement.classList.add('zoom-blur-shake');
@@ -2179,7 +2294,7 @@
                     }
                 }
 
-                // Apply/remove slow zoom for Gabriel (image-9)
+                // Aplica/elimina el zoom lento para Gabriel (image-9)
                 if (imageElement && imageElement.id === 'image-9') {
                     if (entry.isIntersecting) {
                         imageElement.classList.add('slow-zoom-in');
@@ -2188,13 +2303,22 @@
                     }
                 }
 
-                if (soundType) { // Check if soundType is defined
+                // Aplica/elimina el efecto de Radicks furioso (image-14)
+                if (imageElement && imageElement.id === 'image-14') {
+                    if (entry.isIntersecting) {
+                        imageElement.classList.add('purple-fury-shake');
+                    } else {
+                        imageElement.classList.remove('purple-fury-shake');
+                    }
+                }
+
+                if (soundType) { // Si hay un tipo de sonido definido para el contenedor
                     if (entry.isIntersecting) {
                         try {
-                            // Play sound using the AudioContextManager
+                            // Reproduce el sonido usando el AudioContextManager
                             await audioContextManager.playEffect(soundType);
 
-                            // Initialize particles
+                            // Inicializa las partículas asociadas
                             if (particlesIds) {
                                 particlesIds.split(',').forEach(id => {
                                     initializeParticleSystem(id.trim());
@@ -2205,7 +2329,7 @@
                             showMessage(`Error al reproducir el sonido de ${soundType}.`);
                         }
                     } else {
-                        // If the sound was triggered and is now out of view, stop it with a fade-out.
+                        // Si el sonido se activó y ahora está fuera de vista, deténlo con un fade-out.
                         if (activeSounds.has(soundType)) {
                             console.log(`Deteniendo sonido: ${soundType}.`);
                             if (sounds[soundType] && sounds[soundType].stop) {
@@ -2213,7 +2337,7 @@
                             }
                             activeSounds.delete(soundType);
 
-                            // If no other effects are active, restore background music
+                            // Si no hay otros efectos activos, restaura el volumen de la música de fondo
                             if (activeSounds.size === 0) {
                                 restoreBackgroundMusic();
                             }
@@ -2224,67 +2348,71 @@
         }, observerOptions);
 
 
-        // Ensure toggle button adjusts on load and resize
+        // Asegura que el botón de toggle se ajuste al cargar y redimensionar
         window.addEventListener('load', () => {
             musicControls.classList.remove('open');
             musicToggle.style.right = '1.5rem';
-            backgroundMusic.volume = volumeSlider.value;
+            backgroundMusic.volume = volumeSlider.value; // Establece el volumen inicial de la música de fondo
 
-            // Check for dark mode preference
+            // Verifica la preferencia de modo oscuro del usuario
             if (localStorage.getItem('darkMode') === 'enabled') {
                 document.body.classList.add('dark-mode');
                 modeToggle.textContent = 'Modo Claro';
             }
 
-            // Initialize global particles.js on load
+            // Inicializa el sistema de partículas global al cargar la página
             particlesJS('particles-js-11', {
                 "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 1500 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.2, "random": true, "anim": { "enable": true, "speed": 0.1, "opacity_min": 0.05, "sync": false } }, "size": { "value": 1, "random": true, "anim": { "enable": true, "speed": 0.5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.1, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
                 "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
                 "retina_detect": true
             });
 
-            // Observe all image containers
+            // Observa todos los contenedores de imágenes para activar sonidos y partículas
             imageContainers.forEach(container => {
                 imageObserver.observe(container);
             });
 
-            // Event listener for start music button
+            // Listener para el botón "Iniciar Música" en el overlay
             startMusicButton.addEventListener('click', async () => {
                 console.log("startMusicButton: Click detectado. Iniciando proceso de audio...");
-                clearInterval(fadeInterval); // Clear any existing fade interval
+                clearInterval(fadeInterval); // Limpia cualquier intervalo de fade existente
 
                 try {
-                    // Initialize the audio context and sounds via AudioContextManager
+                    // Inicializa el contexto de audio y los sonidos a través de AudioContextManager
                     console.log("startMusicButton: Llamando a audioContextManager.init()...");
                     await audioContextManager.init();
                     console.log("startMusicButton: audioContextManager.init() completado.");
 
-                    // Now that AudioContext is active, try to play the background music
+                    // Ahora que AudioContext está activo, intenta reproducir la música de fondo
                     console.log("startMusicButton: Llamando a fadeInMusic() para iniciar la reproducción...");
                     await fadeInMusic();
-                    console.log("startMusicButton: fadeInMusic() completado. Música debería estar sonando.");
+                    console.log("startMusicButton: fadeInMusic() completado. Música debería estar sonando y overlay oculto.");
 
                 } catch (error) {
                     console.error("startMusicButton: Error crítico al iniciar el audio principal:", error);
                     showMessage(`Error al iniciar el audio principal: ${error.message}. Asegúrate de que la URL de la música es un enlace directo a un archivo de audio.`);
                 } finally {
-                    // IMPORTANT: Hide overlay even if there's an error playing music, so the user can read.
+                    // IMPORTANTE: Oculta el overlay incluso si hay un error al reproducir la música, para que el usuario pueda leer.
                     musicStartOverlay.style.display = 'none';
+                    // Desplázate a la parte superior de la página (o a una sección de contenido de lectura específica si tuvieras una)
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             });
         });
 
-        // Event listener for music toggle button
+        // Listener para el botón de toggle de control de música
         musicToggle.addEventListener('click', () => {
             musicControls.classList.toggle('open');
             if (musicControls.classList.contains('open')) {
+                // Ajusta la posición del botón de toggle cuando el panel está abierto
                 musicToggle.style.right = `${musicControls.offsetWidth + 1.5 * 16}px`;
             } else {
+                // Restaura la posición cuando el panel está cerrado
                 musicToggle.style.right = '1.5rem';
             }
         });
 
-        // Event listener for play/pause button
+        // Listener para el botón de reproducir/pausar música
         playPauseBtn.addEventListener('click', () => {
             if (isPlaying) {
                 backgroundMusic.pause();
@@ -2292,34 +2420,34 @@
                 playPauseBtn.textContent = 'Reproducir';
                 console.log("Música pausada.");
             } else {
-                fadeInMusic(); // This will handle playing and updating isPlaying and button text
+                fadeInMusic(); // Esto manejará la reproducción y la actualización de isPlaying y el texto del botón
                 console.log("Música reanudada.");
             }
         });
 
-        // Event listener for stop button
+        // Listener para el botón de detener música
         stopBtn.addEventListener('click', () => {
             backgroundMusic.pause();
-            backgroundMusic.currentTime = 0;
+            backgroundMusic.currentTime = 0; // Reinicia la música al principio
             isPlaying = false;
             playPauseBtn.textContent = 'Reproducir';
             console.log("Música detenida.");
         });
 
-        // Event listener for load music button
+        // Listener para el botón de cargar nueva música
         loadMusicBtn.addEventListener('click', async () => {
             const newUrl = musicUrlInput.value.trim();
             if (newUrl) {
                 try {
-                    // Check if the URL is valid and supported
+                    // Verifica si la URL es válida y un tipo de audio soportado
                     const response = await fetch(newUrl, { method: 'HEAD' });
                     if (!response.ok || !response.headers.get('Content-Type').startsWith('audio')) {
                         throw new Error('URL no válida o no es un archivo de audio.');
                     }
 
                     backgroundMusic.src = newUrl;
-                    backgroundMusic.load(); // Load the new source
-                    await fadeInMusic(); // Attempt to play the new music
+                    backgroundMusic.load(); // Carga la nueva fuente de audio
+                    await fadeInMusic(); // Intenta reproducir la nueva música
                     showMessage('Música cargada y reproduciéndose.');
                 } catch (error) {
                     console.error("Error al cargar nueva música:", error);
@@ -2330,27 +2458,41 @@
             }
         });
 
+        // Listener para el toggle de efectos de sonido
+        sfxToggle.addEventListener('change', () => {
+            sfxEnabled = sfxToggle.checked; // Actualiza el estado de los SFX
+            console.log('Efectos de sonido:', sfxEnabled ? 'Activados' : 'Desactivados');
+            if (!sfxEnabled) {
+                stopAllSoundEffects(); // Detiene cualquier SFX activo si se deshabilitan
+            } else {
+                // Si se vuelven a habilitar, asegura que el contexto de Tone.js esté listo para futuros efectos
+                audioContextManager.init();
+            }
+        });
 
+        // Listener para el evento de redimensionamiento de la ventana
         window.addEventListener('resize', () => {
             if (musicControls.classList.contains('open')) {
+                // Ajusta la posición del botón de toggle si el panel está abierto
                 musicToggle.style.right = `${musicControls.offsetWidth + 1.5 * 16}px`;
             }
         });
 
-        // Dark Mode Toggle
+        // Toggle de Modo Oscuro
         modeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             if (document.body.classList.contains('dark-mode')) {
                 modeToggle.textContent = 'Modo Claro';
-                localStorage.setItem('darkMode', 'enabled');
+                localStorage.setItem('darkMode', 'enabled'); // Guarda la preferencia
             } else {
                 modeToggle.textContent = 'Modo Oscuro';
-                localStorage.setItem('darkMode', 'disabled');
+                localStorage.setItem('darkMode', 'disabled'); // Guarda la preferencia
             }
         });
 
-        // Scroll to Top Button functionality
+        // Funcionalidad del botón de Volver Arriba
         window.addEventListener('scroll', () => {
+            // Muestra el botón si el scroll es mayor a 200px
             if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
                 scrollToTopBtn.classList.add('show');
             } else {
@@ -2361,7 +2503,7 @@
         scrollToTopBtn.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth'
+                behavior: 'smooth' // Desplazamiento suave
             });
         });
     </script>
