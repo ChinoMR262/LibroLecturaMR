@@ -592,10 +592,13 @@
     <!-- Audio para música de fondo (sin autoplay inicial). La reproducción se maneja por JavaScript. -->
     <audio id="backgroundMusic" loop>
         <!--
-            IMPORTANTE: Necesitas reemplazar la siguiente URL con un enlace DIRECTO a tu archivo de música (.mp3 o .ogg).
-            Las URLs de servicios como Dropbox o Google Drive a menudo no funcionan directamente aquí.
-            Ejemplo de URL directa (solo para demostración, no uses esta):
+            ***************************************************************************************************
+            IMPORTANTE: Necesitas reemplazar la siguiente URL con un enlace DIRECTO a tu archivo de música.
+            Debe ser un archivo .mp3 o .ogg accesible públicamente.
+            Las URLs de servicios como Dropbox o Google Drive que no son enlaces de descarga directa NO FUNCIONARÁN.
+            Ejemplo de URL directa (solo para demostración, NO USES ESTA EN PRODUCCIÓN sin permiso):
             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            ***************************************************************************************************
         -->
         <source src="https://example.com/your-music-file.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
@@ -1019,7 +1022,7 @@
                             backgroundMusic.volume = backgroundMusicNormalVolume; // Ensure final volume is set
                             isPlaying = true;
                             playPauseBtn.textContent = 'Pausar';
-                            musicStartOverlay.style.display = 'none';
+                            musicStartOverlay.style.display = 'none'; // Hide overlay on successful play
                             console.log("fadeInMusic: Música iniciada por interacción del usuario con fade-in.");
                             resolve();
                         }
@@ -1040,7 +1043,7 @@
                         errorMessage += "Verifica la URL de la música o tu conexión a internet.";
                     }
                     showMessage(errorMessage);
-                    musicStartOverlay.style.display = 'none';
+                    musicStartOverlay.style.display = 'none'; // IMPORTANT: Hide overlay even on error
                     reject(error);
                 }
             });
@@ -2263,7 +2266,8 @@
 
                 } catch (error) {
                     console.error("startMusicButton: Error crítico al iniciar el audio principal:", error);
-                    showMessage(`Error al iniciar el audio principal: ${error.message}.`);
+                    showMessage(`Error al iniciar el audio principal: ${error.message}. Asegúrate de que la URL de la música es un enlace directo a un archivo de audio.`);
+                    musicStartOverlay.style.display = 'none'; // IMPORTANT: Hide overlay even on error
                 }
             });
         });
