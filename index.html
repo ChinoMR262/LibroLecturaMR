@@ -27,7 +27,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 1.5rem; /* Relleno general más adaptable */
-            transition: background-color 0.5s ease, color 0.5s ease; /* Transición suave para el cambio de modo */
+            transition: background-color 1s ease, color 1s ease; /* Transición suave para el cambio de modo y el modo Belcebú */
             scroll-behavior: smooth; /* Habilita el desplazamiento suave en la página */
         }
 
@@ -49,7 +49,7 @@
             position: relative;
             overflow: hidden; /* Para contener los elementos internos y evitar scroll horizontal */
             filter: sepia(0.1) saturate(0.9); /* Filtro sutil para un tono envejecido */
-            transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease, max-width 0.3s ease, width 0.3s ease;
+            transition: background-color 1s ease, color 1s ease, box-shadow 1s ease, filter 1s ease, max-width 0.3s ease, width 0.3s ease;
         }
 
         /* Pseudo-elemento para una textura sutil de fondo en el pergamino */
@@ -174,10 +174,6 @@
         .belcebu-effect {
             animation: belcebuZoomShake 6s ease-in-out forwards, /* Existing animation */
                        pulsating-light 2s infinite alternate; /* New pulsating light */
-            /* Initial box-shadow for pulsating light (suavizado) */
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4), /* Menos intenso */
-                        0 0 30px rgba(255, 0, 0, 0.2), /* Menos intenso */
-                        0 0 45px rgba(255, 0, 0, 0.1); /* Menos intenso */
             filter: brightness(0.9) contrast(1.1); /* Menos contraste y brillo */
         }
 
@@ -188,16 +184,16 @@
                 object-position: center;
             }
             10% { /* Zoom rápido e intenso al inicio */
-                filter: blur(1.5px) contrast(1.07) scale(1.03); /* Ligeramente más blur y contraste */
-                transform: translateX(-3px) translateY(3px) rotate(1.5deg); /* Menos movimiento */
+                filter: blur(2px) contrast(1.1) scale(1.25); /* Más blur, contraste y zoom */
+                transform: translateX(-15px) translateY(15px) rotate(4deg); /* Mayor movimiento */
             }
             20% {
-                filter: blur(2.5px) contrast(1.12) scale(1.06); /* Ligeramente más blur y contraste */
-                transform: translateX(3px) translateY(-3px) rotate(-1.5deg); /* Menos movimiento */
+                filter: blur(3.5px) contrast(1.15) scale(1.35); /* Más blur, contraste y zoom */
+                transform: translateX(15px) translateY(-15px) rotate(-5deg); /* Mayor movimiento */
             }
             30% {
-                filter: blur(1.5px) contrast(1.07) scale(1.03);
-                transform: translateX(-3px) translateY(3px) rotate(1.5deg);
+                filter: blur(2px) contrast(1.1) scale(1.25);
+                transform: translateX(-15px) translateY(15px) rotate(4deg);
             }
             40% { /* Punto de retorno del zoom */
                 filter: blur(0px) contrast(1) scale(1);
@@ -205,16 +201,16 @@
                 object-position: center;
             }
             50% { /* Inicio de la sacudida final */
-                transform: translateX(-2px) translateY(2px) rotate(1deg); /* Menos sacudida */
+                transform: translateX(-12px) translateY(12px) rotate(4deg); /* Mayor sacudida */
             }
             60% {
-                transform: translateX(2px) translateY(-2px) rotate(-1deg);
+                transform: translateX(12px) translateY(-12px) rotate(-4deg);
             }
             70% {
-                transform: translateX(-2px) translateY(2px) rotate(1deg);
+                transform: translateX(-12px) translateY(12px) rotate(4deg);
             }
             80% {
-                transform: translateX(2px) translateY(-2px) rotate(-1deg);
+                transform: translateX(12px) translateY(-12px) rotate(-4deg);
             }
             100% { /* Fin de la sacudida y retorno a la posición original */
                 filter: blur(0px) contrast(1) scale(1);
@@ -223,22 +219,18 @@
             }
         }
 
-        /* Animación de luz palpitante (pulsating-light) - MODIFICADA PARA ENCENDER/APAGAR */
+        /* Animación de luz palpitante (pulsating-light) - MODIFICADA PARA ENCENDER/APAGAR NOTORIAMENTE */
         @keyframes pulsating-light {
             0% {
-                box-shadow: 0 0 5px rgba(255, 0, 0, 0.1), /* Muy tenue, casi apagado */
-                            0 0 10px rgba(255, 0, 0, 0.05),
-                            0 0 15px rgba(255, 0, 0, 0.02);
+                box-shadow: 0 0 0px rgba(255, 0, 0, 0); /* Completamente apagado */
             }
             50% {
-                box-shadow: 0 0 25px rgba(255, 0, 0, 0.8), /* Brillante, encendido */
-                            0 0 50px rgba(255, 0, 0, 0.5),
-                            0 0 75px rgba(255, 0, 0, 0.3);
+                box-shadow: 0 0 60px rgba(255, 0, 0, 1), /* Muy brillante, mayor spread */
+                            0 0 120px rgba(255, 0, 0, 0.7),
+                            0 0 180px rgba(255, 0, 0, 0.5);
             }
             100% {
-                box-shadow: 0 0 5px rgba(255, 0, 0, 0.1), /* Vuelve a tenue, apagado */
-                            0 0 10px rgba(255, 0, 0, 0.05),
-                            0 0 15px rgba(255, 0, 0, 0.02);
+                box-shadow: 0 0 0px rgba(255, 0, 0, 0); /* Vuelve a apagado */
             }
         }
 
@@ -657,6 +649,39 @@
             -ms-transform: translateX(26px);
             transform: translateX(26px);
         }
+
+        /* NUEVO: Estilos para el modo rojizo-oscuro de Belcebú */
+        body.belcebu-mode {
+            background-color: #330000; /* Fondo rojizo oscuro */
+            color: #FFDCDC; /* Texto claro rojizo */
+        }
+
+        body.belcebu-mode .map-sheet-container {
+            background-color: rgba(50, 0, 0, 0.9); /* Fondo de pergamino más oscuro y rojizo */
+            box-shadow:
+                inset 0 0 0 5px rgba(100, 0, 0, 0.5),
+                inset 0 0 0 10px rgba(150, 0, 0, 0.3),
+                0 15px 30px rgba(0, 0, 0, 0.5),
+                0 0 0 15px rgba(100, 0, 0, 0.2);
+            filter: sepia(0.5) saturate(1.5) brightness(0.8); /* Filtro más intenso para el pergamino */
+        }
+
+        body.belcebu-mode .map-sheet-container::before {
+            background-image: radial-gradient(circle at center, rgba(255, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%),
+                              url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noiseFilter)"%3E%3C/rect%3E%3C/svg%3E');
+            opacity: 0.3;
+        }
+
+        body.belcebu-mode h1,
+        body.belcebu-mode h2 {
+            color: #FF4500; /* Naranja-rojo para títulos */
+            text-shadow: 2px 2px 6px rgba(255, 0, 0, 0.5);
+        }
+
+        body.belcebu-mode p:first-of-type::first-letter {
+            color: #DC143C; /* Carmesí para la inicial */
+        }
+
 
         /* Ajustes responsivos para pantallas pequeñas (móviles en vertical) */
         @media (max-width: 768px) {
@@ -1174,13 +1199,16 @@
         const sfxToggle = document.getElementById('sfxToggle'); // Referencia al nuevo toggle de SFX
         const parchmentSizeSlider = document.getElementById('parchmentSizeSlider'); // Nuevo slider para tamaño de pergamino
         const mapSheetContainer = document.getElementById('mapSheetContainer'); // Referencia al contenedor del pergamino
+        const belcebuImage = document.getElementById('image-13'); // Referencia a la imagen de Belcebú
+        const rebirthImage = document.getElementById('image-16'); // Referencia a la imagen de Renacimiento
 
         // Variables de estado
         let isPlaying = false; // Indica si la música de fondo principal está reproduciéndose
         let fadeInterval; // Intervalo para el efecto de fade-in/out
-        let isEffectPlaying = false; // Flag para rastrear si algún efecto de sonido está activo
+        let isEffectPlaying = false; // Flag para rastrear si algún efecto de sonido está activo (no el ambiental de Belcebú)
         let backgroundMusicNormalVolume = 0.5; // Volumen normal de la música de fondo
         let sfxEnabled = sfxToggle.checked; // Estado inicial de los efectos de sonido (basado en el checkbox)
+        let isBelcebuModeActive = false; // Nuevo estado para el modo rojizo-oscuro
 
         let sfxMasterGain; // Master gain node for all sound effects
 
@@ -1278,38 +1306,41 @@
         }
 
         /**
-         * Reduce el volumen de la música de fondo cuando se reproduce un efecto de sonido.
+         * Reduces the volume of the background music.
+         * This is primarily called when a non-eerieAmbient SFX plays.
          */
         function duckBackgroundMusic() {
-            if (!isEffectPlaying) { // Solo reduce el volumen si no hay otro efecto reproduciéndose
+            if (!isBelcebuModeActive) { // Only duck if Belcebú mode is NOT active
                 let currentVolume = backgroundMusic.volume;
                 const duckInterval = setInterval(() => {
-                    if (currentVolume > 0.2) { // Reduce hasta 0.2
+                    if (currentVolume > backgroundMusicNormalVolume * 0.2) { // Reduce to 20% of normal
                         currentVolume -= 0.01;
-                        backgroundMusic.volume = Math.max(currentVolume, 0.2);
+                        backgroundMusic.volume = Math.max(currentVolume, backgroundMusicNormalVolume * 0.2);
                     } else {
                         clearInterval(duckInterval);
                     }
                 }, 50);
             }
-            isEffectPlaying = true;
         }
 
         /**
-         * Restaura el volumen de la música de fondo a su nivel normal.
+         * Restores the volume of the background music to its normal level.
+         * This is primarily called when a non-eerieAmbient SFX stops.
          */
         function restoreBackgroundMusic() {
-            isEffectPlaying = false; // No hay efecto reproduciéndose ahora
-            let currentVolume = backgroundMusic.volume;
-            const restoreInterval = setInterval(() => {
-                if (currentVolume < backgroundMusicNormalVolume) {
-                    currentVolume += 0.01;
-                    backgroundMusic.volume = Math.min(currentVolume, backgroundMusicNormalVolume);
-                } else {
-                    clearInterval(restoreInterval);
-                }
-            }, 50);
+            if (!isBelcebuModeActive) { // Only restore if Belcebú mode is NOT active
+                let currentVolume = backgroundMusic.volume;
+                const restoreInterval = setInterval(() => {
+                    if (currentVolume < backgroundMusicNormalVolume) {
+                        currentVolume += 0.01;
+                        backgroundMusic.volume = Math.min(currentVolume, backgroundMusicNormalVolume);
+                    } else {
+                        clearInterval(restoreInterval);
+                    }
+                }, 50);
+            }
         }
+
 
         // Inicializa el slider de volumen con el volumen actual de la música
         volumeSlider.value = backgroundMusic.volume;
@@ -1344,7 +1375,8 @@
         }
 
         /**
-         * Detiene todos los efectos de sonido actualmente en reproducción y restaura el volumen de la música de fondo.
+         * Detiene todos los efectos de sonido actualmente en reproducción.
+         * NO restaura el volumen de la música de fondo aquí; eso se maneja en el observer.
          */
         function stopAllSoundEffects() {
             activeSounds.forEach(activeType => {
@@ -1354,7 +1386,6 @@
                 }
             });
             activeSounds.clear();
-            restoreBackgroundMusic(); // Asegura que el volumen de la música de fondo se restaure
         }
 
         /**
@@ -1464,12 +1495,10 @@
                     fireNoise.triggerAttackRelease(duration);
                     lowRumble.triggerAttackRelease("C1", duration);
                     fireFader.gain.rampTo(0.18, 2);
-
                     if (sounds.fire._crackleInterval) clearInterval(sounds.fire._crackleInterval);
                     sounds.fire._crackleInterval = setInterval(() => {
                         crackleNoise.triggerAttackRelease("0.08");
                     }, 250 + Math.random() * 500);
-
                     setTimeout(() => {
                         clearInterval(sounds.fire._crackleInterval);
                         sounds.fire._crackleInterval = null;
@@ -1734,7 +1763,7 @@
                 }
             };
 
-            // Sonido Demoniaco/Abismo (para image-13)
+            // Sonido Demoniaco/Abismo (para image-13) - VOLUMEN REDUCIDO
             const demonicFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
             const demonicDistortion = new Tone.Distortion(0.3);
             const demonicCheby = new Tone.Chebyshev(15);
@@ -1785,7 +1814,7 @@
                 triggerAttackRelease: (note, duration) => {
                     demonicSynth.triggerAttackRelease(note, duration);
                     voidDrone.triggerAttackRelease("C0", duration);
-                    demonicFader.gain.rampTo(0.12, 2);
+                    demonicFader.gain.rampTo(0.08, 2); // **Volumen objetivo reducido de 0.12 a 0.08**
                 },
                 stop: () => {
                     demonicFader.gain.rampTo(0.00001, 3);
@@ -1999,61 +2028,104 @@
                 }
             };
 
-            // Sonido Oscuro/Sombrío (para image-12)
-            const darkGloomyFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
+            // Sonido Oscuro/Sombrío (para image-12) - OPTIMIZADO: Menos saturado, más ambiental
+            const darkGloomyFader = createFader(0.00001, sfxMasterGain);
             const darkGloomyReverb = new Tone.Freeverb({
-                roomSize: 0.9,
-                dampening: 5000
+                roomSize: 0.95, // Más grande para un ambiente más vasto
+                dampening: 6000
             }).connect(darkGloomyFader);
 
             const darkGloomySynth = new Tone.MonoSynth({
-                oscillator: { type: "sine" },
+                oscillator: { type: "sawtooth" }, // Sawtooth para un sonido más áspero pero no saturado
                 envelope: {
-                    attack: 5,
-                    decay: 0.1,
-                    sustain: 1,
-                    release: 8
+                    attack: 3,    // Más rápido
+                    decay: 0.5,
+                    sustain: 0.8,
+                    release: 6    // Más corto
                 },
                 filter: {
-                    Q: 6,
+                    Q: 2, // Q más bajo para menos saturación
                     type: "lowpass",
                     rolloff: -24
                 },
                 filterEnvelope: {
-                    attack: 1,
-                    decay: 0.5,
-                    sustain: 0.8,
-                    release: 2,
-                    baseFrequency: 50,
-                    octaves: 1,
+                    attack: 0.8,
+                    decay: 1,
+                    sustain: 0.7,
+                    release: 1.5,
+                    baseFrequency: 40, // Frecuencia base más baja
+                    octaves: 1.5,
                     exponent: 2
                 }
             }).connect(darkGloomyReverb);
+            darkGloomySynth.volume.value = -12; // Volumen base ajustado
 
             const darkGloomyNoise = new Tone.NoiseSynth({
                 noise: { type: "pink" },
                 envelope: {
-                    attack: 2,
-                    decay: 4,
-                    sustain: 0.5,
-                    release: 6
+                    attack: 1,  // Más rápido
+                    decay: 3,   // Más corto
+                    sustain: 0.7,
+                    release: 4
                 }
             }).connect(darkGloomyReverb);
+            darkGloomyNoise.volume.value = -15; // Volumen de ruido ajustado
 
             sounds.darkGloomy = {
                 triggerAttackRelease: (duration) => {
                     darkGloomySynth.triggerAttackRelease("C1", duration);
                     darkGloomyNoise.triggerAttackRelease(duration);
-                    darkGloomyFader.gain.rampTo(0.25, 3);
+                    darkGloomyFader.gain.rampTo(0.18, 2); // Volumen objetivo más bajo para menos saturación
                 },
                 stop: () => {
-                    darkGloomyFader.gain.rampTo(0.00001, 4);
+                    darkGloomyFader.gain.rampTo(0.00001, 3);
                     setTimeout(() => {
                         darkGloomySynth.triggerRelease();
                         darkGloomyNoise.triggerRelease();
-                    }, 4000);
+                    }, 3000);
                 }
             };
+
+            // Sonido Tenebroso Muy Leve (NUEVO: para el modo Belcebú) - VOLUMEN AUMENTADO
+            const eerieAmbientFader = createFader(0.00001, sfxMasterGain);
+            const eerieAmbientReverb = new Tone.Freeverb({
+                roomSize: 0.8,
+                dampening: 3000
+            }).connect(eerieAmbientFader);
+
+            const eerieAmbientSynth = new Tone.FMSynth({
+                harmonicity: 0.1, // Muy baja harmonicidad para un drone
+                modulationIndex: 0.5,
+                oscillator: { type: "triangle" },
+                envelope: {
+                    attack: 5,
+                    decay: 0.1,
+                    sustain: 1,
+                    release: 10
+                },
+                mod: {
+                    oscillator: { type: "sine" }
+                },
+                modEnvelope: {
+                    attack: 5,
+                    decay: 0.1,
+                    sustain: 1,
+                    release: 10
+                }
+            }).connect(eerieAmbientReverb);
+            eerieAmbientSynth.volume.value = -8; // **Volumen aumentado de -10 a -8 para más presencia**
+
+            sounds.eerieAmbient = {
+                triggerAttackRelease: (duration) => {
+                    eerieAmbientSynth.triggerAttackRelease("C1", duration); // Nota baja para el drone
+                    eerieAmbientFader.gain.rampTo(0.3, 5); // **Fade in aumentado de 0.2 a 0.3 para más audibilidad**
+                },
+                stop: () => {
+                    eerieAmbientFader.gain.rampTo(0.00001, 5); // Fade out muy sutil
+                    setTimeout(() => eerieAmbientSynth.triggerRelease(), 5000);
+                }
+            };
+
 
             // Sonido de Piano Melancólico Celestial (Fallback)
             const fallbackPianoFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
@@ -2096,23 +2168,8 @@
 
             // Calentamiento de todos los sonidos después de la inicialización
             // Esto asegura que todos los nodos de audio se creen y estén listos para su uso inmediato.
-            Object.values(sounds).forEach(sound => {
-                if (sound.triggerAttackRelease) {
-                    // Dispara con una duración muy corta y volumen silencioso
-                    if (sound === sounds.celestial || sound === sounds.divineLight || sound === sounds.beautifulLightBeam) {
-                        sound.triggerAttackRelease(["C1"], "0.01s");
-                    } else if (sound === sounds.prison || sound === sounds.demonic || sound === sounds.rage || sound === sounds.impact || sound === sounds.fallbackPiano) {
-                        sound.triggerAttackRelease("C1", "0.01s");
-                    } else if (sound === sounds.fire || sound === sounds.desolationWind || sound === sounds.darkGloomy || sound === sounds.chains || sound === sounds.fallingBodies || sound === sounds.rebirthAndNature) {
-                        sound.triggerAttackRelease("0.01s");
-                    }
-                    // Inmediatamente reduce el fader para asegurar que esté en silencio después del calentamiento
-                    if (sound.stop) {
-                        sound.stop();
-                    }
-                }
-            });
-            console.log("Todos los sonidos de Tone.js calentados silenciosamente.");
+            // Se eliminó el bucle de "calentamiento" activo para evitar el error "cancelAndHoldAtTime: null".
+            // Los faders ya se inicializan a un volumen muy bajo, lo que es suficiente.
         }
 
         // --- Cargador Dinámico de Tone.js con Reintentos ---
@@ -2269,11 +2326,26 @@
                 }
 
                 if (this.isContextRunning) {
-                    // Detiene todos los sonidos activos antes de reproducir uno nuevo
-                    stopAllSoundEffects(); // Usa la función auxiliar
+                    // Detiene todos los sonidos activos antes de reproducir uno nuevo,
+                    // EXCEPTO el sonido ambiental tenebroso si el modo Belcebú está activo.
+                    activeSounds.forEach(activeType => {
+                        if (activeType !== 'eerieAmbient' || !isBelcebuModeActive) { // No detiene eerieAmbient si Belcebú mode está activo
+                            if (sounds[activeType] && sounds[activeType].stop) {
+                                sounds[activeType].stop();
+                            }
+                            activeSounds.delete(activeType);
+                        }
+                    });
 
-                    // Reduce el volumen de la música de fondo
-                    duckBackgroundMusic();
+                    // Si el sonido a reproducir NO es eerieAmbient, entonces haz ducking de la música de fondo
+                    if (soundType !== 'eerieAmbient') {
+                        isEffectPlaying = true; // Mark that a non-eerie SFX is playing
+                        duckBackgroundMusic();
+                    } else {
+                        // If eerieAmbient is playing, ensure isEffectPlaying is false as it's handled by belcebu-mode
+                        isEffectPlaying = false;
+                    }
+
 
                     // Reproduce el sonido
                     console.log(`Reproduciendo sonido: ${soundType}.`);
@@ -2289,8 +2361,8 @@
                             sounds[soundType].triggerAttackRelease("C1", "4s");
                         } else if (soundType === 'rage') {
                             sounds[soundType].triggerAttackRelease("C3", "4s");
-                        } else if (soundType === 'fire' || soundType === 'desolationWind' || soundType === 'darkGloomy') {
-                            sounds[soundType].triggerAttackRelease("5s");
+                        } else if (soundType === 'fire' || soundType === 'desolationWind' || soundType === 'darkGloomy' || soundType === 'eerieAmbient') { // Added eerieAmbient here
+                            sounds[soundType].triggerAttackRelease("10s"); // Longer duration for ambient sounds
                         } else if (soundType === 'chains') {
                             sounds[soundType].triggerAttackRelease("1s");
                         } else if (soundType === 'fallingBodies') {
@@ -2467,79 +2539,134 @@
         }
 
         // Intersection Observer para detectar cuando las imágenes entran o salen del viewport
-        const imageContainers = document.querySelectorAll('.image-container');
         const observerOptions = {
             root: null, // El viewport es el elemento raíz
             rootMargin: '0px',
             threshold: 0.5 // Dispara cuando el 50% del elemento es visible
         };
 
+        let isBelcebuImageIntersecting = false;
+        let isRebirthImageIntersecting = false;
+
         const imageObserver = new IntersectionObserver(async (entries, observer) => {
+            // Primero, actualiza los estados de intersección para las imágenes de Belcebú y Renacimiento
+            for (const entry of entries) {
+                const imageElement = entry.target.querySelector('.chapter-image');
+                if (imageElement) {
+                    if (imageElement.id === 'image-13') { // Imagen de Belcebú
+                        isBelcebuImageIntersecting = entry.isIntersecting;
+                    } else if (imageElement.id === 'image-16') { // Imagen de Renacimiento
+                        isRebirthImageIntersecting = entry.isIntersecting;
+                    }
+                }
+            }
+
+            // --- Lógica del Modo Belcebú (Negro-Rojizo) ---
+            // El modo Belcebú se activa si la imagen de Belcebú está visible Y la imagen de Renacimiento NO está visible.
+            const shouldActivateBelcebuMode = isBelcebuImageIntersecting && !isRebirthImageIntersecting;
+
+            if (shouldActivateBelcebuMode && !isBelcebuModeActive) {
+                // Activar modo Belcebú
+                document.body.classList.add('belcebu-mode');
+                isBelcebuModeActive = true;
+                console.log("Modo Belcebú ACTIVADO.");
+
+                if (sfxEnabled) {
+                    await audioContextManager.playEffect('eerieAmbient', "10s"); // Reproducir sonido ambiental tenebroso
+                    backgroundMusic.volume = backgroundMusicNormalVolume * 0.2; // Bajar volumen de la música de fondo
+                    console.log("eerieAmbient reproduciéndose, música de fondo bajada.");
+                }
+            } else if (!shouldActivateBelcebuMode && isBelcebuModeActive) {
+                // Desactivar modo Belcebú
+                document.body.classList.remove('belcebu-mode');
+                isBelcebuModeActive = false;
+                console.log("Modo Belcebú DESACTIVADO.");
+
+                if (sounds.eerieAmbient && sounds.eerieAmbient.stop) {
+                    sounds.eerieAmbient.stop(); // Detener sonido ambiental tenebroso
+                    console.log("eerieAmbient detenido.");
+                }
+                restoreBackgroundMusic(); // Restaurar música de fondo
+                console.log("Música de fondo restaurada.");
+            }
+
+            // --- Lógica General de SFX y Partículas para todas las imágenes ---
+            let anyNonEerieSFXTriggeredInCycle = false;
+
             for (const entry of entries) {
                 const soundType = entry.target.dataset.soundType;
                 const particlesIds = entry.target.dataset.particlesIds;
                 const imageElement = entry.target.querySelector('.chapter-image');
 
-                // Aplica/elimina el efecto de Belcebú (image-13)
-                if (imageElement && imageElement.id === 'image-13') {
-                    if (entry.isIntersecting) {
-                        imageElement.classList.add('belcebu-effect');
-                    } else {
-                        imageElement.classList.remove('belcebu-effect');
-                    }
-                }
+                if (!imageElement) continue; // Saltar si no hay elemento de imagen
 
-                // Aplica/elimina el zoom in-out para Gabriel (image-9)
-                if (imageElement && imageElement.id === 'image-9') {
-                    if (entry.isIntersecting) {
-                        imageElement.classList.add('zoom-in-out-face');
-                    } else {
-                        imageElement.classList.remove('zoom-in-out-face');
-                    }
-                }
-
-                // Aplica/elimina el efecto de Radicks furioso (image-14)
-                if (imageElement && imageElement.id === 'image-14') {
-                    if (entry.isIntersecting) {
-                        imageElement.classList.add('radicks-shake-effect');
-                    } else {
-                        imageElement.classList.remove('radicks-shake-effect');
-                    }
-                }
-
-                if (soundType) { // Si hay un tipo de sonido definido para el contenedor
-                    if (entry.isIntersecting) {
-                        try {
-                            // Reproduce el sonido usando el AudioContextManager
-                            await audioContextManager.playEffect(soundType);
-
-                            // Inicializa las partículas asociadas
-                            if (particlesIds) {
-                                particlesIds.split(',').forEach(id => {
-                                    initializeParticleSystem(id.trim());
-                                });
-                            }
-                        } catch (error) {
-                            console.error(`Error al reproducir el sonido de ${soundType}:`, error);
-                            showMessage(`Error al reproducir el sonido de ${soundType}.`);
+                if (entry.isIntersecting) {
+                    if (imageElement.id === 'image-13') { // Efectos específicos para la imagen de Belcebú
+                        imageElement.classList.add('belcebu-effect'); // Aplicar animación
+                        if (sfxEnabled && !activeSounds.has('demonic')) { // Reproducir sonido demoníaco solo si no está ya reproduciéndose
+                            await audioContextManager.playEffect('demonic');
+                            anyNonEerieSFXTriggeredInCycle = true;
                         }
-                    } else {
-                        // Si el sonido se activó y ahora está fuera de vista, deténlo con un fade-out.
+                        if (particlesIds) {
+                            particlesIds.split(',').forEach(id => initializeParticleSystem(id.trim()));
+                        }
+                    } else if (imageElement.id === 'image-16') { // Efectos específicos para la imagen de Renacimiento
+                        if (sfxEnabled && !activeSounds.has('rebirthAndNature')) {
+                            await audioContextManager.playEffect('rebirthAndNature');
+                            anyNonEerieSFXTriggeredInCycle = true;
+                        }
+                        if (particlesIds) {
+                            particlesIds.split(',').forEach(id => initializeParticleSystem(id.trim()));
+                        }
+                    } else if (soundType) { // Otras imágenes
+                        if (sfxEnabled && !activeSounds.has(soundType)) {
+                            try {
+                                await audioContextManager.playEffect(soundType);
+                                anyNonEerieSFXTriggeredInCycle = true;
+                            } catch (error) {
+                                console.error(`Error al reproducir el sonido de ${soundType}:`, error);
+                                showMessage(`Error al reproducir el sonido de ${soundType}.`);
+                            }
+                        }
+                        if (particlesIds) {
+                            particlesIds.split(',').forEach(id => initializeParticleSystem(id.trim()));
+                        }
+                    }
+                } else { // El elemento NO está intersectando
+                    if (imageElement.id === 'image-13') {
+                        imageElement.classList.remove('belcebu-effect');
+                        if (activeSounds.has('demonic')) {
+                            if (sounds.demonic && sounds.demonic.stop) {
+                                sounds.demonic.stop();
+                            }
+                            activeSounds.delete('demonic');
+                        }
+                    } else if (imageElement.id === 'image-16') {
+                        if (activeSounds.has('rebirthAndNature')) {
+                            if (sounds.rebirthAndNature && sounds.rebirthAndNature.stop) {
+                                sounds.rebirthAndNature.stop();
+                            }
+                            activeSounds.delete('rebirthAndNature');
+                        }
+                    } else if (soundType) {
                         if (activeSounds.has(soundType)) {
                             console.log(`Deteniendo sonido: ${soundType}.`);
                             if (sounds[soundType] && sounds[soundType].stop) {
                                 sounds[soundType].stop();
                             }
                             activeSounds.delete(soundType);
-
-                            // Si no hay otros efectos activos, restaura el volumen de la música de fondo
-                            if (activeSounds.size === 0) {
-                                restoreBackgroundMusic();
-                            }
                         }
                     }
                 }
             }
+
+            // Después de procesar todas las entradas, si no hay SFX no-eerie activos
+            // y el modo Belcebú NO está activo, entonces asegúrate de que la música de fondo se restaure.
+            // Esto es un respaldo para asegurar que la música se restaure si otros SFX se detienen y el modo Belcebú no la controla.
+            if (!anyNonEerieSFXTriggeredInCycle && activeSounds.size === 0 && !isBelcebuModeActive) {
+                restoreBackgroundMusic();
+            }
+
         }, observerOptions);
 
 
@@ -2563,7 +2690,7 @@
             });
 
             // Observa todos los contenedores de imágenes para activar sonidos y partículas
-            imageContainers.forEach(container => {
+            document.querySelectorAll('.image-container').forEach(container => {
                 imageObserver.observe(container);
             });
 
@@ -2635,9 +2762,19 @@
             console.log('Efectos de sonido:', sfxEnabled ? 'Activados' : 'Desactivados');
             if (!sfxEnabled) {
                 stopAllSoundEffects(); // Detiene cualquier SFX activo si se deshabilitan
+                if (isBelcebuModeActive) { // Si el modo Belcebú está activo, detiene también el sonido ambiental
+                    if (sounds.eerieAmbient && sounds.eerieAmbient.stop) {
+                        sounds.eerieAmbient.stop();
+                    }
+                }
+                restoreBackgroundMusic(); // Siempre restaura la música de fondo si los SFX se desactivan
             } else {
                 // Si se vuelven a habilitar, asegura que el contexto de Tone.js esté listo para futuros efectos
                 audioContextManager.init();
+                if (isBelcebuModeActive) { // Si el modo Belcebú está activo, reinicia el sonido ambiental
+                    audioContextManager.playEffect('eerieAmbient', "10s");
+                    backgroundMusic.volume = backgroundMusicNormalVolume * 0.2; // Aplica ducking si el modo Belcebú ya está activo
+                }
             }
         });
 
