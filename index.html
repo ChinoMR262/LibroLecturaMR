@@ -3,2835 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capítulo 1: El Despertar de Belcebú</title>
-    <!-- Carga de Tailwind CSS -->
+    <title>Seres del Noveno Universo</title>
+    <!-- Carga de Tailwind CSS para un diseño responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <!-- particles.js CDN para animación de partículas -->
+    <!-- Carga de fuentes para el estilo de pergamino y títulos -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Merriweather:wght@400;700&family=Roboto+Slab:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Poppins:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Carga de Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- particles.js CDN para animación de partículas de fondo -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <!-- Tone.js se carga dinámicamente en JavaScript -->
-    <!-- (El script de Tone.js se cargará dinámicamente en el JavaScript principal) -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Old+Standard+TT:ital@0;1&display=swap');
+        /* Estilos base para el pergamino y los modos estacionales */
+        :root {
+            /* Colores por defecto para el modo claro (Primavera) */
+            --bg-parchment: #d4c0a1; /* Tono de pergamino claro */
+            --text-color: #2c2c2c;
+            --link-color: #a0522d; /* Color marrón oscuro para enlaces */
+            --border-color: #8b4513; /* Marrón para bordes */
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --burn-gradient: rgba(139, 69, 19, 0.5); /* Gradiente quemado sutil */
+            /* Textura de pergamino desgastado */
+            --parchment-texture: url('https://www.transparenttextures.com/patterns/paper.png');
+        }
 
-        /* Estilos base para el modo claro (por defecto) */
+        /* Estilos específicos para el Modo Verano */
+        .summer-mode {
+            --bg-parchment: #fde49a; /* Tono de pergamino más brillante */
+            --text-color: #4b3621;
+            --link-color: #d2691e;
+            --border-color: #a0522d;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --burn-gradient: rgba(255, 140, 0, 0.6);
+        }
+
+        /* Estilos específicos para el Modo Otoño */
+        .autumn-mode {
+            --bg-parchment: #c09e6c; /* Tono de pergamino oscuro */
+            --text-color: #f5f5dc;
+            --link-color: #e9967a;
+            --border-color: #8b4513;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --burn-gradient: rgba(139, 0, 0, 0.7);
+        }
+
+        /* Estilos específicos para el Modo Invierno */
+        .winter-mode {
+            --bg-parchment: #e0e0e0; /* Tono de pergamino frío */
+            --text-color: #000033;
+            --link-color: #4682b4;
+            --border-color: #000080;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --burn-gradient: rgba(255, 255, 255, 0.4);
+        }
+
         body {
-            font-family: 'Merriweather', serif; /* Fuente principal para el cuerpo del texto */
-            background-color: #d4c0a1; /* Color base que simula pergamino claro */
-            background-size: cover;
-            background-attachment: fixed;
-            color: #4a3d2d; /* Color de texto que simula tinta antigua */
-            display: flex;
-            flex-direction: column; /* Permite apilamiento vertical */
-            justify-content: flex-start; /* Alinea el contenido al inicio (arriba) */
-            align-items: center;
-            min-height: 100vh;
-            padding: 1.5rem; /* Relleno general más adaptable */
-            transition: background-color 1s ease, color 1s ease; /* Transición suave para el cambio de modo y el modo Belcebú */
-            scroll-behavior: smooth; /* Habilita el desplazamiento suave en la página */
-        }
-
-        /* Contenedor principal del "pergamino" */
-        .map-sheet-container {
-            background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente para el "papel" */
-            /* Mejoras al borde del pergamino para un aspecto más estético */
-            border: none; /* Elimina el borde original */
-            border-radius: 1.5rem; /* Esquinas ligeramente redondeadas */
-            box-shadow:
-                inset 0 0 0 5px rgba(139, 69, 19, 0.3), /* Borde interno sutil */
-                inset 0 0 0 10px rgba(74, 61, 45, 0.2), /* Segundo borde interno */
-                0 15px 30px rgba(0, 0, 0, 0.25), /* Sombra principal para efecto 3D */
-                0 0 0 15px rgba(139, 69, 19, 0.1); /* Sombra exterior que simula un borde */
-            padding: 2.5rem; /* Relleno adaptable para el contenido */
-            max-width: 650px; /* Ancho máximo para un aspecto de pergamino más estrecho */
-            width: 90%; /* Ancho por defecto, ajustable por el usuario */
-            line-height: 1.8; /* Espaciado de línea para mejor lectura */
-            position: relative;
-            overflow: hidden; /* Para contener los elementos internos y evitar scroll horizontal */
-            filter: sepia(0.1) saturate(0.9); /* Filtro sutil para un tono envejecido */
-            transition: background-color 1s ease, color 1s ease, box-shadow 1s ease, filter 1s ease, max-width 0.3s ease, width 0.3s ease;
-        }
-
-        /* Pseudo-elemento para una textura sutil de fondo en el pergamino */
-        .map-sheet-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* Textura de papel sutil usando gradientes o una imagen muy ligera */
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%),
-                              url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noiseFilter)"%3E%3C/rect%3E%3C/svg%3E');
-            background-size: cover;
-            opacity: 0.25; /* Opacidad aumentada para mayor visibilidad, pero aún sutil */
-            pointer-events: none; /* Para que no interfiera con el texto */
-            z-index: 0; /* Asegura que esté detrás del contenido */
-        }
-
-        /* Estilos para el título principal (Capítulo) */
-        h1 {
-            font-family: 'Old Standard TT', serif; /* Fuente para títulos, más clásica */
-            font-size: 3rem; /* Título de capítulo grande */
-            font-weight: 700;
-            color: #5a4b3c; /* Tono más oscuro para el título */
-            text-align: center;
-            margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para el título */
-            position: relative;
-            z-index: 1;
-            transition: color 0.5s ease, text-shadow 0.5s ease;
-        }
-
-        /* Estilos para subtítulos (Secciones) */
-        h2 {
-            font-family: 'Old Standard TT', serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #6d5b4d;
-            margin-top: 2.5rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px dashed #a08a6d; /* Línea discontinua sutil */
-            padding-bottom: 0.5rem;
-            position: relative;
-            z-index: 1;
-            transition: color 0.5s ease, border-color 0.5s ease;
-        }
-
-        /* Estilos para párrafos de texto */
-        p {
-            margin-bottom: 1.5rem;
-            text-align: justify;
-            position: relative;
-            z-index: 1;
-            transition: color 0.5s ease;
-        }
-
-        /* Estilo para la primera letra del primer párrafo (inicial capitular) */
-        p:first-of-type::first-letter {
-            font-family: 'Old Standard TT', serif;
-            font-size: 4em; /* Inicial más grande */
-            line-height: 0.8;
-            float: left;
-            margin-right: 0.1em;
-            color: #8B4513; /* Color de madera/tinta más oscura */
-            font-weight: bold;
-            transition: color 0.5s ease;
-        }
-
-        /* Contenedor de la imagen y las partículas */
-        .image-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px; /* Ajusta según el tamaño deseado de la imagen */
-            margin: 2rem auto; /* Margen vertical para espaciado */
-            overflow: hidden; /* Importante para contener las partículas */
-            min-height: 350px; /* Asegura una altura base para el contenedor */
-            /* Efecto de fondo "quemado" o de viñeta para la imagen */
-            background-image: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0.5) 100%);
-            background-size: cover;
-            background-position: center;
-            border-radius: 1.5rem; /* Coincide con el border-radius del contenedor */
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra interna para el efecto quemado */
-        }
-
-        /* Estilos para las imágenes de los capítulos */
-        .chapter-image {
-            position: absolute; /* Hace que la imagen sea absoluta para no afectar la altura del contenedor */
-            top: 0;
-            left: 0;
-            width: 100%; /* Llena el contenedor */
-            height: 100%; /* Llena el contenedor */
-            object-fit: cover; /* Asegura que la imagen cubra el área sin distorsión */
-            display: block;
-            margin: 0; /* Elimina el margen automático ya que es absoluto */
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.5),
-                -5px -5px 15px rgba(0, 0, 0, 0.3),
-                5px 5px 15px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(0, 0, 0, 0.15); /* Múltiples sombras para profundidad */
-            transform: rotate(1deg); /* Ligera rotación para efecto "papel" */
-            transition: transform 0.4s ease-in-out, box-shadow 0.5s ease; /* Aumenta la duración de la transición */
-            z-index: 1; /* La imagen debe estar por debajo de las partículas */
-        }
-
-        .chapter-image:hover {
-            transform: rotate(-2deg) scale(1.02); /* Movimiento más pronunciado al pasar el ratón */
-        }
-
-        /* Estilos para los divs que particles.js convierte en canvas */
-        .particles-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2; /* Las partículas deben estar por encima de la imagen */
-            pointer-events: none; /* Permite que los clics pasen a los elementos debajo */
-        }
-
-        /* Efecto de zoom, sacudida, borroso y contraste para Belcebú (image-13) */
-        .belcebu-effect {
-            animation: belcebuZoomShake 6s ease-in-out forwards, /* Existing animation */
-                       pulsating-light 2s infinite alternate; /* New pulsating light */
-            filter: brightness(0.9) contrast(1.1); /* Menos contraste y brillo */
-        }
-
-        @keyframes belcebuZoomShake {
-            0% {
-                filter: blur(0px) contrast(1) scale(1);
-                transform: translateX(0) translateY(0) rotate(1deg);
-                object-position: center;
-            }
-            10% { /* Zoom rápido e intenso al inicio */
-                filter: blur(2px) contrast(1.1) scale(1.25); /* Más blur, contraste y zoom */
-                transform: translateX(-15px) translateY(15px) rotate(4deg); /* Mayor movimiento */
-            }
-            20% {
-                filter: blur(3.5px) contrast(1.15) scale(1.35); /* Más blur, contraste y zoom */
-                transform: translateX(15px) translateY(-15px) rotate(-5deg); /* Mayor movimiento */
-            }
-            30% {
-                filter: blur(2px) contrast(1.1) scale(1.25);
-                transform: translateX(-15px) translateY(15px) rotate(4deg);
-            }
-            40% { /* Punto de retorno del zoom */
-                filter: blur(0px) contrast(1) scale(1);
-                transform: translateX(0) translateY(0) rotate(1deg);
-                object-position: center;
-            }
-            50% { /* Inicio de la sacudida final */
-                transform: translateX(-12px) translateY(12px) rotate(4deg); /* Mayor sacudida */
-            }
-            60% {
-                transform: translateX(12px) translateY(-12px) rotate(-4deg);
-            }
-            70% {
-                transform: translateX(-12px) translateY(12px) rotate(4deg);
-            }
-            80% {
-                transform: translateX(12px) translateY(-12px) rotate(-4deg);
-            }
-            100% { /* Fin de la sacudida y retorno a la posición original */
-                filter: blur(0px) contrast(1) scale(1);
-                transform: translateX(0) translateY(0) rotate(1deg);
-                object-position: center;
-            }
-        }
-
-        /* Animación de luz palpitante (pulsating-light) - MODIFICADA PARA ENCENDER/APAGAR NOTORIAMENTE */
-        @keyframes pulsating-light {
-            0% {
-                box-shadow: 0 0 0px rgba(255, 0, 0, 0); /* Completamente apagado */
-            }
-            50% {
-                box-shadow: 0 0 60px rgba(255, 0, 0, 1), /* Muy brillante, mayor spread */
-                            0 0 120px rgba(255, 0, 0, 0.7),
-                            0 0 180px rgba(255, 0, 0, 0.5);
-            }
-            100% {
-                box-shadow: 0 0 0px rgba(255, 0, 0, 0); /* Vuelve a apagado */
-            }
-        }
-
-        /* NUEVO: Efecto de zoom, acercamiento al rostro y alejamiento para Gabriel (image-9) */
-        .zoom-in-out-face {
-            animation: zoomInOutFace 6s ease-in-out forwards; /* Duración más larga para el efecto de zoom */
-        }
-
-        @keyframes zoomInOutFace {
-            0% {
-                transform: scale(1);
-                object-position: center; /* Asegura que el centro de la imagen sea el punto de partida */
-            }
-            25% {
-                transform: scale(1.15); /* Zoom in al rostro */
-                object-position: center; /* Ajusta si el rostro no está en el centro */
-            }
-            75% {
-                transform: scale(1.15); /* Mantiene el zoom */
-                object-position: center;
-            }
-            100% {
-                transform: scale(1); /* Zoom out a la posición original */
-                object-position: center;
-            }
-        }
-
-        /* Efecto de sacudida con inicio y fin para Radicks (image-14) */
-        .radicks-shake-effect {
-            animation: radicksShake 2s ease-out forwards; /* Duración, se mantiene al final */
-        }
-
-        @keyframes radicksShake {
-            0% { transform: translateX(0) translateY(0) rotate(0deg); }
-            25% { transform: translateX(-8px) translateY(8px) rotate(3deg); } /* Sacudida más pronunciada */
-            50% { transform: translateX(8px) translateY(-8px) rotate(-3deg); }
-            75% { transform: translateX(-8px) translateY(8px) rotate(3deg); }
-            100% { transform: translateX(0) translateY(0) rotate(0deg); } /* Vuelve a la posición original */
-        }
-
-        /* Estilos del contenedor de controles de música */
-        .music-control-container {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            /* Estilo similar al pergamino */
-            background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente para el "papel" */
-            border: none; /* Elimina el borde original */
-            border-radius: 1.5rem; /* Esquinas ligeramente redondeadas */
-            box-shadow:
-                inset 0 0 0 5px rgba(139, 69, 19, 0.3), /* Borde interno sutil */
-                inset 0 0 0 10px rgba(74, 61, 45, 0.2), /* Segundo borde interno */
-                0 15px 30px rgba(0, 0, 0, 0.25), /* Sombra principal para efecto 3D */
-                0 0 0 15px rgba(139, 69, 19, 0.1); /* Sombra exterior que simula un borde */
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            z-index: 1000;
-            transition: all 0.3s ease-in-out;
-            transform: translateX(calc(100% + 1.5rem)); /* Oculto por defecto */
-            color: #4a3d2d; /* Color de texto por defecto (modo claro) */
-        }
-
-        /* Pseudo-elemento para una textura sutil de fondo en el control de música */
-        .music-control-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%),
-                              url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noiseFilter)"%3E%3C/rect%3E%3C/svg%3E');
-            background-size: cover;
-            opacity: 0.25;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Estilos para el modo oscuro del control de música */
-        body.dark-mode .music-control-container {
-            background-color: rgba(45, 55, 72, 0.9);
-            box-shadow:
-                inset 0 0 0 5px rgba(74, 61, 45, 0.3),
-                inset 0 0 0 10px rgba(139, 69, 19, 0.2),
-                0 15px 30px rgba(0, 0, 0, 0.5),
-                0 0 0 15px rgba(74, 61, 45, 0.1);
-            color: #e2e8f0; /* Color de texto para modo oscuro */
-        }
-
-        body.dark-mode .music-control-container::before {
-            background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%),
-                              url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noiseFilter)"%3E%3C/rect%3E%3C/svg%3E');
-            opacity: 0.1;
-        }
-
-        /* Estado "abierto" del contenedor de controles de música */
-        .music-control-container.open {
-            transform: translateX(0); /* Visible */
-        }
-
-        /* Botón para abrir/cerrar los controles de música - AHORA SIMILAR AL MODO OSCURO/CLARO */
-        .music-control-toggle {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            background-color: transparent; /* Fondo transparente */
-            color: #4a3d2d; /* Color de texto para modo claro */
-            padding: 0.75rem 1rem;
-            border-radius: 0.75rem;
-            box-shadow: none; /* Sin sombra para que sea más discreto */
-            cursor: pointer;
-            font-weight: bold;
-            z-index: 1001;
-            transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, right 0.3s ease-in-out;
-            border: 1px solid rgba(74, 61, 45, 0.5); /* Borde sutil */
-        }
-
-        .music-control-toggle:hover {
-            background-color: rgba(74, 61, 45, 0.1); /* Ligero hover para feedback */
-            color: #8B4513; /* Color de texto al pasar el ratón */
-        }
-
-        /* Modo Oscuro para el botón de toggle de música */
-        body.dark-mode .music-control-toggle {
-            color: #e2e8f0; /* Color de texto para modo oscuro */
-            border: 1px solid rgba(226, 232, 240, 0.5); /* Borde sutil */
-        }
-
-        body.dark-mode .music-control-toggle:hover {
-            background-color: rgba(226, 232, 240, 0.1); /* Ligero hover para feedback */
-            color: #90cdf4; /* Color de texto al pasar el ratón */
-        }
-
-        /* Estilos para los botones de control de música (Reproducir/Pausar, Detener) */
-        .music-control-buttons button {
-            background-color: #4299e1;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: bold;
-            transition: background-color 0.2s ease-in-out;
-        }
-
-        .music-control-buttons button:hover {
-            background-color: #63b3ed;
-        }
-
-        /* Overlay de inicio de música (pantalla de bienvenida) */
-        .music-start-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 2000;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        /* Título animado en el overlay de inicio */
-        .music-start-overlay h1.animated-title {
-            font-family: 'Old Standard TT', serif;
-            font-size: 3rem; /* Tamaño por defecto */
-            margin-bottom: 1rem;
-            color: white;
-            white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
-            animation: reconstruct-text 6s ease-out forwards; /* Animación de reconstrucción más lenta */
-            opacity: 0; /* Comienza invisible */
-            transform: scale(0.8) translateY(20px); /* Comienza ligeramente más pequeño y desplazado */
-            filter: blur(10px); /* Comienza muy borroso */
-            /* Tamaño de fuente adaptable */
-            font-size: 7vw; /* Se ajusta con el ancho del viewport */
-            max-font-size: 3rem; /* Tamaño máximo */
-        }
-
-        /* Animación de reconstrucción para el título */
-        @keyframes reconstruct-text {
-            0% {
-                opacity: 0;
-                transform: scale(0.8) translateY(20px);
-                filter: blur(10px);
-            }
-            50% { /* Punto medio donde comienza a unirse */
-                opacity: 0.5;
-                transform: scale(1) translateY(0);
-                filter: blur(5px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-                filter: blur(0px);
-            }
-        }
-
-        /* Estilos para el subtítulo en el overlay de inicio */
-        .music-start-overlay h2 {
-            font-family: 'Old Standard TT', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: white;
-            border-bottom: none;
-        }
-
-        /* Estilo para el párrafo en el overlay */
-        .music-start-overlay p {
             font-family: 'Merriweather', serif;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Estilos para el botón de inicio en el overlay */
-        .music-start-overlay button {
-            background-color: #4299e1;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        }
-
-        .music-start-overlay button:hover {
-            background-color: #63b3ed;
-            transform: scale(1.05);
-        }
-
-        /* Cuadro de mensaje para notificaciones y errores */
-        .message-box {
-            position: fixed;
-            bottom: 6rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(255, 0, 0, 0.8);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            z-index: 2000;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            pointer-events: none; /* No bloquea interacciones */
-        }
-
-        .message-box.show {
-            opacity: 1;
-        }
-
-        /* Estilos para el Modo Oscuro */
-        body.dark-mode {
-            background-color: #2d3748; /* Fondo más oscuro */
-            color: #e2e8f0; /* Texto más claro */
-        }
-
-        body.dark-mode .map-sheet-container {
-            background-color: rgba(45, 55, 72, 0.9); /* Fondo semi-transparente más oscuro */
-            box-shadow:
-                inset 0 0 0 5px rgba(74, 61, 45, 0.3),
-                inset 0 0 0 10px rgba(139, 69, 19, 0.2),
-                0 15px 30px rgba(0, 0, 0, 0.5),
-                0 0 0 15px rgba(74, 61, 45, 0.1); /* Sombra exterior que simula un borde */
-        }
-
-        body.dark-mode .map-sheet-container::before {
-            background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%),
-                              url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noiseFilter)"%3E%3C/rect%3E%3C/svg%3E');
-            opacity: 0.1;
-        }
-
-        body.dark-mode h1 {
-            color: #90cdf4; /* Azul más claro para títulos en modo oscuro */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        body.dark-mode h2 {
-            color: #a0aec0; /* Gris más claro para subtítulos en modo oscuro */
-            border-bottom-color: #4a5568; /* Línea discontinua más oscura */
-        }
-
-        body.dark-mode p {
-            color: #e2e8f0;
-        }
-
-        body.dark-mode p:first-of-type::first-letter {
-            color: #b794f4; /* Acento púrpura para la inicial en modo oscuro */
-        }
-
-        body.dark-mode .chapter-image {
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.7),
-                -5px -5px 15px rgba(0, 0, 0, 0.5),
-                5px 5px 15px rgba(0, 0, 0, 0.5),
-                inset 0 0 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Botón de Modo Oscuro/Claro - AHORA TRANSPARENTE */
-        .mode-toggle {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            background-color: transparent; /* Fondo transparente */
-            color: #4a3d2d; /* Color de texto para modo claro */
-            padding: 0.75rem 1rem;
-            border-radius: 0.75rem;
-            box-shadow: none; /* Sin sombra para que sea más discreto */
-            cursor: pointer;
-            font-weight: bold;
-            z-index: 1001;
-            transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-            border: 1px solid rgba(74, 61, 45, 0.5); /* Borde sutil */
-        }
-
-        .mode-toggle:hover {
-            background-color: rgba(74, 61, 45, 0.1); /* Ligero hover para feedback */
-            color: #8B4513; /* Color de texto al pasar el ratón */
-        }
-
-        /* Modo Oscuro para el botón de toggle */
-        body.dark-mode .mode-toggle {
-            color: #e2e8f0; /* Color de texto para modo oscuro */
-            border: 1px solid rgba(226, 232, 240, 0.5); /* Borde sutil */
-        }
-
-        body.dark-mode .mode-toggle:hover {
-            background-color: rgba(226, 232, 240, 0.1); /* Ligero hover para feedback */
-            color: #90cdf4; /* Color de texto al pasar el ratón */
-        }
-
-        /* Botón de Volver Arriba */
-        #scrollToTopBtn {
-            display: none; /* Oculto por defecto */
-            position: fixed;
-            bottom: 8rem; /* Encima de los controles de música */
-            right: 1.5rem;
-            z-index: 999;
-            background-color: #4299e1;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out, opacity 0.3s ease-in-out;
-            opacity: 0;
-        }
-
-        #scrollToTopBtn.show {
-            display: block;
-            opacity: 1;
-        }
-
-        #scrollToTopBtn:hover {
-            background-color: #63b3ed;
-        }
-
-        /* Estilos para el interruptor de toggle de efectos de sonido */
-        .toggle-switch {
+            background-color: #2c2c2c; /* Fondo oscuro por defecto */
+            color: var(--text-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
             position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
         }
 
-        .toggle-switch input {
+        /* Contenedor principal del pergamino con la nueva textura */
+        .parchment-container {
+            position: relative;
+            z-index: 10;
+            max-width: 95%; /* Se ha aumentado el ancho para mejor visualización en pantallas grandes */
+            margin: 2rem auto;
+            padding: 2rem;
+            /* Se añade la textura de papel y se mezcla con el color de fondo */
+            background-image: var(--parchment-texture);
+            background-color: var(--bg-parchment);
+            background-blend-mode: multiply; /* Mezcla la textura con el color */
+            background-repeat: repeat;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 10px 25px var(--shadow-color);
+            border-radius: 1rem;
+            text-align: center;
+        }
+        
+        /* Animación de entrada para los títulos y párrafos */
+        @keyframes title-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes paragraph-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Efecto de estampado mejorado para títulos */
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-color);
             opacity: 0;
-            width: 0;
-            height: 0;
+            animation: title-fade-in 1s ease-out forwards;
+            /* Efecto de estampado más refinado */
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), /* Sombra sutil de la tinta */
+                         0 2px 2px rgba(0, 0, 0, 0.15), /* Sombra más difusa */
+                         -1px -1px 0 rgba(255, 255, 255, 0.1); /* Ligero relieve */
         }
 
-        .slider {
+        h1 {
+            animation-delay: 0.5s;
+        }
+
+        h2 {
+            animation-delay: 1.0s;
+        }
+        
+        .animated-paragraph {
+            opacity: 0;
+            animation: paragraph-fade-in 1s ease-out forwards;
+            animation-delay: 1.5s; /* Retraso después de los títulos */
+        }
+        .animated-paragraph:nth-of-type(2) {
+            animation-delay: 1.7s;
+        }
+        .animated-paragraph:nth-of-type(3) {
+            animation-delay: 1.9s;
+        }
+
+        /* Efecto de estampado más sutil para el texto del cuerpo */
+        p {
+            line-height: 1.6;
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2), /* Sombra de impresión ligera */
+                         -0.5px -0.5px 0.5px rgba(255, 255, 255, 0.1); /* Luz muy sutil */
+        }
+
+        /* Estilo para el efecto de "capitel" o letra capital en el primer párrafo */
+        .dropcap::first-letter {
+            float: left;
+            font-size: 5.5rem; /* Tamaño grande para la primera letra */
+            line-height: 4rem; /* Ajuste para que se alinee con el texto */
+            font-family: 'Playfair Display', serif;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4), -1px -1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Estilo base para todos los botones */
+        .seasonal-btn {
+            @apply px-4 py-2 rounded-full font-bold text-sm shadow-md transition-all transform hover:scale-105;
+            position: relative; /* Necesario para posicionar el pseudo-elemento */
+            display: inline-block; /* Para el correcto funcionamiento del efecto */
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2); /* Sombra de texto sutil */
+        }
+
+        /* Efecto de remarcado con lápiz para los botones de estación */
+        .seasonal-btn::after {
+            content: '';
             position: absolute;
-            cursor: pointer;
-            top: 0;
+            bottom: -5px; /* Pequeña separación del texto */
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc; /* Color por defecto */
-            -webkit-transition: .4s;
-            transition: .4s;
-            border-radius: 34px;
+            width: 0;
+            height: 3px;
+            background-color: currentColor;
+            transition: width 0.5s ease-in-out;
+            border-radius: 9999px;
         }
 
-        .slider:before {
+        /* Al hacer hover, la línea se "dibuja" */
+        .seasonal-btn:hover::after {
+            width: 100%;
+        }
+
+        /* Estilos específicos para los botones */
+        .spring-btn {
+            @apply bg-green-500 text-white hover:bg-green-600;
+            font-family: 'Cormorant Garamond', serif; /* Fuente elegante y clásica */
+            /* Se ajusta el tamaño para que se vea igual que los demás */
+            font-size: 1rem;
+        }
+
+        .summer-btn {
+            @apply bg-yellow-400 text-black hover:bg-yellow-500;
+            font-family: 'Poppins', sans-serif; /* Fuente moderna y fuerte */
+        }
+
+        .autumn-btn {
+            @apply bg-red-700 text-white hover:bg-red-800;
+            font-family: 'Roboto Slab', serif; /* Fuente robusta y sólida */
+        }
+
+        .winter-btn {
+            @apply bg-sky-500 text-white hover:bg-sky-600;
+            font-family: 'Lora', serif; /* Fuente estilizada y tranquila */
+        }
+
+        /* Estilos para el botón de iniciar capítulo, que cambia con la estación */
+        .seasonal-start-btn {
+            @apply relative flex items-center justify-center px-6 py-3 rounded-full font-bold shadow-lg transition-transform transform hover:scale-105;
+        }
+        
+        /* Contenedor del efecto de lápiz para el texto del botón principal */
+        .pencil-effect {
+            position: relative; /* Necesario para el posicionamiento del pseudo-elemento */
+            display: inline-block; /* Para que el pseudo-elemento se posicione correctamente */
+        }
+
+        /* Animación de la flecha al pasar el cursor */
+        .seasonal-start-btn:hover .start-icon {
+            transform: translateX(5px);
+        }
+
+        .start-icon {
+            @apply ml-2 transition-transform duration-300;
+        }
+
+        /* Efecto de remarcado con lápiz */
+        .pencil-effect::after {
+            content: '';
             position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-            border-radius: 50%;
+            bottom: -5px; /* Pequeña separación del texto */
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: currentColor;
+            transition: width 0.5s ease-in-out;
+            border-radius: 9999px;
         }
 
-        input:checked + .slider {
-            background-color: #4CAF50; /* Verde para activo */
+        /* Al hacer hover, la línea se "dibuja" */
+        .seasonal-start-btn:hover .pencil-effect::after {
+            width: 100%;
         }
 
-        input:focus + .slider {
-            box-shadow: 0 0 1px #4CAF50;
+        .spring-mode .seasonal-start-btn {
+            @apply bg-green-700 text-white hover:bg-green-800;
         }
 
-        input:checked + .slider:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
+        .summer-mode .seasonal-start-btn {
+            @apply bg-yellow-600 text-black hover:bg-yellow-700;
         }
 
-        /* NUEVO: Estilos para el modo rojizo-oscuro de Belcebú */
-        body.belcebu-mode {
-            background-color: #330000; /* Fondo rojizo oscuro */
-            color: #FFDCDC; /* Texto claro rojizo */
+        .autumn-mode .seasonal-start-btn {
+            @apply bg-red-900 text-white hover:bg-red-800;
         }
 
-        body.belcebu-mode .map-sheet-container {
-            background-color: rgba(50, 0, 0, 0.9); /* Fondo de pergamino más oscuro y rojizo */
-            box-shadow:
-                inset 0 0 0 5px rgba(100, 0, 0, 0.5),
-                inset 0 0 0 10px rgba(150, 0, 0, 0.3),
-                0 15px 30px rgba(0, 0, 0, 0.5),
-                0 0 0 15px rgba(100, 0, 0, 0.2);
-            filter: sepia(0.5) saturate(1.5) brightness(0.8); /* Filtro más intenso para el pergamino */
+        .winter-mode .seasonal-start-btn {
+            @apply bg-sky-700 text-white hover:bg-sky-800;
         }
 
-        body.belcebu-mode .map-sheet-container::before {
-            background-image: radial-gradient(circle at center, rgba(255, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%),
-                              url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noiseFilter)"%3E%3C/rect%3E%3C/svg%3E');
-            opacity: 0.3;
-        }
-
-        body.belcebu-mode h1,
-        body.belcebu-mode h2 {
-            color: #FF4500; /* Naranja-rojo para títulos */
-            text-shadow: 2px 2px 6px rgba(255, 0, 0, 0.5);
-        }
-
-        body.belcebu-mode p:first-of-type::first-letter {
-            color: #DC143C; /* Carmesí para la inicial */
-        }
-
-
-        /* Ajustes responsivos para pantallas pequeñas (móviles en vertical) */
-        @media (max-width: 768px) {
-            body {
-                padding: 0.5rem;
-            }
-            .map-sheet-container {
-                padding: 1rem;
-                border-width: 4px;
-                border-radius: 1rem;
-                max-width: 95%; /* Asegura que ocupe casi todo el ancho en móviles */
-                width: 95%;
-            }
-            h1 {
-                font-size: 2rem;
-                margin-bottom: 1.5rem;
-            }
-            h2 {
-                font-size: 1.5rem;
-                margin-top: 1.5rem;
-                margin-bottom: 1rem;
-            }
-            p {
-                font-size: 0.95rem;
-                margin-bottom: 1rem;
-            }
-            p:first-of-type::first-letter {
-                font-size: 3em;
-            }
-            .chapter-image {
-                max-width: 100%;
-                margin: 1.5rem auto;
-            }
-            .music-control-container, .music-control-toggle {
-                bottom: 0.75rem;
-                right: 0.75rem;
-                padding: 0.6rem;
-                border-radius: 0.6rem;
-            }
-            .music-control-buttons button {
-                padding: 0.3rem 0.6rem;
-                font-size: 0.8rem;
-            }
-            .music-start-overlay h1.animated-title {
-                font-size: 8vw; /* Ajuste adicional para pantallas muy pequeñas */
-                max-font-size: 2.5rem;
-            }
-            .music-start-overlay h2 {
-                font-size: 1.8rem;
-            }
-            .music-start-overlay button {
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
-            }
-            .mode-toggle {
-                top: 0.75rem;
-                right: 0.75rem;
-                padding: 0.6rem 0.8rem;
-                font-size: 0.9rem;
-            }
-            #scrollToTopBtn {
-                bottom: 6rem;
-                right: 0.75rem;
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-        }
-
-        /* Ajustes responsivos para tabletas (horizontal y vertical) */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            body {
-                padding: 1rem;
-            }
-            .map-sheet-container {
-                padding: 1.5rem;
-                border-width: 6px;
-                max-width: 750px;
-            }
-            h1 {
-                font-size: 2.8rem;
-            }
-            h2 {
-                font-size: 2rem;
-            }
-            p {
-                font-size: 1rem;
-            }
-            .music-control-container, .music-control-toggle {
-                bottom: 1rem;
-                right: 1rem;
-            }
-            #scrollToTopBtn {
-                bottom: 8rem;
-                right: 1rem;
-            }
-            .music-start-overlay h1.animated-title {
-                font-size: 5vw; /* Ajuste para tabletas */
-                max-font-size: 3rem;
-            }
+        /* Estilo para el botón de volver arriba */
+        #back-to-top {
+            @apply fixed bottom-4 right-4 bg-gray-800 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-110 hidden;
         }
     </style>
 </head>
 <body>
-    <!-- SVG para definir el clip-path de papel rasgado (ya no se usa para el marco de la imagen) -->
-    <svg width="0" height="0" style="position: absolute; z-index: -1;">
-        <defs>
-            <clipPath id="torn-edge-mask" clipPathUnits="objectBoundingBox">
-                <!-- Este path crea una forma irregular que simula papel rasgado -->
-                <path d="M0.03,0.06 C0.01,0.02,0.01,0.01,0.03,0 C0.06,0,0.09,0.01,0.12,0.02 C0.15,0.03,0.18,0.04,0.21,0.05 C0.24,0.06,0.27,0.07,0.3,0.07 C0.33,0.07,0.36,0.06,0.39,0.05 C0.42,0.04,0.45,0.03,0.48,0.02 C0.51,0.01,0.54,0,0.57,0 C0.6,0,0.63,0.01,0.66,0.02 C0.69,0.03,0.72,0.04,0.75,0.05 C0.78,0.06,0.81,0.07,0.84,0.07 C0.87,0.07,0.9,0.06,0.93,0.05 C0.96,0.04,0.99,0.03,1,0.02 L1,0.98 C0.99,0.97,0.96,0.96,0.93,0.95 C0.9,0.94,0.87,0.93,0.84,0.93 C0.81,0.93,0.78,0.94,0.75,0.95 C0.72,0.96,0.69,0.97,0.66,0.98 C0.63,0.99,0.6,1,0.57,1 C0.54,1,0.51,0.99,0.48,0.98 C0.45,0.97,0.42,0.96,0.39,0.95 C0.36,0.94,0.33,0.93,0.3,0.93 C0.27,0.93,0.24,0.94,0.21,0.95 C0.18,0.96,0.15,0.97,0.12,0.98 C0.09,0.99,0.06,1,0.03,1 C0.01,0.99,0.01,0.98,0,0.94 L0,0.06 Z"/>
-            </clipPath>
-        </defs>
-    </svg>
+    <!-- particles.js container -->
+    <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0"></div>
 
-    <!-- Overlay para iniciar la música. Este overlay cubre la página hasta que el usuario hace clic en el botón. -->
-    <div id="musicStartOverlay" class="music-start-overlay">
-        <h1 id="animatedTitle" class="animated-title">Seres Del Noveno Universo</h1>
-        <h2>Bienvenido a la historia</h2>
-        <p>Haz clic para iniciar la experiencia con música de fondo.</p>
-        <button id="startMusicButton">Iniciar Música</button>
+    <!-- Contenedor principal del pergamino -->
+    <div id="parchment-container" class="parchment-container">
+        <header class="mb-10">
+            <!-- Título principal con tamaño responsivo -->
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Seres del Noveno Universo</h1>
+            <!-- Subtítulo con tamaño responsivo -->
+            <h2 class="text-2xl md:text-3xl italic">El Despertar de Belcebú</h2>
+            <!-- Panel de control de estaciones en el encabezado -->
+            <div class="flex flex-col md:flex-row justify-center items-center mt-6 space-y-2 md:space-y-0 md:space-x-4">
+                <button id="spring-mode" class="seasonal-btn spring-btn">
+                    <i class="fas fa-seedling"></i> Primavera
+                </button>
+                <button id="summer-mode" class="seasonal-btn summer-btn">
+                    <i class="fas fa-sun"></i> Verano
+                </button>
+                <button id="autumn-mode" class="seasonal-btn autumn-btn">
+                    <i class="fas fa-leaf"></i> Otoño
+                </button>
+                <button id="winter-mode" class="seasonal-btn winter-btn">
+                    <i class="fas fa-snowflake"></i> Invierno
+                </button>
+            </div>
+        </header>
+
+        <main class="text-xl leading-relaxed">
+            <!-- Primer párrafo con el efecto de letra capital (dropcap) -->
+            <p class="animated-paragraph text-justify mb-6 dropcap">
+                En las profundidades del cosmos, más allá de los límites de la comprensión humana, existían nueve universos entrelazados por una energía primordial. Cada universo era un reino de maravillas y terrores, con sus propias leyes y sus propios guardianes. El noveno universo, sin embargo, permanecía inexplorado, un vacío inmutable envuelto en el misterio.
+            </p>
+            <p class="animated-paragraph text-justify mb-6" style="animation-delay: 1.7s;">
+                Durante eones, el Noveno Universo durmió, su existencia era un mero susurro en las leyendas de los otros ocho. Pero algo está a punto de cambiar. Un ser primigenio, Belcebú, ha comenzado a despertar, perturbando el delicado equilibrio de la existencia.
+            </p>
+            <p class="animated-paragraph text-justify mb-6" style="animation-delay: 1.9s;">
+                Los guardianes de los otros universos, temerosos de la fuerza que emerge, observan con recelo. El destino de todo lo que existe se encuentra en una encrucijada, y tú, el lector, estás a punto de ser arrastrado a este épico conflicto.
+            </p>
+        </main>
+
+        <div class="mt-12">
+            <a href="chapter1.html" class="seasonal-start-btn">
+                <span class="pencil-effect">Iniciar el Capítulo</span>
+                <i class="fas fa-arrow-right start-icon"></i>
+            </a>
+            <p class="text-xs mt-2 italic text-center opacity-75">
+                Se iniciará el capítulo con música al entrar
+            </p>
+        </div>
+        
+        <footer class="mt-12 text-center text-sm">
+            <p>Derechos de propiedad intelectual &copy; ChinoOficial. Esta versión no define la historia y versión final del libro/manga, ya que el trabajo oficial aún está en desarrollo.</p>
+        </footer>
     </div>
 
-    <!-- Audio para música de fondo (sin autoplay inicial). La reproducción se maneja por JavaScript. -->
-    <audio id="backgroundMusic" loop>
-        <!--
-            ***************************************************************************************************
-            IMPORTANTE: La URL de Dropbox proporcionada (https://www.dropbox.com/scl/fi/6s7r3iac985hiupxqo14p/Whispers-of-Serenity.mp3?rlkey=b6i2i7jv9gnoznam90vyj302v&st=4ols37no&dl=1)
-            NO es un enlace directo a un archivo de audio. Los navegadores suelen bloquear la reproducción
-            automática o la carga de audio desde URLs que no apuntan directamente al archivo.
-            Para que funcione correctamente, necesitas un enlace directo a un archivo .mp3 o .ogg.
-            He dejado un ejemplo de URL directa funcional para demostración.
-            ***************************************************************************************************
-        -->
-        <source src="https://www.dropbox.com/scl/fi/6s7r3iac985hiupxqo14p/Whispers-of-Serenity.mp3?rlkey=b6i2i7jv9gnoznam90vyj302v&st=4ols37no&dl=1" type="audio/mpeg">
-        <!-- Fallback en HTML si la URL principal no funciona (aunque JS maneja un fallback más robusto) -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
+    <!-- Botón de volver arriba -->
+    <button id="back-to-top" title="Volver Arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-    <!-- Botón flotante para abrir/cerrar el panel de control de música -->
-    <div id="musicToggle" class="music-control-toggle">
-        Control de Música
-    </div>
-
-    <!-- Panel de control de música flotante -->
-    <div id="musicControls" class="music-control-container">
-        <div class="music-control-buttons">
-            <button id="playPauseBtn">Pausar</button>
-            <button id="stopBtn">Detener</button>
-        </div>
-        <!-- Nuevo control de volumen -->
-        <div class="flex items-center gap-2">
-            <label for="volumeSlider" class="text-sm">Volumen Música:</label>
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" class="flex-grow">
-        </div>
-        <!-- Nuevo control de volumen para efectos de sonido -->
-        <div class="flex items-center gap-2">
-            <label for="sfxVolumeSlider" class="text-sm">Volumen SFX:</label>
-            <input type="range" id="sfxVolumeSlider" min="0" max="1" step="0.01" value="1" class="flex-grow">
-        </div>
-        <!-- Toggle para efectos de sonido -->
-        <div class="flex items-center gap-2">
-            <label for="sfxToggle" class="text-sm">Efectos de Sonido:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="sfxToggle" checked>
-                <span class="slider"></span>
-            </label>
-        </div>
-        <!-- NUEVO: Control de tamaño del pergamino -->
-        <div class="flex items-center gap-2">
-            <label for="parchmentSizeSlider" class="text-sm">Tamaño Pergamino:</label>
-            <input type="range" id="parchmentSizeSlider" min="50" max="100" value="90" class="flex-grow">
-        </div>
-    </div>
-
-    <!-- Cuadro de mensaje para errores de audio -->
-    <div id="messageBox" class="message-box"></div>
-
-    <!-- Botón de modo oscuro/claro -->
-    <button id="modeToggle" class="mode-toggle">Modo Oscuro</button>
-
-    <div id="mapSheetContainer" class="map-sheet-container">
-        <!-- Texto de derechos de autor y disclaimer -->
-        <div class="text-center text-xs text-gray-600 dark:text-gray-400 mb-4">
-            <p>Derechos de propiedad intelectual © ChinoOficial. Esta versión no define la historia y versión final del libro/manga, ya que el trabajo oficial aún está en desarrollo.</p>
-        </div>
-
-        <h1>Capítulo 1: SERES DEL NOVENO UNIVERSO</h1>
-
-        <h2>Prólogo – Año 25033 d.C. / Siul, Universo 9</h2>
-        <p>
-            El Mandato del Serafín Legendario
-        </p>
-        <p>
-            En los planos más elevados de la existencia, donde las estrellas eran meros puntos de luz en una inmensidad etérea, David, alguna vez conocido como "Factum Supremo", había descendido de su gloria. Su poder, antaño ilimitado, se había reducido a la mitad tras su titánica batalla contra Metatrón, un desafío directo al mismísimo Dios del Todo, todo por salvar el multiverso de la aniquilación. Ahora, como el "Serafín Legendario", su papel trascendía el de un mero guerrero celestial; se había convertido en un mentor, un guía para aquellos elegidos por el Creador. David mantenía una conexión íntima con el Altísimo, una comunión silenciosa pero constante que le revelaba los designios divinos y le confiaba misiones cruciales para mantener el frágil equilibrio universal.
-        </p>
-
-        <!-- Image of Celestial planes and stars with particle animation -->
-        <div class="image-container" data-sound-type="celestial" data-particles-ids="particles-js-1">
-            <img id="image-1" class="chapter-image" alt="Planos celestiales y estrellas" src="https://iili.io/F4j0O8l.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/A0B2C8/FFFFFF?text=Error+al+cargar+imagen+1'; console.error('Error al cargar Imagen 1.png');" loading="lazy">
-            <!-- Contenedor para las partículas -->
-            <div id="particles-js-1" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            Una noche, en el silencio abrumador del éter celestial, David sintió la presencia del Creador. No fue una voz audible, sino una inundación de su ser, una calidez que no consumía pero iluminaba cada fibra de su existencia, como un fuego cósmico que vibraba en su alma. El aire mismo pareció densificarse con la santidad.
-        </p>
-        <p>
-            —David, Serafín de mi voluntad —resonó una voz que era a la vez un susurro y un trueno en su mente, una voz que contenía la sabiduría de eones—. El momento ha llegado para que guíes a los elegidos. Siul clama por justicia, y la oscuridad que lo consume debe ser erradicada. Ve a Gabriel, quien aún no conoce la totalidad de mi plan, y comunícale su papel. Max y Radicks necesitan ser liberados; ellos serán la clave para restaurar el orden.
-        </p>
-        <p>
-            David inclinó su rostro en señal de reverencia, el peso de la responsabilidad cayendo sobre sus hombros, una carga que aceptaba con humildad.
-        </p>
-
-        <p>
-            —Padre, haré como lo ordenas. Les mostraré el camino y les enseñaré a través de mí. —Su propia voz, aunque celestial, contenía una pizca de la duda que a veces lo asaltaba—. Pero dime, ¿qué propósito hay detrás de sus pruebas? ¿Por qué permitirles soportar tanto dolor?
-        </p>
-        <p>
-            La voz del Creador resonó de nuevo, esta vez con una mezcla de solemnidad y una ternura infinita que calmó el alma de David.
-        </p>
-        <p>
-            —El fuego purifica, y el dolor moldea. Max y Radicks han sido forjados en las llamas de la adversidad, porque solo aquellos que han conocido la profundidad del quebranto pueden ser instrumentos de verdadera redención. Su sufrimiento no es en vano; es el crisol donde su verdadera fuerza se manifestará.
-        </p>
-
-        <!-- Image of Figures being forged in ethereal flames with fire particle animation -->
-        <div class="image-container" data-sound-type="fire" data-particles-ids="particles-js-3">
-            <img id="image-3" class="chapter-image" alt="Figuras siendo forjadas en llamas etéreas" src="https://iili.io/F4wnGx2.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/D2B48C/4A3D2D?text=Error+al+cargar+imagen+3'; console.error('Error al cargar Imagen 3: https://iili.io/F4wnGx2.png');" loading="lazy">
-            <!-- Contenedor para las partículas de fuego -->
-            <div id="particles-js-3" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            David sintió el peso de esas palabras, comprendiendo que el plan divino era mucho más vasto de lo que su mente podía abarcar. Aun consciente de la magnitud de su rol, se dirigió al plano celestial donde Gabriel, el dios del planeta Siul, mantenía una vigilia constante sobre su reino caído. La imagen de Siul, un mundo antaño vibrante y colosal, ahora cubierto por las sombras, le dolía profundamente.
-        </p>
-
-        <h2>El encuentro con Gabriel</h2>
-        <p>
-            Durante siglos, el planeta Siul, el mundo más grande conocido en todos los universos, había sido un campo de batalla desolado. Sus paisajes, antaño vastas selvas de árboles dorados que cantaban con el viento y cordilleras que tocaban el cielo, estaban ahora marcados por cicatrices de fuego y desolación. El aire olía a ceniza y a una tristeza ancestral, un lamento perpetuo que se alzaba desde las ruinas. El equilibrio entre la luz y la oscuridad había sido destruido por el poder de Belcebú, un querubín caído que, en su ansia de poder, había desafiado las leyes del Creador y traído un caos incomprensible a la creación. Las tierras de Siul, antaño sagradas, se encontraban sumidas en la ruina, y el clamor de los inocentes resonaba en los planos celestiales, un eco constante de su sufrimiento. Incluso Kairon, el planeta gemelo que orbitaba tan cerca que parecía rozar el horizonte siulciano, sentía la alteración, desatando tormentas de energía en su atmósfera, un reflejo de la agonía de Siul.
-        </p>
-
-        <!-- Image of Devastated planet Siul and nearby Kairon with smoke particle animation -->
-        <div class="image-container" data-sound-type="desolationWind" data-particles-ids="particles-js-4">
-            <img id="image-4" class="chapter-image" alt="Planeta Siul devastado y Kairon cercano" src="https://iili.io/F4wnMVS.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/8B0000/FFFFFF?text=Error+al+cargar+imagen+4'; console.error('Error al cargar Imagen 4: https://iili.io/F4wnMVS.png');" loading="lazy">
-            <!-- Contenedor para las partículas de humo -->
-            <div id="particles-js-4" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            En un templo sagrado, suspendido en los cielos de Siul, con pilares fracturados y vitrales rotos que apenas filtraban la luz moribunda del planeta, Gabriel, el dios del planeta, se encontraba en oración profunda. Sus rodillas estaban gastadas por eones de súplicas, su rostro marcado por la angustia. Suplicaba al Altísimo una solución, una señal, cualquier cosa que pudiera aliviar el tormento de su mundo. Fue entonces cuando el cielo mismo pareció abrirse sobre el templo, inundando el salón con una luz divina tan pura y cegadora que eclipsó todo a su alrededor, haciendo que el polvo danzara en sus haces. Un zumbido vibrante llenó el aire, como mil arpas celestiales tocando al unísono. De repente, un viento divino, suave pero poderoso, atravesó la estancia, y una figura majestuosa apareció ante él. David, con su armadura celestial resplandeciendo con un brillo incandescente que parecía forjado en el corazón de una estrella, se presentó.
-        </p>
-
-        <!-- Image of Sacred temple in ruins with divine light and David appearing -->
-        <div class="image-container" data-sound-type="divineLight" data-particles-ids="particles-js-5,particles-js-6">
-            <img id="image-5" class="chapter-image" alt="Templo sagrado en ruinas con luz divina y David apareciendo" src="https://iili.io/F4wnlRf.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/B8860B/FFFFFF?text=Error+al+cargar+imagen+5'; console.error('Error al cargar Imagen 5: https://iili.io/F4wnlRf.png');" loading="lazy">
-            <!-- Contenedor para las partículas de luz -->
-            <div id="particles-js-5" class="particles-canvas"></div>
-            <!-- Contenedor para el destello de lente -->
-            <div id="particles-js-6" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            —Gabriel, he venido por mandato del Creador —dijo David, su voz firme pero cargada de una empatía que resonó en el alma de Gabriel.
-        </p>
-        <p>
-            Gabriel lo miró con asombro, sus ojos, acostumbrados a la penumbra, parpadeando ante la intensidad de David. Aunque conocía la historia de la caída y redención de David, jamás había presenció su grandeza como el Serafín Legendario de esta manera tan directa. Una mezcla de reverencia y esperanza le invadió.
-        </p>
-        <p>
-            —David, portador de la voluntad divina, dime, ¿qué orden trae el Altísimo? —preguntó Gabriel, su voz apenas un susurro.
-        </p>
-        <p>
-            David se acercó, sus pasos ligeros sobre el suelo de mármol. Colocó una mano sobre el hombro de Gabriel, un toque que transmitió una fuerza inmensa y una comprensión tácita.
-        </p>
-        <p>
-            —El Creador me ha hablado. Es momento de que liberes a los elegidos, Max y Radicks. Ellos han sido moldeados por Su mano para enfrentar la oscuridad que azota este mundo. Su sacrificio será grande, pero su propósito lo justifica.
-        </p>
-        <p>
-            Gabriel frunció el ceño, su rostro reflejando una profunda duda y una pizca de resentimiento. ¿Por qué otros, cuando él había luchado incansablemente?
-        </p>
-        <p>
-            —¿Por qué ellos, David? —cuestionó, su voz teñida de amargura—. ¿Por qué no yo, quien juré proteger este mundo con cada fibra de mi ser? ¿Acaso mi fe no ha sido suficiente?
-        </p>
-        <p>
-            David esbozó una sonrisa comprensiva, una expresión que suavizó la intensidad de su presencia.
-        </p>
-        <p>
-            —El Creador elige a los más aptos, no siempre a los más fuertes. Max y Radicks no solo lucharán con sus manos, sino con sus corazones, con una dualidad que tú no posees. Y tú, Gabriel, tienes otro papel importante, uno crucial: ser el puente entre el cielo y ellos, el faro que los guiará. Su victoria también será la tuya, pues la habrás hecho posible.
-        </p>
-        <p>
-            Gabriel asintió lentamente, la verdad de las palabras de David calando hondo. El resentimiento se disipó, reemplazado por una renovada determinación. Comprendió que su papel no era menor, sino diferente, igualmente vital.
-        </p>
-        <p>
-            —Entonces, guíame, David. Muéstrame cómo debo cumplir con esta tarea. —Su voz ahora era firme, llena de una nueva convicción.
-        </p>
-        <p>
-            David irradió una luz que transformó la estancia en un reflejo del cielo, con destellos iridiscentes que danzaban en el aire.
-        </p>
-
-        <!-- Image of Gabriel observing David with light beam effect and particles -->
-        <div class="image-container" data-sound-type="beautifulLightBeam" data-particles-ids="particles-js-7,particles-js-8">
-            <img id="image-6" class="chapter-image" alt="Gabriel observando a David con rayo de luz" src="https://iili.io/F4OiQuj.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/ADD8E6/FFFFFF?text=Gabriel+Observa+David'; console.error('Error al cargar Imagen 6');" loading="lazy">
-            <!-- Contenedor para el rayo de luz -->
-            <div id="particles-js-7" class="particles-canvas"></div>
-            <!-- Contenedor para partículas generales -->
-            <div id="particles-js-8" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            —Comienza liberándolos de las cadenas que los atan, tanto las físicas como las internas. Después, llévalos al trono de Belcebú, pero no los abandones hasta que hayan comprendido su verdadero poder. Y cuando la hora de la batalla llegue, recuerda que tu fe será su escudo, y tu esperanza, su espada.
-        </p>
-
-        <h2>El Serafín Legendario como mentor</h2>
-        <p>
-            Gabriel, renovado en su misión y con el corazón lleno de una nueva esperanza, se preparó para descender a las mazmorras más profundas del planeta Siul, un lugar donde la luz apenas se atrevía a entrar, donde los elegidos aguardaban su destino.
-        </p>
-        <p>
-            Pero no estaba solo. David, como un mentor designado por el Creador, decidió acompañarlos en espíritu. Su presencia no era física, sino una resonancia en el alma, una guía silenciosa que se manifestaría a los elegidos en los momentos de mayor necesidad, tejiendo su sabiduría en el tejido mismo de su viaje.
-        </p>
-
-        <h2>La prisión de los elegidos</h2>
-        <p>
-            Encerrados en una prisión oculta al mundo, un laberinto de piedra fría y humedad perpetua, Max y Radicks vivían encadenados, víctimas de su propia naturaleza dual. El aire era denso, cargado con el olor a moho y desesperación. Max, mitad humano y mitad divino, meditaba silenciosamente en un rincón, su postura serena a pesar de las cadenas que le oprimían los tobillos. Buscaba fortaleza en su conexión espiritual, intentando silenciar el clamor de su parte humana, que anhelaba la libertad. Por otro lado, Radicks, cuya sangre también albergaba misteriosos vestigios de lo celestial, dejaba que su ira contra el mundo se desbordara en gruñidos bajos y golpes ocasionales contra las paredes de la celda, el sonido sordo de sus puños contra la piedra resonando en la oscuridad.
-        </p>
-
-        <!-- Image of Max meditating chained in the darkness of the prison with dust and light rays -->
-        <div class="image-container" data-sound-type="prison" data-particles-ids="particles-js-9,particles-js-10">
-            <img id="image-7" class="chapter-image" alt="Max meditando encadenado en la oscuridad de la prisión" src="https://iili.io/F4j0Q9V.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/4B0082/FFFFFF?text=Max+En+Prision'; console.error('Error al cargar Imagen 7');" loading="lazy">
-            <!-- Contenedor para partículas de polvo -->
-            <div id="particles-js-9" class="particles-canvas"></div>
-            <!-- Contenedor para rayos de luz -->
-            <div id="particles-js-10" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            —Estamos atrapados aquí mientras el mundo se consume en las llamas de Belcebú —gruñó Radicks, golpeando las paredes de la celda con frustración, el eco de sus golpes una manifestación de su rabia—. ¿De qué sirve todo esto?
-        </p>
-
-        <!-- Image of Radicks hitting the cell wall in anger -->
-        <div class="image-container" data-sound-type="impact" data-particles-ids="particles-js-12">
-            <img id="image-8" class="chapter-image" alt="Radicks golpeando la pared de la celda con ira" src="https://iili.io/F4j0ZAB.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/8B0000/FFFFFF?text=Radicks+Enfurecido'; console.error('Error al cargar Imagen 8');" loading="lazy">
-            <!-- Contenedor para efectos de polvo y partículas para Radicks enfurecido -->
-            <div id="particles-js-12" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            —A veces, la oscuridad solo es el preludio de la luz —respondió Max, su voz tranquila como un estanque en calma, mientras sus ojos se perdían en las sombras que los rodeaban, buscando un significado más allá de su confinamiento. Su mente, sin embargo, no estaba exenta de dudas; la inmovilidad era una tortura para su espíritu guerrero.
-        </p>
-        <p>
-            Esa misma noche, cuando la desesperación parecía más densa, una luz divina, suave al principio y luego cegadora, iluminó su celda. El aire frío de la prisión se calentó, y el olor a moho fue reemplazado por una fragancia a incienso y pureza. Una figura celestial emergió de la luz: Gabriel, el Dios de Siul, portador de la voluntad del Creador. Su presencia majestuosa y etérea, irradiaba una luz que parecía limpiar incluso las piedras corroídas por el tiempo, haciendo que las sombras retrocedieran.
-        </p>
-
-        <!-- Image of Gabriel with golden wings appearing in the cell -->
-        <div class="image-container" data-sound-type="divineLight" data-particles-ids="particles-js-feathers">
-            <img id="image-9" class="chapter-image zoom-in-out-face" alt="Gabriel con alas doradas apareciendo en la celda" src="https://iili.io/F4bimap.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/FFD700/000000?text=Gabriel+Divino'; console.error('Error al cargar Imagen 9');" loading="lazy">
-            <!-- Contenedor para las partículas de plumas -->
-            <div id="particles-js-feathers" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            —Max, Radicks, escuchen mis palabras —dijo Gabriel, su voz resonando como el eco de un coro celestial, llenando la celda con una melodía de esperanza—. El Creador me ha ordenado liberarlos. Son los elegidos, destinados a enfrentar al Querubín caído y devolver la paz a Siul.
-        </p>
-        <p>
-            Radicks lo miró incrédulo, sus ojos entrecerrados, una mezcla de desconfianza y una chispa de esperanza luchando en su interior. ¿Después de tanto tiempo, la libertad? ¿Y con un propósito tan grande? Max, por su parte, cayó de rodillas en señal de reverencia, su corazón inundado por la magnitud de la revelación.
-        </p>
-        <p>
-            —¿Por qué nosotros? —preguntó Max, su voz temblando por la abrumadora responsabilidad que sentía, por el peso de un destino que parecía demasiado grande para ellos.
-        </p>
-        <p>
-            Gabriel extendió su mano y, con un gesto sutil, las cadenas que los ataban se desintegraron en polvo brillante, cayendo al suelo con un suave tintineo.
-        </p>
-
-        <!-- Image of Chains disintegrating into sparkling dust -->
-        <div class="image-container" data-sound-type="chains" data-particles-ids="particles-js-chains-effect">
-            <img id="image-10" class="chapter-image" alt="Cadenas desintegrándose en polvo brillante" src="https://iili.io/F4bsKPf.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/C0C0C0/000000?text=Cadenas+Rotas'; console.error('Error al cargar Imagen 10');" loading="lazy">
-            <!-- Contenedor para las partículas de efecto de cadenas -->
-            <div id="particles-js-chains-effect" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            —Porque son los únicos que pueden soportar esta carga. El Creador ve en ustedes un equilibrio único, una fuerza capaz de derrotar incluso a un querubín como Belcebú. —En ese instante, una figura etérea y luminosa apareció junto a Gabriel, la forma de David, no como un guerrero distante, sino como un guía que entendía su lucha interna, sus miedos y sus dudas. Su presencia era reconfortante, un ancla en el torbellino de emociones.
-        </p>
-        <p>
-            —Max, Radicks, son más que guerreros —resonó la voz de David en sus mentes, una voz que era a la vez antigua y familiar—. Son la esperanza encarnada para un mundo que agoniza. Yo fui como ustedes una vez, quebrado pero elegido. Aprenderán a dominar sus fuerzas, pero primero deben aprender a confiar el uno en el otro, a fusionar sus diferencias en una sola voluntad.
-        </p>
-        <p>
-            Durante su viaje hacia el Abismo de las Sombras, bajo la guía espiritual de David, cada paso se convirtió en una lección. David les enseñó lecciones esenciales, no solo a través de palabras, sino a través de visiones y sensaciones que se grababan en sus almas:
-        </p>
-        <p>
-            A Max, le mostró cómo canalizar su divinidad sin perder su humanidad, haciéndole entender que su mitad mortal no era una debilidad, sino su mayor fortaleza, el ancla que lo conectaba con la compasión y la resistencia. Le enseñó a sentir el pulso de la creación en sus venas, a tejer la luz divina con la esencia terrenal.
-        </p>
-        <p>
-            A Radicks, le enseñó a dominar su ira, a sentirla, reconocerla, pero no dejar que lo consumiera. Le mostró cómo usarla como una herramienta, una fuerza controlada y dirigida, en lugar de un arma descontrolada que lo destruiría desde dentro. Le hizo ver que la furia podía ser un motor, no un amo.
-        </p>
-        <p>
-            En las noches más oscuras, cuando el miedo y las dudas los acechaban, cuando las sombras de su pasado se cernían sobre ellos, David se manifestaba en sus sueños, susurrando palabras de aliento, recordándoles que la fe era el arma más poderosa que poseían, una luz interna que ninguna oscuridad podía apagar. Les mostró visiones de su futuro, de la victoria, pero también del costo.
-        </p>
-        <p>
-            En sus manos, con un brillo etéreo que se materializó del aire mismo, Gabriel materializó dos reliquias ancestrales: la Espada del Amanecer, una hoja bañada en la luz del primer día de la creación, su filo resplandeciendo con una promesa de victoria, y el Escudo del Alba, una barrera impenetrable que parecía contener las estrellas mismas, sus grabados antiguos pulsando con energía.
-        </p>
-
-        <!-- Image of Sword of Dawn and Shield of Dawn materializing -->
-        <div class="image-container" data-sound-type="celestial" data-particles-ids="particles-js-sword,particles-js-shield">
-            <img id="image-11" class="chapter-image" alt="Espada del Amanecer y Escudo del Alba materializándose" src="https://iili.io/F4bibFR.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/FF8C00/FFFFFF?text=Reliquias+Divinas'; console.error('Error al cargar Imagen 11');" loading="lazy">
-            <!-- Contenedor para partículas de espada -->
-            <div id="particles-js-sword" class="particles-canvas"></div>
-            <!-- Contenedor para partículas de escudo -->
-            <div id="particles-js-shield" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            —Estas reliquias los guiarán, pero recuerden: su fuerza no está solo en ellas, sino en su fe y unidad. Son extensiones de su voluntad, no la fuente de su poder.
-        </p>
-        <p>
-            Radicks tomó la espada con una determinación férrea, sintiendo el peso equilibrado de la hoja en su mano, una extensión natural de su espíritu combativo. Max aceptó el escudo con reverencia, su superficie fría y lisa, pero vibrante con una energía protectora.
-        </p>
-
-        <h2>El camino hacia el abismo de las sombras</h2>
-        <p>
-            Guiados por la luz constante de Gabriel, que se manifestaba como un orbe brillante flotando delante de ellos, Max y Radicks emprendieron un viaje hacia el Abismo de las Sombras, el último bastión de Belcebú. El camino era arduo, a través de paisajes desolados que atestiguaban la brutalidad de la guerra. Pasaron por aldeas devastadas, donde el silencio era tan pesado como las ruinas. El olor a ceniza y a muerte flotaba en el aire, mezclado con el tenue aroma de la desesperación. Los pocos sobrevivientes, con rostros demacrados y ojos vacíos, clamaban por ayuda, sus voces roncas y quebradas. Cada paso era un recordatorio lacerante del precio que Siul había pagado por el caos desatado. Los bosques de árboles dorados, que en tiempos de paz cantaban con el viento, ahora se alzaban como esqueletos carbonizados, y los ríos de luz se habían convertido en cauces secos y polvorientos.
-        </p>
-
-        <!-- Image of Desolate and devastated landscape of Siul with ash and smoke animation -->
-        <div class="image-container" data-sound-type="darkGloomy" data-particles-ids="particles-js-13">
-            <img id="image-12" class="chapter-image" alt="Paisaje desolado y devastado de Siul" src="https://iili.io/F4j08w7.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/808080/FFFFFF?text=Error+al+cargar+imagen+12'; console.error('Error al cargar Imagen 12: https://iili.io/F4j08w7.png');" loading="lazy">
-            <!-- Contenedor para ceniza y humo -->
-            <div id="particles-js-13" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            Max dedicaba sus noches a la oración, arrodillado bajo el cielo estrellado de Siul, pidiendo al Creador fuerza y guía, no solo para la batalla, sino para soportar el dolor que veía a su alrededor. El viento susurraba sus plegarias entre los árboles carbonizados, llevando consigo el lamento de un mundo herido.
-        </p>
-        <p>
-            —¿Crees que realmente podremos vencerlo? —preguntó Radicks una noche, su tono cargado de dudas, mientras observaba las llamas distantes de algún fuego de campamento enemigo. La inmensidad de Belcebú pesaba sobre ellos, una opresión palpable que se sentía incluso en el aire denso de Siul.
-        </p>
-        <p>
-            —No se trata de vencer, sino de cumplir con el propósito que nos fue dado —respondió Max, con una serenidad que a Radicks a veces le resultaba desconcertante, casi inhumana. Max sabía que la victoria no siempre era la aniquilación, sino la restauración del equilibrio, la sanación de un mundo que había perdido su armonía.
-        </p>
-
-        <h2>El Enfrentamiento Final</h2>
-        <p>
-            David ya había preparado sus corazones y mentes para el desafío final. Su voz, ahora una presencia constante en sus pensamientos, resonaba con su última lección en el umbral de la batalla:
-        </p>
-        <p>
-            —Recuerden, no son solo soldados; son la voluntad del Creador en acción. Esta batalla no es solo contra Belcebú, sino contra la oscuridad que habita en cada uno de nosotros. Deben de ser valientes, pues su luz es más grande que cualquier sombra. No teman al fracaso, sino a no intentarlo.
-        </p>
-        <p>
-            El Abismo de las Sombras se alzaba ante ellos, una garganta cavernosa que exhalaba un frío gélido y un olor a azufre y podredumbre. El aire vibraba con una energía maligna, pesada y opresiva, que se aferraba a sus pulmones. Al llegar al trono de Belcebú, fueron recibidos por una escena de puro horror: el Querubín caído, una figura grotesca de inmensa estatura, con sus alas ennegrecidas y desgarradas, su corona de huesos afilados brillando con una luz macabra. Sus ojos, dos brasas ardientes en la penumbra, los observaban con una sonrisa cruel que revelaba dientes afilados como dagas, prometiendo un tormento sin fin.
-        </p>
-
-        <!-- Image of Beelzebub on his throne in the Abyss of Shadows -->
-        <div class="image-container" data-sound-type="demonic" data-particles-ids="particles-js-fire-smoke">
-            <img id="image-13" class="chapter-image belcebu-effect" alt="Belcebú en su trono en el Abismo de las Sombras" src="https://iili.io/F4bit6v.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/000000/FF0000?text=Belcebu+En+Trono'; console.error('Error al cargar Imagen 13');" loading="lazy">
-            <!-- Contenedor para partículas de fuego y humo -->
-            <div id="particles-js-fire-smoke" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            La batalla que siguió fue como el choque de estrellas, una sinfonía de destrucción y poder que hacía temblar los cimientos mismos de Siul. El metal de la Espada del Amanecer chocaba contra las garras de Belcebú con un estruendo ensordecedor, mientras el Escudo del Alba repelía sus ataques con destellos cegadores. Max y Radicks, armados con las reliquias divinas, lucharon con todo lo que tenían, sus movimientos fluidos y coordinados, un baile mortal de luz y sombra. Sin embargo, Belcebú, un ser alimentado por siglos de oscuridad y poder, los superaba en fuerza y resistencia, su risa resonando con cada golpe que asestaba, una carcajada que helaba la sangre. El suelo temblaba bajo sus pies, las rocas se desprendían del techo con estruendo y el aire se llenaba con el olor a electricidad y a la desesperación de la batalla, un hedor metálico y acre.
-        </p>
-        <p>
-            Uno a uno, sus aliados cayeron. Mia y Luna, guerreras de Rango Virtudes, que habían luchado con valentía inquebrantable junto a ellos, ofrecieron sus vidas por la causa, sus luces desvaneciéndose en la oscuridad del abismo con un último suspiro. Sus sacrificios, aunque dolorosos, encendieron una nueva furia en Radicks, una que David había intentado contener. La lucha alcanzó un nuevo nivel cuando Radicks, en un acceso de furia descontrolada, liberó la ira que David había logrado sellar en él. Su cuerpo se rodeó de un aura oscura y su fuerza se multiplicó, pero sus ataques eran salvajes, sin dirección, un torbellino de destrucción sin control.
-        </p>
-
-        <!-- Image of Radicks surrounded by a dark aura in full fury -->
-        <div class="image-container" data-sound-type="rage" data-particles-ids="particles-js-14">
-            <img id="image-14" class="chapter-image radicks-shake-effect" alt="Radicks rodeado de un aura oscura en plena furia" src="https://iili.io/F4bs3ns.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/4B0082/FF0000?text=Radicks+Furia'; console.error('Error al cargar Imagen 14');" loading="lazy">
-            <!-- Contenedor para partículas de ira/furia -->
-            <div id="particles-js-14" class="particles-canvas"></div>
-        </div>
-
-        <p>
-            En el último instante, cuando todo parecía perdido, cuando la desesperación amenazaba con consumirlos, Max, con una última chispa de fe y la guía silenciosa de David en su mente, dio el golpe decisivo con la Espada del Amanecer. La hoja, imbuida con la luz purificadora del primer día de la creación, atravesó la oscuridad que Belcebú representaba, sellando su poder y desintegrándolo en una explosión de energía que iluminó el abismo por un instante. Pero el costo fue inmenso, pues la fuerza liberada fue tal que Max y Radicks, gravemente heridos y al borde de la aniquilación, cayeron, muriendo en el proceso. Sus cuerpos quedaron inertes en el suelo, rodeados por el silencio ensordecedor de la victoria, un silencio que solo el eco de su sacrificio llenaba.
-        </p>
-
-        <!-- Image of Max and Radicks fallen after victory -->
-        <div class="image-container" data-sound-type="fallingBodies">
-            <img id="image-15" class="chapter-image" alt="Max y Radicks caídos tras la victoria" src="https://placehold.co/600x350/800000/FFFFFF?text=Sacrificio+Guerreros" onerror="this.onerror=null;this.src='https://placehold.co/600x350/800000/FFFFFF?text=Sacrificio+Guerreros'; console.error('Error al cargar Imagen 15');" loading="lazy">
-        </div>
-
-        <h2>Renacimiento</h2>
-        <p>
-            La luz de la victoria, brillante y cegadora, envolvió el universo, no con un estallido violento, sino con una expansión suave y purificadora que se extendió por cada rincón. Los cielos de Siul, antes grises y opresivos, se despejaron, revelando un azul profundo y un sol radiante que bañaba las tierras con energía divina. Las cicatrices de la guerra comenzaron a sanar, los bosques carbonizados brotaban con un nuevo verdor dorado y los ríos de luz volvían a fluir con luminiscencia natural. Una nueva esperanza floreció en el aire, un aroma a renacimiento y paz. Gabriel, desde su trono celestial, observaba en silencio, sus ojos llenos de una mezcla de tristeza por el sacrificio de sus elegidos y una profunda comprensión. Sabía que ese no era el final, sino el comienzo de una nueva era, un ciclo de redención que apenas comenzaba a desplegarse en el vasto tapiz del multiverso, un eco de la armonía restaurada entre Siul y Kairon.
-        </p>
-
-        <!-- Image of Siul reborn, full of light and life -->
-        <div class="image-container" data-sound-type="rebirthAndNature" data-particles-ids="particles-js-rebirth">
-            <img id="image-16" class="chapter-image" alt="Siul renaciendo, lleno de luz y vida" src="https://iili.io/F4bsqF4.png" onerror="this.onerror=null;this.src='https://placehold.co/600x350/008000/FFFFFF?text=Siul+Renacimiento'; console.error('Error al cargar Imagen 16');" loading="lazy">
-            <!-- Contenedor para partículas de renacimiento -->
-            <div id="particles-js-rebirth" class="particles-canvas"></div>
-        </div>
-
-    </div>
-
-    <!-- Contenedor para partículas globales de esquina a esquina -->
-    <div id="particles-js-11" class="particles-canvas"></div>
-
-    <!-- Botón de Volver Arriba -->
-    <button id="scrollToTopBtn" title="Volver arriba">↑</button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <script>
-        // Referencias a elementos del DOM
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const musicToggle = document.getElementById('musicToggle');
-        const musicControls = document.getElementById('musicControls');
-        const musicStartOverlay = document.getElementById('musicStartOverlay');
-        const startMusicButton = document.getElementById('startMusicButton');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const sfxVolumeSlider = document.getElementById('sfxVolumeSlider'); // Nuevo slider de volumen para SFX
-        const messageBox = document.getElementById('messageBox');
-        const modeToggle = document.getElementById('modeToggle');
-        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-        const animatedTitle = document.getElementById('animatedTitle');
-        const sfxToggle = document.getElementById('sfxToggle'); // Referencia al nuevo toggle de SFX
-        const parchmentSizeSlider = document.getElementById('parchmentSizeSlider'); // Nuevo slider para tamaño de pergamino
-        const mapSheetContainer = document.getElementById('mapSheetContainer'); // Referencia al contenedor del pergamino
-        const belcebuImage = document.getElementById('image-13'); // Referencia a la imagen de Belcebú
-        const rebirthImage = document.getElementById('image-16'); // Referencia a la imagen de Renacimiento
-
-        // Variables de estado
-        let isPlaying = false; // Indica si la música de fondo principal está reproduciéndose
-        let fadeInterval; // Intervalo para el efecto de fade-in/out
-        let isEffectPlaying = false; // Flag para rastrear si algún efecto de sonido está activo (no el ambiental de Belcebú)
-        let backgroundMusicNormalVolume = 0.5; // Volumen normal de la música de fondo
-        let sfxEnabled = sfxToggle.checked; // Estado inicial de los efectos de sonido (basado en el checkbox)
-        let isBelcebuModeActive = false; // Nuevo estado para el modo rojizo-oscuro
-
-        let sfxMasterGain; // Master gain node for all sound effects
-
-        /**
-         * Muestra un mensaje temporal en el cuadro de mensajes.
-         * @param {string} message - El texto del mensaje a mostrar.
-         * @param {number} duration - Duración en milisegundos que el mensaje estará visible.
-         */
-        function showMessage(message, duration = 3000) {
-            messageBox.textContent = message;
-            messageBox.classList.add('show');
-            setTimeout(() => {
-                messageBox.classList.remove('show');
-            }, duration);
-        }
-
-        /**
-         * Inicia la reproducción de la música de fondo con un efecto de fade-in.
-         * Oculta el overlay de inicio y desplaza la página hacia arriba al finalizar.
-         * Incluye lógica de reintento para la carga de la música principal y un fallback de piano.
-         * @returns {Promise<void>} Una promesa que se resuelve cuando la música comienza a reproducirse o se rechaza en caso de error.
-         */
-        function fadeInMusic() {
-            return new Promise(async (resolve, reject) => {
-                console.log("fadeInMusic: Iniciando fade-in de música de fondo.");
-                backgroundMusic.volume = 0; // Inicia el volumen en 0
-                const maxAttempts = 2; // Número de intentos para cargar la música principal
-                let currentAttempt = 0;
-
-                // Establece explícitamente la fuente a la URL de Dropbox del usuario
-                backgroundMusic.src = "https://www.dropbox.com/scl/fi/6s7r3iac985hiupxqo14p/Whispers-of-Serenity.mp3?rlkey=b6i2i7jv9gnoznam90vyj302v&st=4ols37no&dl=1";
-                backgroundMusic.load(); // Dispara la carga inmediatamente
-
-                while (currentAttempt < maxAttempts) {
-                    try {
-                        // Espera a que el audio esté listo para reproducirse
-                        await new Promise((res, rej) => {
-                            const canPlayHandler = () => {
-                                console.log(`fadeInMusic: Evento 'canplaythrough' recibido en intento ${currentAttempt + 1}.`);
-                                backgroundMusic.removeEventListener('error', errorHandler);
-                                res();
-                            };
-                            const errorHandler = (e) => {
-                                console.error(`fadeInMusic: Error en el evento 'canplaythrough' o durante la carga en intento ${currentAttempt + 1}:`, e);
-                                backgroundMusic.removeEventListener('canplaythrough', canPlayHandler);
-                                rej(new Error(`Error de carga de audio en intento ${currentAttempt + 1}: ${e.message || e.type}`));
-                            };
-                            backgroundMusic.addEventListener('canplaythrough', canPlayHandler, { once: true });
-                            backgroundMusic.addEventListener('error', errorHandler, { once: true });
-                        });
-
-                        console.log(`fadeInMusic: Intentando backgroundMusic.play() en intento ${currentAttempt + 1}...`);
-                        const playPromise = backgroundMusic.play();
-                        if (playPromise !== undefined) {
-                            await playPromise;
-                            console.log(`fadeInMusic: backgroundMusic.play() exitoso en intento ${currentAttempt + 1}.`);
-                        }
-
-                        let volume = 0;
-                        fadeInterval = setInterval(() => {
-                            if (volume < backgroundMusicNormalVolume) {
-                                volume += 0.01;
-                                backgroundMusic.volume = Math.min(volume, backgroundMusicNormalVolume);
-                            } else {
-                                clearInterval(fadeInterval);
-                                backgroundMusic.volume = backgroundMusicNormalVolume;
-                                isPlaying = true;
-                                playPauseBtn.textContent = 'Pausar';
-                                musicStartOverlay.style.display = 'none';
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
-                                console.log("fadeInMusic: Música iniciada por interacción del usuario con fade-in.");
-                                resolve();
-                            }
-                        }, 100);
-                        return; // Sale del bucle y de la función si tiene éxito
-                    } catch (error) {
-                        console.error(`fadeInMusic: Error al intentar reproducir la música de fondo en intento ${currentAttempt + 1}:`, error);
-                        currentAttempt++;
-                        if (currentAttempt < maxAttempts) {
-                            showMessage(`Fallo al cargar la música principal. Reintentando... (Intento ${currentAttempt + 1}/${maxAttempts})`, 2000);
-                            await new Promise(res => setTimeout(res, 1000)); // Pequeño retraso antes de reintentar
-                        } else {
-                            // Todos los intentos fallaron, reproduce la música de fallback
-                            showMessage("No se pudo cargar la música principal. Iniciando música ambiental de piano.", 5000);
-                            console.log("fadeInMusic: Todos los intentos fallidos. Iniciando música de piano de fallback.");
-                            playFallbackMusic(); // Llama a la función de fallback
-                            musicStartOverlay.style.display = 'none'; // Oculta el overlay incluso si hay un error
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                            resolve(); // Resuelve la promesa incluso si se reproduce el fallback
-                            return;
-                        }
-                    }
-                }
-            });
-        }
-
-        /**
-         * Reduces the volume of the background music.
-         * This is primarily called when a non-eerieAmbient SFX plays.
-         */
-        function duckBackgroundMusic() {
-            if (!isBelcebuModeActive) { // Only duck if Belcebú mode is NOT active
-                let currentVolume = backgroundMusic.volume;
-                const duckInterval = setInterval(() => {
-                    if (currentVolume > backgroundMusicNormalVolume * 0.2) { // Reduce to 20% of normal
-                        currentVolume -= 0.01;
-                        backgroundMusic.volume = Math.max(currentVolume, backgroundMusicNormalVolume * 0.2);
-                    } else {
-                        clearInterval(duckInterval);
-                    }
-                }, 50);
-            }
-        }
-
-        /**
-         * Restores the volume of the background music to its normal level.
-         * This is primarily called when a non-eerieAmbient SFX stops.
-         */
-        function restoreBackgroundMusic() {
-            if (!isBelcebuModeActive) { // Only restore if Belcebú mode is NOT active
-                let currentVolume = backgroundMusic.volume;
-                const restoreInterval = setInterval(() => {
-                    if (currentVolume < backgroundMusicNormalVolume) {
-                        currentVolume += 0.01;
-                        backgroundMusic.volume = Math.min(currentVolume, backgroundMusicNormalVolume);
-                    } else {
-                        clearInterval(restoreInterval);
-                    }
-                }, 50);
-            }
-        }
-
-
-        // Inicializa el slider de volumen con el volumen actual de la música
-        volumeSlider.value = backgroundMusic.volume;
-
-        // Listener para el slider de volumen de la música de fondo
-        volumeSlider.addEventListener('input', () => {
-            backgroundMusic.volume = volumeSlider.value;
-            backgroundMusicNormalVolume = volumeSlider.value; // Actualiza el volumen normal
-        });
-
-        // Listener para el slider de volumen de los efectos de sonido
-        sfxVolumeSlider.addEventListener('input', () => {
-            if (sfxMasterGain) {
-                sfxMasterGain.gain.value = sfxVolumeSlider.value;
-            }
-        });
-
-        // Objeto para almacenar los sintetizadores de Tone.js para los efectos de sonido
-        let sounds = {};
-        // Set para rastrear los efectos de sonido actualmente activos
-        let activeSounds = new Set();
-
-        /**
-         * Creates a gain node (fader) for controlling the volume of a sound.
-         * @param {number} initialVolume - Initial volume of the fader.
-         * @param {Tone.AudioNode} [destination=Tone.Destination] - The Tone.js node to connect to.
-         * @returns {Tone.Gain} The Tone.js gain node.
-         */
-        function createFader(initialVolume, destination = Tone.Destination) {
-            const fader = new Tone.Gain(initialVolume).connect(destination);
-            return fader;
-        }
-
-        /**
-         * Detiene todos los efectos de sonido actualmente en reproducción.
-         * NO restaura el volumen de la música de fondo aquí; eso se maneja en el observer.
-         */
-        function stopAllSoundEffects() {
-            activeSounds.forEach(activeType => {
-                if (sounds[activeType] && sounds[activeType].stop) {
-                    sounds[activeType].stop();
-                    console.log(`Stopped ${activeType} sound.`);
-                }
-            });
-            activeSounds.clear();
-        }
-
-        /**
-         * Inicializa todos los sintetizadores y efectos de Tone.js.
-         * Esta función se llama una vez que el AudioContext está activo.
-         */
-        function initializeSounds() {
-            // Initialize master SFX gain first
-            sfxMasterGain = new Tone.Gain(sfxVolumeSlider.value).toDestination(); // Connects to the main audio output
-
-            // Sonido de Luz Celestial/Divina (para image-1, image-10, image-11)
-            const celestialFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const celestialReverb = new Tone.Freeverb({
-                roomSize: 0.99,
-                dampening: 8000
-            }).connect(celestialFader);
-
-            const celestialChorus = new Tone.Chorus(5, 5, 0.3).connect(celestialReverb);
-            const celestialSynth = new Tone.PolySynth(Tone.DuoSynth, {
-                harmonicity: 1.001,
-                voice0: {
-                    oscillator: { type: "sine" },
-                    envelope: {
-                        attack: 10,
-                        decay: 5,
-                        sustain: 0.8,
-                        release: 15
-                    }
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const seasonalButtons = document.querySelectorAll('.seasonal-btn');
+            const seasonalModes = ['spring', 'summer', 'autumn', 'winter'];
+            const backToTopButton = document.getElementById('back-to-top');
+            const parchmentContainer = document.getElementById('parchment-container');
+            const particlesContainerId = 'particles-js';
+            const burnGradients = {
+                'spring': 'rgba(139, 69, 19, 0.5)',
+                'summer': 'rgba(255, 140, 0, 0.6)',
+                'autumn': 'rgba(139, 0, 0, 0.7)',
+                'winter': 'rgba(255, 255, 255, 0.4)'
+            };
+            const particlesConfig = {
+                'spring': {
+                    particles: { "number": { "value": 80 }, "color": { "value": "#a0522d" }, "shape": { "type": "circle" }, "line_linked": { "color": "#a0522d" }, "move": { "speed": 6 } },
+                    interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "repulse" } } }
                 },
-                voice1: {
-                    oscillator: { type: "triangle" },
-                    envelope: {
-                        attack: 9,
-                        decay: 4,
-                        sustain: 0.7,
-                        release: 14
-                    }
-                }
-            }).connect(celestialChorus);
-            celestialSynth.volume.value = -8; // Volumen base aumentado
-
-            sounds.celestial = {
-                triggerAttackRelease: (notes, duration) => {
-                    celestialSynth.triggerAttackRelease(notes, duration);
-                    celestialFader.gain.rampTo(0.08, 5); // Volumen objetivo de fade-in aumentado
+                'summer': {
+                    // Partículas de verano en color amarillo vibrante
+                    particles: { "number": { "value": 100 }, "color": { "value": "#ffcc00" }, "shape": { "type": "circle" }, "line_linked": { "color": "#ffcc00" }, "move": { "speed": 8 } },
+                    interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "repulse" } } }
                 },
-                stop: () => {
-                    celestialFader.gain.rampTo(0.00001, 3);
-                    setTimeout(() => celestialSynth.triggerRelease(), 3000);
+                'autumn': {
+                    particles: { "number": { "value": 60 }, "color": { "value": "#e9967a" }, "shape": { "type": "edge" }, "line_linked": { "color": "#e9967a" }, "move": { "speed": 4 } },
+                    interactivity: { events: { onhover: { mode: "grab" }, onclick: { mode: "push" } } }
+                },
+                'winter': {
+                    particles: { "number": { "value": 120 }, "color": { "value": "#4682b4" }, "shape": { "type": "star" }, "line_linked": { "color": "#4682b4" }, "move": { "speed": 3 } },
+                    interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "push" } } }
                 }
             };
-
-            // Sonido de Fuego/Destrucción (para image-3)
-            const fireFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const fireReverb = new Tone.Freeverb({
-                roomSize: 0.8,
-                dampening: 4000
-            });
-            const fireAutoFilter = new Tone.AutoFilter({
-                frequency: 0.5,
-                depth: 0.7,
-                baseFrequency: 200,
-                octaves: 2,
-                type: "sine"
-            }).start();
-
-            const fireNoise = new Tone.NoiseSynth({
-                noise: { type: "brown" },
-                envelope: {
-                    attack: 0.5,
-                    decay: 2,
-                    sustain: 0.7,
-                    release: 3.5
+            
+            function updateParticles(mode) {
+                if (window.pJSDom && window.pJSDom.length > 0) {
+                    window.pJSDom[0].pJS.fn.vendors.destroypJS();
+                    window.pJSDom = [];
                 }
-            });
-
-            const crackleNoise = new Tone.NoiseSynth({
-                noise: { type: "white" },
-                envelope: {
-                    attack: 0.01,
-                    decay: 0.2,
-                    sustain: 0.1,
-                    release: 0.5,
-                    attackCurve: "exponential"
-                }
-            });
-
-            const lowRumble = new Tone.Synth({
-                oscillator: { type: "sine" },
-                envelope: {
-                    attack: 1,
-                    decay: 3,
-                    sustain: 0.9,
-                    release: 5
-                }
-            });
-            lowRumble.frequency.value = 40;
-
-            fireNoise.chain(fireAutoFilter, fireReverb, fireFader);
-            crackleNoise.connect(fireReverb);
-            lowRumble.connect(fireReverb);
-
-            sounds.fire = {
-                _crackleInterval: null,
-                _rumbleInterval: null,
-                triggerAttackRelease: (duration) => {
-                    fireNoise.triggerAttackRelease(duration);
-                    lowRumble.triggerAttackRelease("C1", duration);
-                    fireFader.gain.rampTo(0.18, 2);
-                    if (sounds.fire._crackleInterval) clearInterval(sounds.fire._crackleInterval);
-                    sounds.fire._crackleInterval = setInterval(() => {
-                        crackleNoise.triggerAttackRelease("0.08");
-                    }, 250 + Math.random() * 500);
-                    setTimeout(() => {
-                        clearInterval(sounds.fire._crackleInterval);
-                        sounds.fire._crackleInterval = null;
-                        lowRumble.triggerRelease();
-                    }, Tone.Time(duration).toMilliseconds());
-                },
-                stop: () => {
-                    fireFader.gain.rampTo(0.00001, 3);
-                    setTimeout(() => {
-                        fireNoise.triggerRelease();
-                        crackleNoise.triggerRelease();
-                        lowRumble.triggerRelease();
-                        if (sounds.fire._crackleInterval) clearInterval(sounds.fire._crackleInterval);
-                        sounds.fire._crackleInterval = null;
-                    }, 3000);
-                }
-            };
-
-            // Sonido de Viento de Desolación (para image-4)
-            const desolationWindFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const desolationWindFilter = new Tone.Filter(250, "lowpass");
-            const desolationWindTremolo = new Tone.Tremolo(0.2, 0.5).start();
-            const desolationWindReverb = new Tone.Freeverb({
-                roomSize: 0.9,
-                dampening: 3000
-            });
-
-            const windNoise = new Tone.NoiseSynth({
-                noise: { type: "pink" },
-                envelope: {
-                    attack: 2,
-                    decay: 4,
-                    sustain: 0.7,
-                    release: 6
-                }
-            });
-
-            const vacuumRumble = new Tone.Synth({
-                oscillator: { type: "sine" },
-                envelope: {
-                    attack: 3,
-                    decay: 5,
-                    sustain: 0.8,
-                    release: 7
-                }
-            });
-            vacuumRumble.frequency.value = 30;
-
-            windNoise.chain(desolationWindTremolo, desolationWindFilter, desolationWindReverb, desolationWindFader);
-            vacuumRumble.connect(desolationWindReverb);
-
-            sounds.desolationWind = {
-                triggerAttackRelease: (duration) => {
-                    windNoise.triggerAttackRelease(duration);
-                    vacuumRumble.triggerAttackRelease("C0", duration);
-                    desolationWindFader.gain.rampTo(0.5, 3);
-                },
-                stop: () => {
-                    desolationWindFader.gain.rampTo(0.00001, 4);
-                    setTimeout(() => {
-                        windNoise.triggerRelease();
-                        vacuumRumble.triggerRelease();
-                    }, 4000);
-                }
-            };
-
-            // Sonido de Luz Divina (para image-5, image-9)
-            const divineLightFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const divineLightReverb = new Tone.Freeverb({
-                roomSize: 0.9,
-                dampening: 5000
-            });
-
-            const divineLightDelay = new Tone.PingPongDelay("8n", 0.2);
-            const divineLightChorus = new Tone.Chorus(3, 3.5, 0.6);
-
-            const divineLightSynth = new Tone.PolySynth(Tone.Synth, {
-                oscillator: { type: "triangle" },
-                envelope: {
-                    attack: 3,
-                    decay: 2,
-                    sustain: 0.7,
-                    release: 5
-                }
-            });
-
-            divineLightSynth.chain(divineLightChorus, divineLightDelay, divineLightReverb, divineLightFader);
-
-            sounds.divineLight = {
-                triggerAttackRelease: (notes, duration) => {
-                    divineLightSynth.triggerAttackRelease(notes, duration);
-                    divineLightFader.gain.rampTo(0.12, 2);
-                },
-                stop: () => {
-                    divineLightFader.gain.rampTo(0.00001, 3);
-                    setTimeout(() => divineLightSynth.triggerRelease(), 3000);
-                }
-            };
-
-            // Sonido de Hermoso Rayo de Luz (para image-6)
-            const beautifulLightBeamFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const beautifulLightBeamReverb = new Tone.Freeverb({
-                roomSize: 0.9,
-                dampening: 7000
-            }).connect(beautifulLightBeamFader);
-
-            const beautifulLightBeamChorus = new Tone.Chorus(4, 3, 0.5).connect(beautifulLightBeamReverb);
-
-            const beautifulLightBeamSynth = new Tone.PolySynth(Tone.Synth, {
-                oscillator: { type: "sine" },
-                envelope: {
-                    attack: 4,
-                    decay: 3,
-                    sustain: 0.8,
-                    release: 6
-                }
-            }).connect(beautifulLightBeamChorus);
-
-            sounds.beautifulLightBeam = {
-                triggerAttackRelease: (notes, duration) => {
-                    beautifulLightBeamSynth.triggerAttackRelease(notes, duration);
-                    beautifulLightBeamFader.gain.rampTo(0.1, 3);
-                },
-                stop: () => {
-                    beautifulLightBeamFader.gain.rampTo(0.00001, 3);
-                    setTimeout(() => beautifulLightBeamSynth.triggerRelease(), 3000);
-                }
-            };
-
-            // Sonido de Prisión/Meditación (para image-7)
-            const prisonFader = createFader(0.000001, sfxMasterGain); // Connect to master SFX gain
-            const prisonDelay = new Tone.FeedbackDelay("0.8n", 0.5);
-            const prisonFilter = new Tone.Filter(80, "lowpass");
-            const prisonSynth = new Tone.AMSynth({
-                harmonicity: 0.3,
-                oscillator: { type: "pulse", width: 0.1 },
-                envelope: {
-                    attack: 8,
-                    decay: 0.1,
-                    sustain: 1,
-                    release: 10
-                }
-            });
-
-            prisonSynth.chain(prisonFilter, prisonDelay, prisonFader);
-
-            sounds.prison = {
-                triggerAttackRelease: (note, duration) => {
-                    prisonSynth.triggerAttackRelease(note, duration);
-                    prisonFader.gain.rampTo(0.25, 5);
-                },
-                stop: () => {
-                    prisonFader.gain.rampTo(0.000001, 5);
-                    setTimeout(() => prisonSynth.triggerRelease(), 5000);
-                }
-            };
-
-            // Sonido de Impacto/Ira (para image-8)
-            const impactFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const impactDelay = new Tone.FeedbackDelay("0.5n", 0.6);
-            const impactReverb = new Tone.Reverb({
-                decay: 1,
-                preDelay: 0.05
-            });
-
-            const impactMembrane = new Tone.MembraneSynth({
-                pitchDecay: 0.15,
-                octaves: 8,
-                envelope: {
-                    attack: 0.01,
-                    decay: 1,
-                    sustain: 0.05,
-                    release: 1.5,
-                    attackCurve: "exponential"
-                }
-            });
-
-            const impactNoise = new Tone.NoiseSynth({
-                noise: { type: "brown" },
-                envelope: {
-                    attack: 0.01,
-                    decay: 0.5,
-                    sustain: 0.1,
-                    release: 1
-                }
-            });
-
-            const debrisNoise = new Tone.NoiseSynth({
-                noise: { type: "white" },
-                envelope: {
-                    attack: 0.01,
-                    decay: 0.8,
-                    sustain: 0.1,
-                    release: 1.2,
-                    attackCurve: "exponential"
-                }
-            });
-
-            impactMembrane.chain(impactReverb, impactDelay, impactFader);
-            impactNoise.connect(impactReverb);
-            debrisNoise.connect(impactReverb);
-
-            sounds.impact = {
-                triggerAttackRelease: (note, duration) => {
-                    impactMembrane.triggerAttackRelease(note, duration);
-                    impactNoise.triggerAttackRelease(duration);
-                    debrisNoise.triggerAttackRelease(duration);
-                    impactFader.gain.rampTo(0.5, 0.1);
-                },
-                stop: () => {
-                    impactFader.gain.rampTo(0.00001, 1);
-                    setTimeout(() => {
-                        impactMembrane.triggerRelease();
-                        impactNoise.triggerRelease();
-                        debrisNoise.triggerRelease();
-                    }, 1000);
-                }
-            };
-
-            // Sonido de Cadenas (para image-10)
-            const chainsFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const chainsReverb = new Tone.Reverb({
-                decay: 1.5,
-                preDelay: 0.08
-            });
-
-            const metalSynth1 = new Tone.MetalSynth({
-                frequency: 250,
-                envelope: { attack: 0.001, decay: 0.4, sustain: 0.1, release: 0.7 },
-                harmonicity: 3.1, modulationIndex: 32, octaves: 1.5, resonance: 4000, detune: 0
-            });
-
-            const metalSynth2 = new Tone.MetalSynth({
-                frequency: 180,
-                envelope: { attack: 0.001, decay: 0.5, sustain: 0.1, release: 0.8 },
-                harmonicity: 3.5, modulationIndex: 35, octaves: 1.8, resonance: 4500, detune: 0
-            });
-
-            const noiseChains = new Tone.NoiseSynth({
-                noise: { type: "white" },
-                envelope: { attack: 0.005, decay: 0.3, sustain: 0.05, release: 0.5 }
-            });
-
-            metalSynth1.chain(chainsReverb, chainsFader);
-            metalSynth2.chain(chainsReverb, chainsFader);
-            noiseChains.connect(chainsReverb);
-
-            sounds.chains = {
-                triggerAttackRelease: (duration) => {
-                    metalSynth1.triggerAttackRelease("C3", duration);
-                    metalSynth2.triggerAttackRelease("C2", duration);
-                    noiseChains.triggerAttackRelease(duration);
-                    chainsFader.gain.rampTo(0.45, 0.1);
-                },
-                stop: () => {
-                    chainsFader.gain.rampTo(0.00001, 0.5);
-                    setTimeout(() => {
-                        metalSynth1.triggerRelease();
-                        metalSynth2.triggerRelease();
-                        noiseChains.triggerRelease();
-                    }, 500);
-                }
-            };
-
-            // Sonido Demoniaco/Abismo (para image-13) - VOLUMEN REDUCIDO
-            const demonicFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const demonicDistortion = new Tone.Distortion(0.3);
-            const demonicCheby = new Tone.Chebyshev(15);
-            const demonicReverb = new Tone.Freeverb({
-                roomSize: 0.9,
-                dampening: 5000
-            });
-
-            const demonicSynth = new Tone.MonoSynth({
-                oscillator: { type: "sawtooth" },
-                filter: {
-                    Q: 4,
-                    type: "lowpass",
-                    rolloff: -24
-                },
-                envelope: {
-                    attack: 0.8,
-                    decay: 2.5,
-                    sustain: 0.6,
-                    release: 4.5
-                },
-                filterEnvelope: {
-                    attack: 0.08,
-                    decay: 1.2,
-                    sustain: 0.4,
-                    release: 3.5,
-                    baseFrequency: 80,
-                    octaves: 2.5,
-                    exponent: 2
-                }
-            });
-
-            const voidDrone = new Tone.Synth({
-                oscillator: { type: "sine" },
-                envelope: {
-                    attack: 5,
-                    decay: 0.1,
-                    sustain: 1,
-                    release: 8
-                }
-            });
-            voidDrone.frequency.value = 20;
-
-            demonicSynth.chain(demonicCheby, demonicDistortion, demonicReverb, demonicFader);
-            voidDrone.connect(demonicReverb);
-
-            sounds.demonic = {
-                triggerAttackRelease: (note, duration) => {
-                    demonicSynth.triggerAttackRelease(note, duration);
-                    voidDrone.triggerAttackRelease("C0", duration);
-                    demonicFader.gain.rampTo(0.08, 2); // **Volumen objetivo reducido de 0.12 a 0.08**
-                },
-                stop: () => {
-                    demonicFader.gain.rampTo(0.00001, 3);
-                    setTimeout(() => {
-                        demonicSynth.triggerRelease();
-                        voidDrone.triggerRelease();
-                    }, 3000);
-                }
-            };
-
-            // Sonido de Ira/Energía Oscura (para image-14)
-            const rageFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const rageDistortion = new Tone.Distortion(0.2);
-            const rageDelay = new Tone.FeedbackDelay("4n", 0.2);
-            const rageChorus = new Tone.Chorus(3.5, 4.5, 0.5);
-
-            rageChorus.connect(rageDelay);
-            rageDelay.connect(rageDistortion);
-            rageDistortion.connect(rageFader);
-
-            const rageSynth1 = new Tone.FMSynth({
-                harmonicity: 0.5,
-                modulationIndex: 8,
-                oscillator: { type: "square" },
-                envelope: {
-                    attack: 0.08,
-                    decay: 1.5,
-                    sustain: 0.25,
-                    release: 2.5
-                }
-            });
-
-            const rageSynth2 = new Tone.Synth({
-                oscillator: { type: "sawtooth" },
-                envelope: {
-                    attack: 0.15,
-                    decay: 1.2,
-                    sustain: 0.35,
-                    release: 2
-                }
-            });
-
-            const growlSynth = new Tone.FMSynth({
-                harmonicity: 0.1,
-                modulationIndex: 3,
-                oscillator: { type: "sine" },
-                envelope: {
-                    attack: 0.5,
-                    decay: 1.5,
-                    sustain: 0.8,
-                    release: 2
-                }
-            });
-
-            rageSynth1.connect(rageChorus);
-            rageSynth2.connect(rageChorus);
-            growlSynth.connect(rageDistortion);
-
-            sounds.rage = {
-                triggerAttackRelease: (note, duration) => {
-                    rageSynth1.triggerAttackRelease(note, duration);
-                    rageSynth2.triggerAttackRelease(note, duration);
-                    growlSynth.triggerAttackRelease("C1", duration);
-                    rageFader.gain.rampTo(0.35, 1);
-                },
-                stop: () => {
-                    rageFader.gain.rampTo(0.00001, 2);
-                    setTimeout(() => {
-                        rageSynth1.triggerRelease();
-                        rageSynth2.triggerRelease();
-                        growlSynth.triggerRelease();
-                    }, 2000);
-                }
-            };
-
-            // Sonido de Cuerpos Cayendo (para image-15)
-            const fallingBodiesFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const fallingBodiesReverb = new Tone.Reverb({
-                decay: 1.5,
-                preDelay: 0.08
-            });
-
-            const thudMembrane = new Tone.MembraneSynth({
-                pitchDecay: 0.05,
-                octaves: 4,
-                envelope: {
-                    attack: 0.01,
-                    decay: 0.6,
-                    sustain: 0.01,
-                    release: 1
-                }
-            });
-
-            const whooshNoise = new Tone.NoiseSynth({
-                noise: { type: "white" },
-                envelope: {
-                    attack: 0.05,
-                    decay: 0.5,
-                    sustain: 0.1,
-                    release: 0.8
-                }
-            });
-            const whooshFilter = new Tone.Filter(2000, "lowpass", -24);
-            whooshFilter.frequency.rampTo(500, 0.5);
-
-            thudMembrane.chain(fallingBodiesReverb, fallingBodiesFader);
-            whooshNoise.chain(whooshFilter, fallingBodiesReverb);
-
-            sounds.fallingBodies = {
-                triggerAttackRelease: (duration) => {
-                    thudMembrane.triggerAttackRelease("C1", duration);
-                    whooshNoise.triggerAttackRelease(duration);
-                    fallingBodiesFader.gain.rampTo(0.1, 0.5);
-                },
-                stop: () => {
-                    fallingBodiesFader.gain.rampTo(0.00001, 1);
-                    setTimeout(() => {
-                        thudMembrane.triggerRelease();
-                        whooshNoise.triggerRelease();
-                    }, 1000);
-                }
-            };
-
-            // Sonido de Renacimiento y Naturaleza (para image-16)
-            const rebirthAndNatureFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const rebirthAndNatureReverb = new Tone.Freeverb({
-                roomSize: 0.95,
-                dampening: 6000
-            }).connect(rebirthAndNatureFader);
-
-            const rebirthSynth = new Tone.PolySynth(Tone.Synth, {
-                oscillator: { type: "triangle" },
-                envelope: {
-                    attack: 8,
-                    decay: 5,
-                    sustain: 0.9,
-                    release: 12
-                }
-            }).connect(rebirthAndNatureReverb);
-
-            const birdChirpSynth = new Tone.PolySynth(Tone.Synth, {
-                oscillator: { type: "sine" },
-                envelope: {
-                    attack: 0.01,
-                    decay: 0.1,
-                    sustain: 0.0,
-                    release: 0.2
-                }
-            }).connect(rebirthAndNatureReverb);
-
-            const sentimentalPad = new Tone.PolySynth(Tone.AMSynth, {
-                harmonicity: 1.5,
-                oscillator: { type: "sawtooth" },
-                envelope: {
-                    attack: 4,
-                    decay: 0.5,
-                    sustain: 0.8,
-                    release: 6
-                }
-            }).connect(rebirthAndNatureReverb);
-
-            const sentimentalPiano = new Tone.PolySynth(Tone.Synth, {
-                oscillator: { type: "triangle" },
-                envelope: {
-                    attack: 1,
-                    decay: 2,
-                    sustain: 0.5,
-                    release: 4
-                },
-                filterEnvelope: {
-                    attack: 0.001,
-                    decay: 0.7,
-                    sustain: 0.1,
-                    release: 1,
-                    baseFrequency: 200,
-                    octaves: 2,
-                    exponent: 2
-                }
-            }).connect(rebirthAndNatureReverb);
-
-            sounds.rebirthAndNature = {
-                _birdChirpInterval: null,
-                triggerAttackRelease: (duration) => {
-                    rebirthSynth.triggerAttackRelease(["C4", "E4", "G4"], duration);
-                    sentimentalPad.triggerAttackRelease(["C3", "E3", "G3"], duration);
-                    sentimentalPiano.triggerAttackRelease(["C4", "Eb4", "G4", "C5"], duration);
-                    rebirthAndNatureFader.gain.rampTo(0.1, 3);
-
-                    if (sounds.rebirthAndNature._birdChirpInterval) clearInterval(sounds.rebirthAndNature._birdChirpInterval);
-                    sounds.rebirthAndNature._birdChirpInterval = setInterval(() => {
-                        const notes = ["G5", "A5", "B5", "C6", "D6"];
-                        const randomNote = notes[Math.floor(Math.random() * notes.length)];
-                        birdChirpSynth.triggerAttackRelease(randomNote, "0.1");
-                    }, 1000 + Math.random() * 2000);
-
-                    setTimeout(() => {
-                        clearInterval(sounds.rebirthAndNature._birdChirpInterval);
-                        sounds.rebirthAndNature._birdChirpInterval = null;
-                    }, Tone.Time(duration).toMilliseconds());
-                },
-                stop: () => {
-                    rebirthAndNatureFader.gain.rampTo(0.00001, 4);
-                    setTimeout(() => {
-                        rebirthSynth.triggerRelease();
-                        sentimentalPad.triggerRelease();
-                        sentimentalPiano.triggerRelease();
-                        birdChirpSynth.triggerRelease();
-                        if (sounds.rebirthAndNature._birdChirpInterval) clearInterval(sounds.rebirthAndNature._birdChirpInterval);
-                        sounds.rebirthAndNature._birdChirpInterval = null;
-                    }, 4000);
-                }
-            };
-
-            // Sonido Oscuro/Sombrío (para image-12) - OPTIMIZADO: Menos saturado, más ambiental
-            const darkGloomyFader = createFader(0.00001, sfxMasterGain);
-            const darkGloomyReverb = new Tone.Freeverb({
-                roomSize: 0.95, // Más grande para un ambiente más vasto
-                dampening: 6000
-            }).connect(darkGloomyFader);
-
-            const darkGloomySynth = new Tone.MonoSynth({
-                oscillator: { type: "sawtooth" }, // Sawtooth para un sonido más áspero pero no saturado
-                envelope: {
-                    attack: 3,    // Más rápido
-                    decay: 0.5,
-                    sustain: 0.8,
-                    release: 6    // Más corto
-                },
-                filter: {
-                    Q: 2, // Q más bajo para menos saturación
-                    type: "lowpass",
-                    rolloff: -24
-                },
-                filterEnvelope: {
-                    attack: 0.8,
-                    decay: 1,
-                    sustain: 0.7,
-                    release: 1.5,
-                    baseFrequency: 40, // Frecuencia base más baja
-                    octaves: 1.5,
-                    exponent: 2
-                }
-            }).connect(darkGloomyReverb);
-            darkGloomySynth.volume.value = -12; // Volumen base ajustado
-
-            const darkGloomyNoise = new Tone.NoiseSynth({
-                noise: { type: "pink" },
-                envelope: {
-                    attack: 1,  // Más rápido
-                    decay: 3,   // Más corto
-                    sustain: 0.7,
-                    release: 4
-                }
-            }).connect(darkGloomyReverb);
-            darkGloomyNoise.volume.value = -15; // Volumen de ruido ajustado
-
-            sounds.darkGloomy = {
-                triggerAttackRelease: (duration) => {
-                    darkGloomySynth.triggerAttackRelease("C1", duration);
-                    darkGloomyNoise.triggerAttackRelease(duration);
-                    darkGloomyFader.gain.rampTo(0.18, 2); // Volumen objetivo más bajo para menos saturación
-                },
-                stop: () => {
-                    darkGloomyFader.gain.rampTo(0.00001, 3);
-                    setTimeout(() => {
-                        darkGloomySynth.triggerRelease();
-                        darkGloomyNoise.triggerRelease();
-                    }, 3000);
-                }
-            };
-
-            // Sonido Tenebroso Muy Leve (NUEVO: para el modo Belcebú) - VOLUMEN AUMENTADO
-            const eerieAmbientFader = createFader(0.00001, sfxMasterGain);
-            const eerieAmbientReverb = new Tone.Freeverb({
-                roomSize: 0.8,
-                dampening: 3000
-            }).connect(eerieAmbientFader);
-
-            const eerieAmbientSynth = new Tone.FMSynth({
-                harmonicity: 0.1, // Muy baja harmonicidad para un drone
-                modulationIndex: 0.5,
-                oscillator: { type: "triangle" },
-                envelope: {
-                    attack: 5,
-                    decay: 0.1,
-                    sustain: 1,
-                    release: 10
-                },
-                mod: {
-                    oscillator: { type: "sine" }
-                },
-                modEnvelope: {
-                    attack: 5,
-                    decay: 0.1,
-                    sustain: 1,
-                    release: 10
-                }
-            }).connect(eerieAmbientReverb);
-            eerieAmbientSynth.volume.value = -8; // **Volumen aumentado de -10 a -8 para más presencia**
-
-            sounds.eerieAmbient = {
-                triggerAttackRelease: (duration) => {
-                    eerieAmbientSynth.triggerAttackRelease("C1", duration); // Nota baja para el drone
-                    eerieAmbientFader.gain.rampTo(0.3, 5); // **Fade in aumentado de 0.2 a 0.3 para más audibilidad**
-                },
-                stop: () => {
-                    eerieAmbientFader.gain.rampTo(0.00001, 5); // Fade out muy sutil
-                    setTimeout(() => eerieAmbientSynth.triggerRelease(), 5000);
-                }
-            };
-
-
-            // Sonido de Piano Melancólico Celestial (Fallback)
-            const fallbackPianoFader = createFader(0.00001, sfxMasterGain); // Connect to master SFX gain
-            const fallbackPianoReverb = new Tone.Freeverb({
-                roomSize: 0.9,
-                dampening: 8000
-            }).connect(fallbackPianoFader);
-            const fallbackPianoDelay = new Tone.PingPongDelay("2n", 0.5).connect(fallbackPianoReverb);
-
-            const fallbackPianoSynth = new Tone.PolySynth(Tone.AMSynth, { // Using AMSynth for a richer, bell-like tone
-                harmonicity: 0.8,
-                oscillator: { type: "sine" },
-                envelope: {
-                    attack: 5,    // Very slow attack for melancholic feel
-                    decay: 0.5,
-                    sustain: 0.8,
-                    release: 10  // Long release for celestial feel
-                },
-                mod: {
-                    oscillator: { type: "triangle" }
-                },
-                modEnvelope: {
-                    attack: 5,
-                    decay: 0.5,
-                    sustain: 0.8,
-                    release: 10
-                }
-            }).connect(fallbackPianoDelay);
-
-            sounds.fallbackPiano = {
-                triggerAttackRelease: (notes, duration) => {
-                    fallbackPianoSynth.triggerAttackRelease(notes, duration);
-                    fallbackPianoFader.gain.rampTo(0.3, 5); // Fade in to a gentle volume
-                },
-                stop: () => {
-                    fallbackPianoFader.gain.rampTo(0.00001, 5);
-                    setTimeout(() => fallbackPianoSynth.triggerRelease(), 5000);
-                }
-            };
-
-            // Calentamiento de todos los sonidos después de la inicialización
-            // Esto asegura que todos los nodos de audio se creen y estén listos para su uso inmediato.
-            // Se eliminó el bucle de "calentamiento" activo para evitar el error "cancelAndHoldAtTime: null".
-            // Los faders ya se inicializan a un volumen muy bajo, lo que es suficiente.
-        }
-
-        // --- Cargador Dinámico de Tone.js con Reintentos ---
-        const TONE_JS_CDNS = [
-            "https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js", // CDN primario y ampliamente usado
-            "https://unpkg.com/@tonejs/tone@14.7.71/build/Tone.min.js", // Fallback, previamente usado unpkg
-        ];
-
-        /**
-         * Carga la librería Tone.js dinámicamente desde una lista de CDNs con reintentos.
-         * @param {number} retryCount - Contador de reintentos.
-         * @returns {Promise<void>} Una promesa que se resuelve cuando Tone.js está cargado y disponible.
-         */
-        async function loadToneJs(retryCount = 0) {
-            return new Promise(async (resolve, reject) => {
-                if (typeof Tone !== 'undefined') {
-                    console.log("loadToneJs: Tone.js ya está cargado (pre-existente).");
-                    return resolve();
-                }
-
-                if (retryCount >= TONE_JS_CDNS.length) {
-                    const finalError = "loadToneJs: Fallo al cargar Tone.js después de múltiples intentos desde diferentes CDNs.";
-                    console.error(finalError);
-                    showMessage(finalError);
-                    return reject(new Error(finalError));
-                }
-
-                const script = document.createElement('script');
-                script.src = TONE_JS_CDNS[retryCount];
-                script.async = true;
-
-                script.onload = () => {
-                    try {
-                        if (typeof Tone === 'undefined') {
-                            throw new Error("Tone.js script cargado, pero la variable global 'Tone' no está definida.");
-                        }
-                        console.log(`loadToneJs: Tone.js cargado dinámicamente con éxito desde: ${script.src}`);
-                        resolve();
-                    } catch (e) {
-                        console.error(`loadToneJs: Error de verificación post-carga para ${script.src}:`, e);
-                        // Si Tone no está definido después de la carga, intenta con el siguiente CDN
-                        document.head.removeChild(script); // Limpia el script fallido
-                        loadToneJs(retryCount + 1).then(resolve).catch(reject);
-                    }
-                };
-
-                script.onerror = (e) => {
-                    console.error(`loadToneJs: Error al cargar Tone.js desde ${script.src}:`, e);
-                    document.head.removeChild(script); // Limpia el script fallido
-                    loadToneJs(retryCount + 1).then(resolve).catch(reject); // Intenta con el siguiente CDN
-                };
-
-                document.head.appendChild(script);
-                console.log(`loadToneJs: Intentando cargar Tone.js desde: ${script.src} (Intento ${retryCount + 1}/${TONE_JS_CDNS.length})`);
-            });
-        }
-
-        // --- Clase AudioContextManager para gestionar la inicialización y reproducción de audio ---
-        class AudioContextManager {
-            constructor() {
-                this.isInitialized = false; // Indica si el AudioContext ha sido inicializado
-                this.isContextRunning = false; // Indica si el AudioContext está en estado 'running'
-                this.initPromise = null; // Promesa para evitar inicializaciones múltiples concurrentes
+                particlesJS(particlesContainerId, particlesConfig[mode]);
             }
 
-            /**
-             * Inicializa el AudioContext de Tone.js.
-             * Asegura que Tone.js esté cargado y que el contexto de audio esté activo.
-             * @returns {Promise<void>} Una promesa que se resuelve cuando el AudioContext está listo.
-             */
-            async init() {
-                if (this.isInitialized) {
-                    console.log("AudioContextManager: Ya inicializado.");
-                    return;
-                }
+            function setSeasonalTheme(mode) {
+                body.classList.remove(...seasonalModes.map(m => `${m}-mode`));
+                body.classList.add(`${mode}-mode`);
+                localStorage.setItem('theme', mode);
+                updateParticles(mode);
+                // Actualiza el efecto de "quemado" del pergamino
+                parchmentContainer.style.boxShadow = `0 0 50px 10px ${burnGradients[mode]} inset`;
+            }
 
-                if (this.initPromise) {
-                    console.log("AudioContextManager: Ya hay una inicialización en curso.");
-                    return this.initPromise;
-                }
+            const savedTheme = localStorage.getItem('theme') || 'spring';
+            setSeasonalTheme(savedTheme);
 
-                this.initPromise = new Promise(async (resolve, reject) => {
-                    console.log("AudioContextManager: Iniciando inicialización...");
-                    try {
-                        // Asegura que Tone.js se cargue primero
-                        await loadToneJs(); // Espera a que Tone.js se cargue dinámicamente
-                        console.log("AudioContextManager: Tone.js cargado.");
-
-                        // Ahora Tone debería estar definido
-                        if (typeof Tone === 'undefined') {
-                            const errorMsg = "AudioContextManager: Error crítico: Tone.js no está definido incluso después de la carga dinámica.";
-                            console.error(errorMsg);
-                            showMessage(errorMsg);
-                            reject(new Error(errorMsg));
-                            return;
-                        }
-
-                        // Inicia/reanuda el contexto de audio de Tone.js
-                        console.log("AudioContextManager: Intentando Tone.start() y Tone.context.resume()...");
-                        await Tone.start();
-                        await Tone.context.resume();
-                        this.isContextRunning = true;
-                        this.isInitialized = true;
-                        console.log("AudioContextManager: AudioContext está activo y reanudado.");
-
-                        // Inicializa los sonidos SOLO UNA VEZ después de que el contexto esté activo
-                        initializeSounds();
-                        console.log("AudioContextManager: Sonidos de Tone.js inicializados.");
-
-                        // Añade un listener global para asegurar que el contexto se mantenga activo si se suspende
-                        document.body.addEventListener('click', async () => {
-                            if (Tone.context.state !== 'running') {
-                                try {
-                                    await Tone.context.resume();
-                                    this.isContextRunning = true;
-                                    console.log("AudioContext reanudado por interacción global.");
-                                } catch (e) {
-                                    console.warn("No se pudo reanudar AudioContext en interacción global:", e);
-                                }
-                            }
-                        }, { once: true }); // Se ejecuta una sola vez
-
-                        resolve();
-                    } catch (error) {
-                        console.error("AudioContextManager: Error durante la inicialización:", error);
-                        showMessage("Error al iniciar el sistema de audio. Por favor, recarga la página.");
-                        reject(error);
-                    } finally {
-                        this.initPromise = null; // Resetea la promesa de inicialización
-                    }
+            seasonalButtons.forEach(button => {
+                const mode = button.id.replace('-mode', '');
+                button.addEventListener('click', () => {
+                    setSeasonalTheme(mode);
                 });
-                return this.initPromise;
-            }
+            });
 
-            /**
-             * Reproduce un efecto de sonido específico si los SFX están habilitados y el AudioContext está funcionando.
-             * @param {string} soundType - El tipo de sonido a reproducir (clave en el objeto `sounds`).
-             * @param {...any} args - Argumentos adicionales para el método `triggerAttackRelease` del sonido.
-             */
-            async playEffect(soundType, ...args) {
-                if (!sfxEnabled) { // Verifica si los SFX están habilitados por el toggle
-                    console.log(`Efectos de sonido deshabilitados. No se reproducirá ${soundType}.`);
-                    return;
-                }
-
-                if (!this.isInitialized) {
-                    console.warn(`AudioContextManager no inicializado. Intentando inicializar y reproducir ${soundType}.`);
-                    try {
-                        await this.init(); // Intenta inicializar si no lo está
-                    } catch (e) {
-                        console.error(`Fallo al inicializar para reproducir ${soundType}:`, e);
-                        return;
-                    }
-                }
-
-                if (this.isContextRunning) {
-                    // Detiene todos los sonidos activos antes de reproducir uno nuevo,
-                    // EXCEPTO el sonido ambiental tenebroso si el modo Belcebú está activo.
-                    activeSounds.forEach(activeType => {
-                        if (activeType !== 'eerieAmbient' || !isBelcebuModeActive) { // No detiene eerieAmbient si Belcebú mode está activo
-                            if (sounds[activeType] && sounds[activeType].stop) {
-                                sounds[activeType].stop();
-                            }
-                            activeSounds.delete(activeType);
-                        }
-                    });
-
-                    // Si el sonido a reproducir NO es eerieAmbient, entonces haz ducking de la música de fondo
-                    if (soundType !== 'eerieAmbient') {
-                        isEffectPlaying = true; // Mark that a non-eerie SFX is playing
-                        duckBackgroundMusic();
-                    } else {
-                        // If eerieAmbient is playing, ensure isEffectPlaying is false as it's handled by belcebu-mode
-                        isEffectPlaying = false;
-                    }
-
-
-                    // Reproduce el sonido
-                    console.log(`Reproduciendo sonido: ${soundType}.`);
-                    if (sounds[soundType] && sounds[soundType].triggerAttackRelease) {
-                        // Lógica para disparar diferentes sonidos con duraciones y notas específicas
-                        if (soundType === 'celestial' || soundType === 'divineLight' || soundType === 'beautifulLightBeam') {
-                            sounds[soundType].triggerAttackRelease(["C4", "E4", "G4"], "5s");
-                        } else if (soundType === 'prison') {
-                            sounds[soundType].triggerAttackRelease("C2", "5s");
-                        } else if (soundType === 'impact') {
-                            sounds[soundType].triggerAttackRelease("C1", "1.5s");
-                        } else if (soundType === 'demonic') {
-                            sounds[soundType].triggerAttackRelease("C1", "4s");
-                        } else if (soundType === 'rage') {
-                            sounds[soundType].triggerAttackRelease("C3", "4s");
-                        } else if (soundType === 'fire' || soundType === 'desolationWind' || soundType === 'darkGloomy' || soundType === 'eerieAmbient') { // Added eerieAmbient here
-                            sounds[soundType].triggerAttackRelease("10s"); // Longer duration for ambient sounds
-                        } else if (soundType === 'chains') {
-                            sounds[soundType].triggerAttackRelease("1s");
-                        } else if (soundType === 'fallingBodies') {
-                            sounds[soundType].triggerAttackRelease("2s");
-                        } else if (soundType === 'rebirthAndNature') {
-                            sounds[soundType].triggerAttackRelease("7s"); // Mayor duración para la escena de la naturaleza
-                        } else if (soundType === 'silence') {
-                            // No hace nada para el silencio, solo asegura que otros sonidos se detengan
-                        } else {
-                            sounds[soundType].triggerAttackRelease("8n"); // Duración corta por defecto
-                        }
-                        activeSounds.add(soundType); // Añade el sonido al set de activos
-                    } else {
-                        console.warn(`Sonido ${soundType} no encontrado o no tiene método triggerAttackRelease.`);
-                    }
+            // --- Lógica del botón de "Volver Arriba" ---
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.display = 'flex';
                 } else {
-                    console.warn(`AudioContext no está funcionando para reproducir ${soundType}. Esperando interacción del usuario.`);
-                    showMessage("El audio no se pudo reproducir. Por favor, asegúrate de haber iniciado la música principal.");
+                    backToTopButton.style.display = 'none';
                 }
-            }
-        }
+            });
 
-        const audioContextManager = new AudioContextManager();
-
-        // Función para reproducir la música de piano de fallback
-        function playFallbackMusic() {
-            // Detiene cualquier música de fondo existente
-            backgroundMusic.pause();
-            backgroundMusic.currentTime = 0;
-            isPlaying = false; // La música de fondo principal no está reproduciéndose
-            playPauseBtn.textContent = 'Reproducir'; // El botón debe permitir intentar reproducir la música principal de nuevo
-
-            if (sounds.fallbackPiano) {
-                // Asegura que el contexto de Tone.js esté funcionando para la música de fallback
-                Tone.start().then(() => {
-                    Tone.context.resume();
-                    console.log("AudioContext reanudado para fallback piano.");
-
-                    // Reproduce una progresión de acordes simple y melancólica
-                    sounds.fallbackPiano.triggerAttackRelease(["C3", "Eb3", "G3", "C4"], "10s"); // Larga duración
-
-                    // Bucle para la música de fallback indefinidamente
-                    // Limpia cualquier intervalo de fallback anterior para evitar múltiples bucles
-                    if (window._fallbackMusicInterval) {
-                        clearInterval(window._fallbackMusicInterval);
-                    }
-                    window._fallbackMusicInterval = setInterval(() => {
-                        // Solo reproduce si la música de fondo principal no está activa
-                        if (!backgroundMusic.paused && backgroundMusic.currentTime > 0) {
-                            // La música principal está reproduciéndose, detiene el fallback
-                            sounds.fallbackPiano.stop();
-                            clearInterval(window._fallbackMusicInterval);
-                            window._fallbackMusicInterval = null;
-                        } else {
-                            sounds.fallbackPiano.triggerAttackRelease(["C3", "Eb3", "G3", "C4"], "10s");
-                        }
-                    }, 10000); // Repite cada 10 segundos
-                }).catch(e => {
-                    console.error("Error al iniciar Tone.js para la música de fallback:", e);
-                    showMessage("Error al iniciar la música de piano de emergencia.");
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
-            } else {
-                console.warn("Sonido de piano de fallback no inicializado.");
-            }
-        }
-
-        // Mapa de configuraciones de partículas para particles.js
-        const particleConfigs = {
-            'particles-js-1': {
-                "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-3': {
-                "particles": { "number": { "value": 100, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#ff4500", "#ffa500", "#ffd700"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 4, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 3, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-4': {
-                "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#808080", "#a9a9a9", "#c0c0c0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.4, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } }, "size": { "value": 6, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-5': {
-                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFFFFF", "#FFFACD", "#FFD700"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3, "sync": false } }, "size": { "value": 5, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-6': {
-                "particles": { "number": { "value": 7, "density": { "enable": true, "value_area": 250 } }, "color": { "value": ["#FFFFFF", "#FFD700", "#F0E68C"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 0.3, "opacity_min": 0.2, "sync": false } }, "size": { "value": 25, "random": true, "anim": { "enable": true, "speed": 1.5, "size_min": 8, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.2, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-7': {
-                "particles": { "number": { "value": 15, "density": { "enable": true, "value_area": 300 } }, "color": { "value": ["#ADD8E6", "#FFFFFF", "#B0E0E6"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.7, "random": false, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3, "sync": false } }, "size": { "value": 8, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 2, "direction": "top", "random": false, "straight": true, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-8': {
-                "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#E0FFFF", "#F0F8FF", "#F5F5DC"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.4, "random": true, "anim": { "enable": true, "speed": 0.3, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-9': {
-                "particles": { "number": { "value": 120, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#d2b48c", "#a0522d", "#b0c4de"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 0.2, "opacity_min": 0.05, "sync": false } }, "size": { "value": 1.5, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.3, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-10': {
-                "particles": { "number": { "value": 20, "density": { "enable": true, "value_area": 500 } }, "color": { "value": ["#ADD8E6", "#E0FFFF", "#F0F8FF"] }, "shape": { "type": "line", "stroke": { "width": 1, "color": "#FFFFFF" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.6, "random": false, "anim": { "enable": true, "speed": 0.8, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 1.5, "direction": "bottom", "random": false, "straight": true, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-12': {
-                "particles": { "number": { "value": 100, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#d2b48c", "#a0522d", "#c0c0c0", "#808080"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.4, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2.5, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            'particles-js-13': {
-                "particles": { "number": { "value": 150, "density": { "enable": true, "value_area": 1000 } }, "color": { "value": ["#808080", "#a9a9a9", "#c0c0c0", "#e0e0e0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.05, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": true, "speed": 5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            // Nueva configuración de partículas para las plumas de Gabriel
-            'particles-js-feathers': {
-                "particles": { "number": { "value": 40, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFFFFF", "#F0F0F0", "#E0E0E0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 0.2, "opacity_min": 0.1, "sync": false } }, "size": { "value": 4, "random": true, "anim": { "enable": true, "speed": 3, "size_min": 0.5, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.5, "direction": "bottom", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            // Nueva configuración de partículas para fuego y humo (AUMENTADAS)
-            'particles-js-fire-smoke': {
-                "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FF4500", "#8B0000", "#404040", "#606060"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 0.8, "opacity_min": 0.1, "sync": false } }, "size": { "value": 5, "random": true, "anim": { "enable": true, "speed": 6, "size_min": 0.5, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1.5, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            // Nueva configuración de partículas para renacimiento
-            'particles-js-rebirth': {
-                "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#E0FFFF", "#F0FFFF", "#ADD8E6", "#B0E0E6"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 0.3, "opacity_min": 0.2, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": true, "speed": 4, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.8, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            // Nueva configuración de partículas para espada dorada
-            'particles-js-sword': {
-                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFD700", "#FFEC8B", "#DAA520"] }, "shape": { "type": "star", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 10, "size_min": 0.1, "sync": false } }, /* Velocidad aumentada */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 7, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Velocidad aumentada */
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            // Nueva configuración de partículas para escudo azul celestial
-            'particles-js-shield': {
-                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#ADD8E6", "#87CEEB", "#4682B4"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 0.4, "opacity_min": 0.1, "sync": false } }, "size": { "value": 2.5, "random": true, "anim": { "enable": true, "speed": 9, "size_min": 0.1, "sync": false } }, /* Velocidad aumentada */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 6, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Velocidad aumentada */
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            },
-            // NUEVA configuración de partículas para el efecto de cadenas (image-10)
-            'particles-js-chains-effect': {
-                "particles": { "number": { "value": 200, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#FFD700", "#FFEC8B", "#DAA520"] }, /* Tonos dorados */ "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.9, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } }, /* Fade out rápido */ "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 20, "size_min": 0.5, "sync": false } }, /* Tamaño un poco más grande, velocidad de animación rápida */ "line_linked": { "enable": false }, "move": { "enable": true, "speed": 12, "direction": "random", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, /* Velocidad de movimiento muy rápida, dirección aleatoria */
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            }
-        };
-
-        const initializedParticleSystems = new Set(); // Para evitar inicializar el mismo sistema de partículas varias veces
-
-        /**
-         * Inicializa un sistema de partículas de particles.js si no ha sido inicializado antes.
-         * @param {string} elementId - El ID del elemento HTML donde se renderizarán las partículas.
-         */
-        function initializeParticleSystem(elementId) {
-            if (!initializedParticleSystems.has(elementId) && particleConfigs[elementId]) {
-                particlesJS(elementId, particleConfigs[elementId]);
-                initializedParticleSystems.add(elementId);
-                console.log(`Initialized particles.js for ${elementId}`);
-            }
-        }
-
-        // Intersection Observer para detectar cuando las imágenes entran o salen del viewport
-        const observerOptions = {
-            root: null, // El viewport es el elemento raíz
-            rootMargin: '0px',
-            threshold: 0.5 // Dispara cuando el 50% del elemento es visible
-        };
-
-        let isBelcebuImageIntersecting = false;
-        let isRebirthImageIntersecting = false;
-
-        const imageObserver = new IntersectionObserver(async (entries, observer) => {
-            // Primero, actualiza los estados de intersección para las imágenes de Belcebú y Renacimiento
-            for (const entry of entries) {
-                const imageElement = entry.target.querySelector('.chapter-image');
-                if (imageElement) {
-                    if (imageElement.id === 'image-13') { // Imagen de Belcebú
-                        isBelcebuImageIntersecting = entry.isIntersecting;
-                    } else if (imageElement.id === 'image-16') { // Imagen de Renacimiento
-                        isRebirthImageIntersecting = entry.isIntersecting;
-                    }
-                }
-            }
-
-            // --- Lógica del Modo Belcebú (Negro-Rojizo) ---
-            // El modo Belcebú se activa si la imagen de Belcebú está visible Y la imagen de Renacimiento NO está visible.
-            const shouldActivateBelcebuMode = isBelcebuImageIntersecting && !isRebirthImageIntersecting;
-
-            if (shouldActivateBelcebuMode && !isBelcebuModeActive) {
-                // Activar modo Belcebú
-                document.body.classList.add('belcebu-mode');
-                isBelcebuModeActive = true;
-                console.log("Modo Belcebú ACTIVADO.");
-
-                if (sfxEnabled) {
-                    await audioContextManager.playEffect('eerieAmbient', "10s"); // Reproducir sonido ambiental tenebroso
-                    backgroundMusic.volume = backgroundMusicNormalVolume * 0.2; // Bajar volumen de la música de fondo
-                    console.log("eerieAmbient reproduciéndose, música de fondo bajada.");
-                }
-            } else if (!shouldActivateBelcebuMode && isBelcebuModeActive) {
-                // Desactivar modo Belcebú
-                document.body.classList.remove('belcebu-mode');
-                isBelcebuModeActive = false;
-                console.log("Modo Belcebú DESACTIVADO.");
-
-                if (sounds.eerieAmbient && sounds.eerieAmbient.stop) {
-                    sounds.eerieAmbient.stop(); // Detener sonido ambiental tenebroso
-                    console.log("eerieAmbient detenido.");
-                }
-                restoreBackgroundMusic(); // Restaurar música de fondo
-                console.log("Música de fondo restaurada.");
-            }
-
-            // --- Lógica General de SFX y Partículas para todas las imágenes ---
-            let anyNonEerieSFXTriggeredInCycle = false;
-
-            for (const entry of entries) {
-                const soundType = entry.target.dataset.soundType;
-                const particlesIds = entry.target.dataset.particlesIds;
-                const imageElement = entry.target.querySelector('.chapter-image');
-
-                if (!imageElement) continue; // Saltar si no hay elemento de imagen
-
-                if (entry.isIntersecting) {
-                    if (imageElement.id === 'image-13') { // Efectos específicos para la imagen de Belcebú
-                        imageElement.classList.add('belcebu-effect'); // Aplicar animación
-                        if (sfxEnabled && !activeSounds.has('demonic')) { // Reproducir sonido demoníaco solo si no está ya reproduciéndose
-                            await audioContextManager.playEffect('demonic');
-                            anyNonEerieSFXTriggeredInCycle = true;
-                        }
-                        if (particlesIds) {
-                            particlesIds.split(',').forEach(id => initializeParticleSystem(id.trim()));
-                        }
-                    } else if (imageElement.id === 'image-16') { // Efectos específicos para la imagen de Renacimiento
-                        if (sfxEnabled && !activeSounds.has('rebirthAndNature')) {
-                            await audioContextManager.playEffect('rebirthAndNature');
-                            anyNonEerieSFXTriggeredInCycle = true;
-                        }
-                        if (particlesIds) {
-                            particlesIds.split(',').forEach(id => initializeParticleSystem(id.trim()));
-                        }
-                    } else if (soundType) { // Otras imágenes
-                        if (sfxEnabled && !activeSounds.has(soundType)) {
-                            try {
-                                await audioContextManager.playEffect(soundType);
-                                anyNonEerieSFXTriggeredInCycle = true;
-                            } catch (error) {
-                                console.error(`Error al reproducir el sonido de ${soundType}:`, error);
-                                showMessage(`Error al reproducir el sonido de ${soundType}.`);
-                            }
-                        }
-                        if (particlesIds) {
-                            particlesIds.split(',').forEach(id => initializeParticleSystem(id.trim()));
-                        }
-                    }
-                } else { // El elemento NO está intersectando
-                    if (imageElement.id === 'image-13') {
-                        imageElement.classList.remove('belcebu-effect');
-                        if (activeSounds.has('demonic')) {
-                            if (sounds.demonic && sounds.demonic.stop) {
-                                sounds.demonic.stop();
-                            }
-                            activeSounds.delete('demonic');
-                        }
-                    } else if (imageElement.id === 'image-16') {
-                        if (activeSounds.has('rebirthAndNature')) {
-                            if (sounds.rebirthAndNature && sounds.rebirthAndNature.stop) {
-                                sounds.rebirthAndNature.stop();
-                            }
-                            activeSounds.delete('rebirthAndNature');
-                        }
-                    } else if (soundType) {
-                        if (activeSounds.has(soundType)) {
-                            console.log(`Deteniendo sonido: ${soundType}.`);
-                            if (sounds[soundType] && sounds[soundType].stop) {
-                                sounds[soundType].stop();
-                            }
-                            activeSounds.delete(soundType);
-                        }
-                    }
-                }
-            }
-
-            // Después de procesar todas las entradas, si no hay SFX no-eerie activos
-            // y el modo Belcebú NO está activo, entonces asegúrate de que la música de fondo se restaure.
-            // Esto es un respaldo para asegurar que la música se restaure si otros SFX se detienen y el modo Belcebú no la controla.
-            if (!anyNonEerieSFXTriggeredInCycle && activeSounds.size === 0 && !isBelcebuModeActive) {
-                restoreBackgroundMusic();
-            }
-
-        }, observerOptions);
-
-
-        // Asegura que el botón de toggle se ajuste al cargar y redimensionar
-        window.addEventListener('load', () => {
-            musicControls.classList.remove('open');
-            musicToggle.style.right = '1.5rem';
-            backgroundMusic.volume = volumeSlider.value; // Establece el volumen inicial de la música de fondo
-
-            // Verifica la preferencia de modo oscuro del usuario
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.body.classList.add('dark-mode');
-                modeToggle.textContent = 'Modo Claro';
-            }
-
-            // Inicializa el sistema de partículas global al cargar la página
-            particlesJS('particles-js-11', {
-                "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 1500 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } }, "opacity": { "value": 0.2, "random": true, "anim": { "enable": true, "speed": 0.1, "opacity_min": 0.05, "sync": false } }, "size": { "value": 1, "random": true, "anim": { "enable": true, "speed": 0.5, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 0.1, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
-                "retina_detect": true
-            });
-
-            // Observa todos los contenedores de imágenes para activar sonidos y partículas
-            document.querySelectorAll('.image-container').forEach(container => {
-                imageObserver.observe(container);
-            });
-
-            // Listener para el botón "Iniciar Música" en el overlay
-            startMusicButton.addEventListener('click', async () => {
-                console.log("startMusicButton: Click detectado. Iniciando proceso de audio...");
-                clearInterval(fadeInterval); // Limpia cualquier intervalo de fade existente
-
-                try {
-                    // Inicializa el contexto de audio y los sonidos a través de AudioContextManager
-                    console.log("startMusicButton: Llamando a audioContextManager.init()...");
-                    await audioContextManager.init();
-                    console.log("startMusicButton: audioContextManager.init() completado.");
-
-                    // Ahora que AudioContext está activo, intenta reproducir la música de fondo
-                    console.log("startMusicButton: Llamando a fadeInMusic() para iniciar la reproducción...");
-                    await fadeInMusic();
-                    console.log("startMusicButton: fadeInMusic() completado. Música debería estar sonando y overlay oculto.");
-
-                } catch (error) {
-                    console.error("startMusicButton: Error crítico al iniciar el audio principal:", error);
-                    showMessage(`Error al iniciar el audio principal: ${error.message}. Asegúrate de que la URL de la música es un enlace directo a un archivo de audio.`);
-                } finally {
-                    // IMPORTANTE: Oculta el overlay incluso si hay un error al reproducir la música, para que el usuario pueda leer.
-                    musicStartOverlay.style.display = 'none';
-                    // Desplázate a la parte superior de la página (o a una sección de contenido de lectura específica si tuvieras una)
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Listener para el botón de toggle de control de música
-        musicToggle.addEventListener('click', () => {
-            musicControls.classList.toggle('open');
-            if (musicControls.classList.contains('open')) {
-                // Ajusta la posición del botón de toggle cuando el panel está abierto
-                musicToggle.style.right = `${musicControls.offsetWidth + 1.5 * 16}px`;
-            } else {
-                // Restaura la posición cuando el panel está cerrado
-                musicToggle.style.right = '1.5rem';
-            }
-        });
-
-        // Listener para el botón de reproducir/pausar música
-        playPauseBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                backgroundMusic.pause();
-                isPlaying = false;
-                playPauseBtn.textContent = 'Reproducir';
-                console.log("Música pausada.");
-            } else {
-                fadeInMusic(); // Esto manejará la reproducción y la actualización de isPlaying y el texto del botón
-                console.log("Música reanudada.");
-            }
-        });
-
-        // Listener para el botón de detener música
-        stopBtn.addEventListener('click', () => {
-            backgroundMusic.pause();
-            backgroundMusic.currentTime = 0; // Reinicia la música al principio
-            isPlaying = false;
-            playPauseBtn.textContent = 'Reproducir';
-            console.log("Música detenida.");
-        });
-
-        // Listener para el toggle de efectos de sonido
-        sfxToggle.addEventListener('change', () => {
-            sfxEnabled = sfxToggle.checked; // Actualiza el estado de los SFX
-            console.log('Efectos de sonido:', sfxEnabled ? 'Activados' : 'Desactivados');
-            if (!sfxEnabled) {
-                stopAllSoundEffects(); // Detiene cualquier SFX activo si se deshabilitan
-                if (isBelcebuModeActive) { // Si el modo Belcebú está activo, detiene también el sonido ambiental
-                    if (sounds.eerieAmbient && sounds.eerieAmbient.stop) {
-                        sounds.eerieAmbient.stop();
-                    }
-                }
-                restoreBackgroundMusic(); // Siempre restaura la música de fondo si los SFX se desactivan
-            } else {
-                // Si se vuelven a habilitar, asegura que el contexto de Tone.js esté listo para futuros efectos
-                audioContextManager.init();
-                if (isBelcebuModeActive) { // Si el modo Belcebú está activo, reinicia el sonido ambiental
-                    audioContextManager.playEffect('eerieAmbient', "10s");
-                    backgroundMusic.volume = backgroundMusicNormalVolume * 0.2; // Aplica ducking si el modo Belcebú ya está activo
-                }
-            }
-        });
-
-        // NUEVO: Listener para el slider de tamaño del pergamino
-        parchmentSizeSlider.addEventListener('input', () => {
-            const size = parchmentSizeSlider.value; // Valor en porcentaje (50-100)
-            // Aplica el tamaño como un porcentaje del ancho del viewport para mayor flexibilidad
-            mapSheetContainer.style.width = `${size}%`;
-            // Para pantallas más grandes, también se puede limitar el max-width para que no sea demasiado ancho
-            if (window.innerWidth > 768) { // Ejemplo de breakpoint
-                mapSheetContainer.style.maxWidth = `${size * 7.5}px`; // Ajuste proporcional a un max-width en px
-            } else {
-                mapSheetContainer.style.maxWidth = `95%`; // En móviles, siempre un porcentaje alto
-            }
-        });
-
-        // Establecer el tamaño inicial del pergamino al cargar la página
-        window.addEventListener('DOMContentLoaded', () => {
-            parchmentSizeSlider.dispatchEvent(new Event('input')); // Dispara el evento para aplicar el valor inicial
-        });
-
-        // Listener para el evento de redimensionamiento de la ventana
-        window.addEventListener('resize', () => {
-            if (musicControls.classList.contains('open')) {
-                // Ajusta la posición del botón de toggle si el panel está abierto
-                musicToggle.style.right = `${musicControls.offsetWidth + 1.5 * 16}px`;
-            }
-            // Reajusta el tamaño del pergamino al redimensionar la ventana
-            parchmentSizeSlider.dispatchEvent(new Event('input'));
-        });
-
-        // Toggle de Modo Oscuro
-        modeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                modeToggle.textContent = 'Modo Claro';
-                localStorage.setItem('darkMode', 'enabled'); // Guarda la preferencia
-            } else {
-                modeToggle.textContent = 'Modo Oscuro';
-                localStorage.setItem('darkMode', 'disabled'); // Guarda la preferencia
-            }
-        });
-
-        // Funcionalidad del botón de Volver Arriba
-        window.addEventListener('scroll', () => {
-            // Muestra el botón si el scroll es mayor a 200px
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                scrollToTopBtn.classList.add('show');
-            } else {
-                scrollToTopBtn.classList.remove('show');
-            }
-        });
-
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth' // Desplazamiento suave
             });
         });
     </script>
