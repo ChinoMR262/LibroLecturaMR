@@ -21,9 +21,6 @@
     <!-- particles.js CDN para animación de partículas de fondo -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
-    <!-- Tone.js CDN para la música de fondo -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-    
     <style>
         /*
             ------------------------------
@@ -37,7 +34,7 @@
             --link-color: #a0522d; /* Color marrón oscuro para enlaces */
             --border-color: #8b4513; /* Marrón para bordes */
             --shadow-color: rgba(0, 0, 0, 0.15);
-            /* Se ha movido el degradado quemado a una variable CSS para mayor consistencia */
+            /* Degradado quemado para el efecto en el borde */
             --burn-gradient: rgba(139, 69, 19, 0.5); 
             /* Textura de pergamino desgastado */
             --parchment-texture: url('https://www.transparenttextures.com/patterns/paper.png');
@@ -48,7 +45,7 @@
             --bg-parchment: #fde49a; /* Tono de pergamino más brillante */
             --text-color: #4b3621;
             --link-color: #d2691e;
-            --border-color: #a0522d;
+            --border-color: #a052d;
             --shadow-color: rgba(0, 0, 0, 0.2);
             --burn-gradient: rgba(255, 140, 0, 0.6);
         }
@@ -71,16 +68,6 @@
             --border-color: #000080;
             --shadow-color: rgba(0, 0, 0, 0.1);
             --burn-gradient: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Estilos específicos para el Modo Belcebú */
-        .belcebu-mode {
-            --bg-parchment: #0d0a0b; /* Fondo casi negro */
-            --text-color: #e6b840; /* Texto dorado o amarillo */
-            --link-color: #ffeb99; /* Enlaces aún más claros */
-            --border-color: #e6b840; /* Borde dorado */
-            --shadow-color: rgba(230, 184, 64, 0.5); /* Sombra dorada */
-            --burn-gradient: rgba(255, 165, 0, 0.8); /* Degradado quemado de fuego */
         }
 
         body {
@@ -250,19 +237,22 @@
             font-family: 'Lora', serif; /* Fuente estilizada y tranquila */
         }
 
-        .belcebu-btn {
-            @apply bg-yellow-700 text-black hover:bg-yellow-800;
-        }
-
         /* Estilo para el botón de volver arriba */
         #back-to-top {
             @apply fixed bottom-4 right-4 bg-gray-800 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-110 hidden;
         }
+
+        /* Estilo para el botón de volver a inicio en el pie de página */
+        .back-to-home-btn {
+            @apply flex items-center justify-center bg-gray-800 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg transition-all transform hover:scale-105;
+        }
         
-        /* Contenedor del efecto de lápiz para el texto del botón principal */
-        .pencil-effect {
-            position: relative; /* Necesario para el posicionamiento del pseudo-elemento */
-            display: inline-block; /* Para que el pseudo-elemento se posicione correctamente */
+        /* Estilo para el nuevo botón flotante de configuración */
+        .settings-btn {
+            @apply fixed bottom-4 left-4 p-3 rounded-full shadow-lg transition-all transform hover:scale-110 opacity-30 hover:opacity-100;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            z-index: 50; /* Asegura que esté por encima de otros elementos */
         }
 
         .image-container {
@@ -272,12 +262,52 @@
         .story-image {
             @apply w-full max-w-2xl h-auto rounded-xl shadow-2xl; /* Clases de Tailwind para estilo de imagen */
         }
+
+        /* Estilos para el control de música flotante */
+        .music-controls {
+            @apply fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center space-x-2 bg-gray-800 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-105 z-50;
+        }
+        
+        .music-controls .volume-slider {
+            -webkit-appearance: none;
+            width: 100px;
+            height: 8px;
+            background: #4a5568;
+            outline: none;
+            border-radius: 4px;
+            transition: background 0.2s ease-in-out;
+        }
+
+        .music-controls .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #cbd5e0;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .music-controls .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #cbd5e0;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .music-controls .volume-slider:hover {
+            background: #a0aec0;
+        }
         
     </style>
 </head>
 <body>
     <!-- particles.js container -->
     <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0"></div>
+    
+    <!-- Elemento de audio para la música de fondo -->
+    <audio id="bg-music" src="Musica Cap/Capitulo1/Whispers of Serenity.mp3" loop></audio>
 
     <!-- Contenedor principal del pergamino -->
     <div id="parchment-container" class="parchment-container flex flex-col items-center">
@@ -286,7 +316,7 @@
             <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-center">Capítulo 1: El Mandato del Serafín Legendario</h1>
             <p class="text-center italic text-lg mb-8 opacity-70">Prólogo – Año 25033 d.C. / Siul, Universo 9</p>
 
-            <!-- Panel de control de temas y música -->
+            <!-- Panel de control de temas -->
             <div class="flex flex-col md:flex-row justify-center items-center mt-6 space-y-2 md:space-y-0 md:space-x-4">
                 <!-- Botones para los modos estacionales -->
                 <button id="spring-mode" class="seasonal-btn spring-btn" aria-label="Cambiar a tema de primavera">
@@ -301,15 +331,11 @@
                 <button id="winter-mode" class="seasonal-btn winter-btn" aria-label="Cambiar a tema de invierno">
                     <i class="fas fa-snowflake"></i> Invierno
                 </button>
-                <!-- Botón para el modo Belcebú -->
-                <button id="belcebu-mode" class="seasonal-btn belcebu-btn" aria-label="Cambiar a tema de Belcebú">
-                    <i class="fa-solid fa-fire"></i> Belcebú
-                </button>
-                <!-- Botón para la música -->
-                <button id="music-toggle" class="control-button" aria-label="Activar/Desactivar música">
-                    <i class="fa-solid fa-music"></i>
-                </button>
             </div>
+            <!-- Comentario para el usuario -->
+            <p class="text-xs text-center mt-4 opacity-80">
+                Puedes alternar entre estaciones seleccionando un botón.
+            </p>
         </header>
 
         <main class="text-xl leading-relaxed max-w-4xl mx-auto">
@@ -485,8 +511,12 @@
             </p>
         </main>
         
-        <footer class="mt-12 text-center text-sm opacity-75">
-            <p>Derechos de propiedad intelectual &copy; ChinoOficial.</p>
+        <footer class="mt-12 flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 text-sm opacity-75">
+            <!-- Botón de volver a inicio -->
+            <button id="back-to-home-btn" class="back-to-home-btn">
+                <i class="fas fa-arrow-left mr-2"></i> Volver a Inicio
+            </button>
+            <p>Derechos de propiedad intelectual &copy; ChinoOficial. Esta versión no define la historia y versión final del libro/manga, ya que el trabajo oficial aún está en desarrollo.</p>
         </footer>
     </div>
 
@@ -494,17 +524,38 @@
     <button id="back-to-top" title="Volver Arriba" aria-label="Volver arriba">
         <i class="fas fa-arrow-up"></i>
     </button>
+    
+    <!-- Nuevo botón flotante de configuración -->
+    <!-- Este botón no tiene funcionalidad asignada, es un marcador de posición -->
+    <button id="settings-btn" class="settings-btn" aria-label="Abrir configuración" title="Configuración">
+        <i class="fas fa-cog fa-spin"></i> Configuración
+    </button>
+    
+    <!-- Control de música flotante -->
+    <div id="music-controls" class="music-controls">
+        <button id="play-pause-btn" class="control-button">
+            <i class="fas fa-play" id="play-icon"></i>
+        </button>
+        <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const body = document.body;
             const seasonalButtons = document.querySelectorAll('.seasonal-btn');
-            const belcebuButton = document.getElementById('belcebu-mode');
-            const seasonalModes = ['spring', 'summer', 'autumn', 'winter', 'belcebu'];
+            const seasonalModes = ['spring', 'summer', 'autumn', 'winter'];
             const backToTopButton = document.getElementById('back-to-top');
+            const backToHomeButton = document.getElementById('back-to-home-btn');
             const parchmentContainer = document.getElementById('parchment-container');
             const particlesContainerId = 'particles-js';
+            const bgMusic = document.getElementById('bg-music');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const playIcon = document.getElementById('play-icon');
+            const volumeSlider = document.getElementById('volume-slider');
             
+            // Flag para controlar si el audio ya se ha inicializado
+            let isAudioInitialized = false;
+
             const particlesConfig = {
                 'spring': {
                     // Partículas de primavera (círculos suaves)
@@ -525,11 +576,6 @@
                     // Partículas de invierno (estrellas)
                     particles: { "number": { "value": 120 }, "color": { "value": "#4682b4" }, "shape": { "type": "star" }, "line_linked": { "color": "#4682b4" }, "move": { "speed": 3 } },
                     interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "push" } } }
-                },
-                'belcebu': {
-                    // Partículas para el modo Belcebú (fuego)
-                    "particles": { "number": { "value": 80 }, "color": { "value": "#e6b840" }, "shape": { "type": "circle" }, "line_linked": { "color": "#e6b840" }, "move": { "speed": 3 } },
-                    "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" } } }
                 }
             };
             
@@ -550,44 +596,6 @@
                 updateParticles(mode);
             }
             
-            // Lógica de la música con Tone.js
-            const musicToggle = document.getElementById('music-toggle');
-            const musicIcon = musicToggle.querySelector('.fa-music');
-            let isPlaying = false;
-            let player;
-
-            async function startMusic() {
-                if (!player) {
-                    player = new Tone.Player({
-                        "url": "https://cdn.glitch.global/c101b0f0-8c24-4f04-a14f-3561a0b63d0f/ambient-music.mp3?v=1723146445995",
-                        "loop": true,
-                        "autostart": false,
-                    }).toDestination();
-                }
-                await Tone.start();
-                player.start();
-                isPlaying = true;
-                musicIcon.classList.remove('fa-music');
-                musicIcon.classList.add('fa-pause');
-            }
-
-            function stopMusic() {
-                if (player) {
-                    player.stop();
-                    isPlaying = false;
-                    musicIcon.classList.remove('fa-pause');
-                    musicIcon.classList.add('fa-music');
-                }
-            }
-
-            musicToggle.addEventListener('click', () => {
-                if (isPlaying) {
-                    stopMusic();
-                } else {
-                    startMusic();
-                }
-            });
-
             // Se carga el tema guardado al cargar la página
             const savedTheme = localStorage.getItem('theme') || 'spring';
             setSeasonalTheme(savedTheme);
@@ -614,6 +622,65 @@
                     behavior: 'smooth'
                 });
             });
+
+            // Lógica del botón de "Volver a Inicio"
+            backToHomeButton.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+            
+            // --- Lógica de la música de fondo ---
+            function playMusic() {
+                // Solo intentar reproducir si el audio no está sonando y ya ha sido inicializado
+                if (bgMusic.paused && isAudioInitialized) {
+                    bgMusic.play().catch(e => console.error("Error al reproducir el audio:", e));
+                    playIcon.classList.remove('fa-play');
+                    playIcon.classList.add('fa-pause');
+                }
+            }
+
+            function pauseMusic() {
+                if (!bgMusic.paused) {
+                    bgMusic.pause();
+                    playIcon.classList.remove('fa-pause');
+                    playIcon.classList.add('fa-play');
+                }
+            }
+
+            playPauseBtn.addEventListener('click', () => {
+                // Si es el primer clic del usuario, inicializar el audio
+                if (!isAudioInitialized) {
+                    isAudioInitialized = true;
+                    // Establece el volumen inicial y luego intenta reproducir
+                    bgMusic.volume = volumeSlider.value;
+                    bgMusic.play().catch(e => console.error("Error al reproducir el audio:", e));
+                    playIcon.classList.remove('fa-play');
+                    playIcon.classList.add('fa-pause');
+                } else {
+                    if (bgMusic.paused) {
+                        playMusic();
+                    } else {
+                        pauseMusic();
+                    }
+                }
+            });
+            
+            volumeSlider.addEventListener('input', () => {
+                bgMusic.volume = volumeSlider.value;
+            });
+            
+            // Evento para inicializar el audio con el primer clic del usuario en la página.
+            // Esto es necesario para superar las restricciones de autoplay de los navegadores.
+            document.body.addEventListener('click', () => {
+                if (!isAudioInitialized) {
+                    isAudioInitialized = true;
+                    bgMusic.volume = volumeSlider.value;
+                    bgMusic.play().catch(e => {
+                        console.error("Error al reproducir el audio en el primer clic:", e);
+                    });
+                    playIcon.classList.remove('fa-play');
+                    playIcon.classList.add('fa-pause');
+                }
+            }, { once: true }); // El evento solo se activa una vez
         });
     </script>
 </body>
