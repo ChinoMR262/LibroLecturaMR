@@ -4,16 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seres del Noveno Universo</title>
+
+    <!--
+        Mejora de rendimiento: 'preload' para las fuentes principales.
+        Esto le dice al navegador que empiece a descargar estas fuentes críticas
+        lo antes posible para evitar un "destello de texto sin estilo".
+    -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" as="style">
+
     <!-- Carga de Tailwind CSS para un diseño responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Carga de fuentes para el estilo de pergamino y títulos -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Merriweather:wght@400;700&family=Roboto+Slab:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Poppins:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    
     <!-- Carga de Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- particles.js CDN para animación de partículas de fondo -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
     <style>
-        /* Estilos base para el pergamino y los modos estacionales */
+        /*
+            ------------------------------
+            ESTILOS GENERALES Y VARIABLES
+            ------------------------------
+        */
         :root {
             /* Colores por defecto para el modo claro (Primavera) */
             --bg-parchment: #d4c0a1; /* Tono de pergamino claro */
@@ -21,7 +38,8 @@
             --link-color: #a0522d; /* Color marrón oscuro para enlaces */
             --border-color: #8b4513; /* Marrón para bordes */
             --shadow-color: rgba(0, 0, 0, 0.15);
-            --burn-gradient: rgba(139, 69, 19, 0.5); /* Gradiente quemado sutil */
+            /* Se ha movido el degradado quemado a una variable CSS para mayor consistencia */
+            --burn-gradient: rgba(139, 69, 19, 0.5); 
             /* Textura de pergamino desgastado */
             --parchment-texture: url('https://www.transparenttextures.com/patterns/paper.png');
         }
@@ -69,7 +87,8 @@
         .parchment-container {
             position: relative;
             z-index: 10;
-            max-width: 95%; /* Se ha aumentado el ancho para mejor visualización en pantallas grandes */
+            /* Se ha aumentado el ancho para mejor visualización en pantallas grandes */
+            max-width: 95%; 
             margin: 2rem auto;
             padding: 2rem;
             /* Se añade la textura de papel y se mezcla con el color de fondo */
@@ -78,9 +97,9 @@
             background-blend-mode: multiply; /* Mezcla la textura con el color */
             background-repeat: repeat;
             border: 2px solid var(--border-color);
-            box-shadow: 0 10px 25px var(--shadow-color);
+            box-shadow: 0 10px 25px var(--shadow-color), 0 0 50px 10px var(--burn-gradient) inset;
             border-radius: 1rem;
-            text-align: center;
+            /* Se ha eliminado la alineación al centro para dar más control al texto */
         }
         
         /* Animación de entrada para los títulos y párrafos */
@@ -270,48 +289,62 @@
     <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0"></div>
 
     <!-- Contenedor principal del pergamino -->
-    <div id="parchment-container" class="parchment-container">
+    <div id="parchment-container" class="parchment-container flex flex-col items-center">
+        <!--
+            Mejora de diseño: Se ha agregado 'flex flex-col items-center'
+            para centrar el contenido principal dentro del pergamino.
+        -->
         <header class="mb-10">
             <!-- Título principal con tamaño responsivo -->
-            <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Seres del Noveno Universo</h1>
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-center">Seres del Noveno Universo</h1>
             <!-- Subtítulo con tamaño responsivo -->
-            <h2 class="text-2xl md:text-3xl italic">El Despertar de Belcebú</h2>
+            <h2 class="text-2xl md:text-3xl italic text-center">El Mandato del Serafín Legendario</h2>
             <!-- Panel de control de estaciones en el encabezado -->
             <div class="flex flex-col md:flex-row justify-center items-center mt-6 space-y-2 md:space-y-0 md:space-x-4">
-                <button id="spring-mode" class="seasonal-btn spring-btn">
+                <!--
+                    Mejora de accesibilidad: Se ha agregado 'aria-label'
+                    a cada botón para que los lectores de pantalla puedan
+                    describir la función del botón.
+                -->
+                <button id="spring-mode" class="seasonal-btn spring-btn" aria-label="Cambiar a tema de primavera">
                     <i class="fas fa-seedling"></i> Primavera
                 </button>
-                <button id="summer-mode" class="seasonal-btn summer-btn">
+                <button id="summer-mode" class="seasonal-btn summer-btn" aria-label="Cambiar a tema de verano">
                     <i class="fas fa-sun"></i> Verano
                 </button>
-                <button id="autumn-mode" class="seasonal-btn autumn-btn">
+                <button id="autumn-mode" class="seasonal-btn autumn-btn" aria-label="Cambiar a tema de otoño">
                     <i class="fas fa-leaf"></i> Otoño
                 </button>
-                <button id="winter-mode" class="seasonal-btn winter-btn">
+                <button id="winter-mode" class="seasonal-btn winter-btn" aria-label="Cambiar a tema de invierno">
                     <i class="fas fa-snowflake"></i> Invierno
                 </button>
             </div>
         </header>
 
-        <main class="text-xl leading-relaxed">
+        <!--
+            Mejora de lectura: Se ha agregado 'max-w-4xl' y 'mx-auto'
+            para limitar el ancho del texto en pantallas grandes,
+            mejorando la legibilidad.
+        -->
+        <main class="text-xl leading-relaxed max-w-4xl mx-auto">
             <!-- Primer párrafo con el efecto de letra capital (dropcap) -->
             <p class="animated-paragraph text-justify mb-6 dropcap">
                 En las profundidades del cosmos, más allá de los límites de la comprensión humana, existían nueve universos entrelazados por una energía primordial. Cada universo era un reino de maravillas y terrores, con sus propias leyes y sus propios guardianes. El noveno universo, sin embargo, permanecía inexplorado, un vacío inmutable envuelto en el misterio.
             </p>
-            <p class="animated-paragraph text-justify mb-6" style="animation-delay: 1.7s;">
+            <p class="animated-paragraph text-justify mb-6">
                 Durante eones, el Noveno Universo durmió, su existencia era un mero susurro en las leyendas de los otros ocho. Pero algo está a punto de cambiar. Un ser primigenio, Belcebú, ha comenzado a despertar, perturbando el delicado equilibrio de la existencia.
             </p>
-            <p class="animated-paragraph text-justify mb-6" style="animation-delay: 1.9s;">
+            <p class="animated-paragraph text-justify mb-6">
                 Los guardianes de los otros universos, temerosos de la fuerza que emerge, observan con recelo. El destino de todo lo que existe se encuentra en una encrucijada, y tú, el lector, estás a punto de ser arrastrado a este épico conflicto.
             </p>
         </main>
 
-        <div class="mt-12">
+        <div class="mt-12 text-center">
             <a href="chapter1.html" class="seasonal-start-btn">
                 <span class="pencil-effect">Iniciar el Capítulo</span>
                 <i class="fas fa-arrow-right start-icon"></i>
             </a>
-            <p class="text-xs mt-2 italic text-center opacity-75">
+            <p class="text-xs mt-2 italic opacity-75">
                 Se iniciará el capítulo con música al entrar
             </p>
         </div>
@@ -322,7 +355,11 @@
     </div>
 
     <!-- Botón de volver arriba -->
-    <button id="back-to-top" title="Volver Arriba">
+    <!--
+        Mejora de accesibilidad: Se ha agregado 'aria-label' para
+        describir la función del botón a los lectores de pantalla.
+    -->
+    <button id="back-to-top" title="Volver Arriba" aria-label="Volver arriba">
         <i class="fas fa-arrow-up"></i>
     </button>
 
@@ -334,32 +371,35 @@
             const backToTopButton = document.getElementById('back-to-top');
             const parchmentContainer = document.getElementById('parchment-container');
             const particlesContainerId = 'particles-js';
-            const burnGradients = {
-                'spring': 'rgba(139, 69, 19, 0.5)',
-                'summer': 'rgba(255, 140, 0, 0.6)',
-                'autumn': 'rgba(139, 0, 0, 0.7)',
-                'winter': 'rgba(255, 255, 255, 0.4)'
-            };
+            
+            // Se ha movido el objeto de degradados a la variable CSS para mayor consistencia en el estilo.
+            // La lógica para aplicarlos ahora se maneja directamente en el CSS.
+            // const burnGradients = { ... };
+
             const particlesConfig = {
                 'spring': {
+                    // Partículas de primavera (círculos suaves)
                     particles: { "number": { "value": 80 }, "color": { "value": "#a0522d" }, "shape": { "type": "circle" }, "line_linked": { "color": "#a0522d" }, "move": { "speed": 6 } },
                     interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "repulse" } } }
                 },
                 'summer': {
-                    // Partículas de verano en color amarillo vibrante
+                    // Partículas de verano (círculos amarillos brillantes)
                     particles: { "number": { "value": 100 }, "color": { "value": "#ffcc00" }, "shape": { "type": "circle" }, "line_linked": { "color": "#ffcc00" }, "move": { "speed": 8 } },
                     interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "repulse" } } }
                 },
                 'autumn': {
+                    // Partículas de otoño (formas de bordes)
                     particles: { "number": { "value": 60 }, "color": { "value": "#e9967a" }, "shape": { "type": "edge" }, "line_linked": { "color": "#e9967a" }, "move": { "speed": 4 } },
                     interactivity: { events: { onhover: { mode: "grab" }, onclick: { mode: "push" } } }
                 },
                 'winter': {
+                    // Partículas de invierno (estrellas)
                     particles: { "number": { "value": 120 }, "color": { "value": "#4682b4" }, "shape": { "type": "star" }, "line_linked": { "color": "#4682b4" }, "move": { "speed": 3 } },
                     interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "push" } } }
                 }
             };
             
+            // Función para actualizar las partículas según el modo
             function updateParticles(mode) {
                 if (window.pJSDom && window.pJSDom.length > 0) {
                     window.pJSDom[0].pJS.fn.vendors.destroypJS();
@@ -368,13 +408,15 @@
                 particlesJS(particlesContainerId, particlesConfig[mode]);
             }
 
+            // Función principal para aplicar el tema estacional
             function setSeasonalTheme(mode) {
                 body.classList.remove(...seasonalModes.map(m => `${m}-mode`));
                 body.classList.add(`${mode}-mode`);
                 localStorage.setItem('theme', mode);
                 updateParticles(mode);
-                // Actualiza el efecto de "quemado" del pergamino
-                parchmentContainer.style.boxShadow = `0 0 50px 10px ${burnGradients[mode]} inset`;
+                // El efecto de "quemado" ahora se maneja con CSS variables,
+                // por lo que esta línea de código ya no es necesaria.
+                // parchmentContainer.style.boxShadow = `0 0 50px 10px ${burnGradients[mode]} inset`;
             }
 
             const savedTheme = localStorage.getItem('theme') || 'spring';

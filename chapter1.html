@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo 1: El Mandato del Serafín Legendario</title>
+
+    <!-- Mejora de rendimiento: 'preload' para las fuentes principales. -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" as="style">
+    
+    <!-- Carga de Tailwind CSS para un diseño responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carga de fuentes para el estilo de pergamino y títulos -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Merriweather:wght@400;700&family=Roboto+Slab:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Poppins:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Carga de Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- particles.js CDN para animación de partículas de fondo -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Tone.js CDN para la música de fondo -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    
+    <style>
+        /*
+            ------------------------------
+            ESTILOS GENERALES Y VARIABLES
+            ------------------------------
+        */
+        :root {
+            /* Colores por defecto para el modo claro (Primavera) */
+            --bg-parchment: #d4c0a1; /* Tono de pergamino claro */
+            --text-color: #2c2c2c;
+            --link-color: #a0522d; /* Color marrón oscuro para enlaces */
+            --border-color: #8b4513; /* Marrón para bordes */
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            /* Se ha movido el degradado quemado a una variable CSS para mayor consistencia */
+            --burn-gradient: rgba(139, 69, 19, 0.5); 
+            /* Textura de pergamino desgastado */
+            --parchment-texture: url('https://www.transparenttextures.com/patterns/paper.png');
+        }
+
+        /* Estilos específicos para el Modo Verano */
+        .summer-mode {
+            --bg-parchment: #fde49a; /* Tono de pergamino más brillante */
+            --text-color: #4b3621;
+            --link-color: #d2691e;
+            --border-color: #a0522d;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --burn-gradient: rgba(255, 140, 0, 0.6);
+        }
+
+        /* Estilos específicos para el Modo Otoño */
+        .autumn-mode {
+            --bg-parchment: #c09e6c; /* Tono de pergamino oscuro */
+            --text-color: #f5f5dc;
+            --link-color: #e9967a;
+            --border-color: #8b4513;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --burn-gradient: rgba(139, 0, 0, 0.7);
+        }
+
+        /* Estilos específicos para el Modo Invierno */
+        .winter-mode {
+            --bg-parchment: #e0e0e0; /* Tono de pergamino frío */
+            --text-color: #000033;
+            --link-color: #4682b4;
+            --border-color: #000080;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --burn-gradient: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Estilos específicos para el Modo Belcebú */
+        .belcebu-mode {
+            --bg-parchment: #0d0a0b; /* Fondo casi negro */
+            --text-color: #e6b840; /* Texto dorado o amarillo */
+            --link-color: #ffeb99; /* Enlaces aún más claros */
+            --border-color: #e6b840; /* Borde dorado */
+            --shadow-color: rgba(230, 184, 64, 0.5); /* Sombra dorada */
+            --burn-gradient: rgba(255, 165, 0, 0.8); /* Degradado quemado de fuego */
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: #2c2c2c; /* Fondo oscuro por defecto */
+            color: var(--text-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Contenedor principal del pergamino con la nueva textura */
+        .parchment-container {
+            position: relative;
+            z-index: 10;
+            max-width: 95%; 
+            margin: 2rem auto;
+            padding: 2rem;
+            background-image: var(--parchment-texture);
+            background-color: var(--bg-parchment);
+            background-blend-mode: multiply; /* Mezcla la textura con el color */
+            background-repeat: repeat;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 10px 25px var(--shadow-color), 0 0 50px 10px var(--burn-gradient) inset;
+            border-radius: 1rem;
+        }
+        
+        /* Animación de entrada para los títulos y párrafos */
+        @keyframes title-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes paragraph-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Efecto de estampado mejorado para títulos */
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-color);
+            opacity: 0;
+            animation: title-fade-in 1s ease-out forwards;
+            /* Efecto de estampado más refinado */
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), /* Sombra sutil de la tinta */
+                         0 2px 2px rgba(0, 0, 0, 0.15), /* Sombra más difusa */
+                         -1px -1px 0 rgba(255, 255, 255, 0.1); /* Ligero relieve */
+        }
+        
+        h1 {
+            animation-delay: 0.5s;
+        }
+
+        h2 {
+            animation-delay: 1.0s;
+        }
+
+        .animated-paragraph {
+            opacity: 0;
+            animation: paragraph-fade-in 1s ease-out forwards;
+        }
+
+        /* Define diferentes retrasos para cada párrafo para que aparezcan uno por uno */
+        .animated-paragraph:nth-of-type(1) { animation-delay: 1.5s; }
+        .animated-paragraph:nth-of-type(2) { animation-delay: 1.7s; }
+        .animated-paragraph:nth-of-type(3) { animation-delay: 1.9s; }
+        .animated-paragraph:nth-of-type(4) { animation-delay: 2.1s; }
+        .animated-paragraph:nth-of-type(5) { animation-delay: 2.3s; }
+        .animated-paragraph:nth-of-type(6) { animation-delay: 2.5s; }
+        .animated-paragraph:nth-of-type(7) { animation-delay: 2.7s; }
+        .animated-paragraph:nth-of-type(8) { animation-delay: 2.9s; }
+        .animated-paragraph:nth-of-type(9) { animation-delay: 3.1s; }
+        .animated-paragraph:nth-of-type(10) { animation-delay: 3.3s; }
+        .animated-paragraph:nth-of-type(11) { animation-delay: 3.5s; }
+        .animated-paragraph:nth-of-type(12) { animation-delay: 3.7s; }
+        .animated-paragraph:nth-of-type(13) { animation-delay: 3.9s; }
+        .animated-paragraph:nth-of-type(14) { animation-delay: 4.1s; }
+        .animated-paragraph:nth-of-type(15) { animation-delay: 4.3s; }
+        .animated-paragraph:nth-of-type(16) { animation-delay: 4.5s; }
+        .animated-paragraph:nth-of-type(17) { animation-delay: 4.7s; }
+        .animated-paragraph:nth-of-type(18) { animation-delay: 4.9s; }
+        .animated-paragraph:nth-of-type(19) { animation-delay: 5.1s; }
+        .animated-paragraph:nth-of-type(20) { animation-delay: 5.3s; }
+        .animated-paragraph:nth-of-type(21) { animation-delay: 5.5s; }
+        .animated-paragraph:nth-of-type(22) { animation-delay: 5.7s; }
+
+        /* Efecto de estampado más sutil para el texto del cuerpo */
+        p {
+            line-height: 1.6;
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2), /* Sombra de impresión ligera */
+                         -0.5px -0.5px 0.5px rgba(255, 255, 255, 0.1); /* Luz muy sutil */
+        }
+
+        /* Estilo para el efecto de "capitel" o letra capital en el primer párrafo */
+        .dropcap::first-letter {
+            float: left;
+            font-size: 5.5rem; /* Tamaño grande para la primera letra */
+            line-height: 4rem; /* Ajuste para que se alinee con el texto */
+            font-family: 'Playfair Display', serif;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4), -1px -1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Estilo base para todos los botones */
+        .seasonal-btn {
+            @apply px-4 py-2 rounded-full font-bold text-sm shadow-md transition-all transform hover:scale-105;
+            position: relative; /* Necesario para posicionar el pseudo-elemento */
+            display: inline-block; /* Para el correcto funcionamiento del efecto */
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2); /* Sombra de texto sutil */
+        }
+        
+        .control-button {
+            @apply bg-gray-800 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-110;
+        }
+
+        /* Efecto de remarcado con lápiz para los botones de estación */
+        .seasonal-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; /* Pequeña separación del texto */
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: currentColor;
+            transition: width 0.5s ease-in-out;
+            border-radius: 9999px;
+        }
+
+        /* Al hacer hover, la línea se "dibuja" */
+        .seasonal-btn:hover::after {
+            width: 100%;
+        }
+
+        /* Estilos específicos para los botones */
+        .spring-btn {
+            @apply bg-green-500 text-white hover:bg-green-600;
+            font-family: 'Cormorant Garamond', serif; /* Fuente elegante y clásica */
+            font-size: 1rem;
+        }
+
+        .summer-btn {
+            @apply bg-yellow-400 text-black hover:bg-yellow-500;
+            font-family: 'Poppins', sans-serif; /* Fuente moderna y fuerte */
+        }
+
+        .autumn-btn {
+            @apply bg-red-700 text-white hover:bg-red-800;
+            font-family: 'Roboto Slab', serif; /* Fuente robusta y sólida */
+        }
+
+        .winter-btn {
+            @apply bg-sky-500 text-white hover:bg-sky-600;
+            font-family: 'Lora', serif; /* Fuente estilizada y tranquila */
+        }
+
+        .belcebu-btn {
+            @apply bg-yellow-700 text-black hover:bg-yellow-800;
+        }
+
+        /* Estilo para el botón de volver arriba */
+        #back-to-top {
+            @apply fixed bottom-4 right-4 bg-gray-800 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-110 hidden;
+        }
+        
+        /* Contenedor del efecto de lápiz para el texto del botón principal */
+        .pencil-effect {
+            position: relative; /* Necesario para el posicionamiento del pseudo-elemento */
+            display: inline-block; /* Para que el pseudo-elemento se posicione correctamente */
+        }
+
+        .image-container {
+            @apply flex justify-center my-8; /* Clases de Tailwind para espaciado y centrado */
+        }
+        
+        .story-image {
+            @apply w-full max-w-2xl h-auto rounded-xl shadow-2xl; /* Clases de Tailwind para estilo de imagen */
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- particles.js container -->
+    <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0"></div>
+
+    <!-- Contenedor principal del pergamino -->
+    <div id="parchment-container" class="parchment-container flex flex-col items-center">
+        <header class="mb-10">
+            <!-- Título principal con tamaño responsivo -->
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-center">Capítulo 1: El Mandato del Serafín Legendario</h1>
+            <p class="text-center italic text-lg mb-8 opacity-70">Prólogo – Año 25033 d.C. / Siul, Universo 9</p>
+
+            <!-- Panel de control de temas y música -->
+            <div class="flex flex-col md:flex-row justify-center items-center mt-6 space-y-2 md:space-y-0 md:space-x-4">
+                <!-- Botones para los modos estacionales -->
+                <button id="spring-mode" class="seasonal-btn spring-btn" aria-label="Cambiar a tema de primavera">
+                    <i class="fas fa-seedling"></i> Primavera
+                </button>
+                <button id="summer-mode" class="seasonal-btn summer-btn" aria-label="Cambiar a tema de verano">
+                    <i class="fas fa-sun"></i> Verano
+                </button>
+                <button id="autumn-mode" class="seasonal-btn autumn-btn" aria-label="Cambiar a tema de otoño">
+                    <i class="fas fa-leaf"></i> Otoño
+                </button>
+                <button id="winter-mode" class="seasonal-btn winter-btn" aria-label="Cambiar a tema de invierno">
+                    <i class="fas fa-snowflake"></i> Invierno
+                </button>
+                <!-- Botón para el modo Belcebú -->
+                <button id="belcebu-mode" class="seasonal-btn belcebu-btn" aria-label="Cambiar a tema de Belcebú">
+                    <i class="fa-solid fa-fire"></i> Belcebú
+                </button>
+                <!-- Botón para la música -->
+                <button id="music-toggle" class="control-button" aria-label="Activar/Desactivar música">
+                    <i class="fa-solid fa-music"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="text-xl leading-relaxed max-w-4xl mx-auto">
+            <!-- Párrafo inicial con la letra capital (dropcap) -->
+            <p class="animated-paragraph text-justify mb-6 dropcap">
+                En los planos más elevados de la existencia, donde las estrellas eran meros puntos de luz en una inmensidad etérea, David, alguna vez conocido como "Factum Supremo", había descendido de su gloria. Su poder, antaño ilimitado, se había reducido a la mitad tras su titánica batalla contra Metatrón, un desafío directo al mismísimo Dios del Todo, todo por salvar el multiverso de la aniquilación. Ahora, como el "Serafín Legendario", su papel trascendía el de un mero guerrero celestial; se había convertido en un mentor, un guía para aquellos elegidos por el Creador. David mantenía una conexión íntima con el Altísimo, una comunión silenciosa pero constante que le revelaba los designios divinos y le confiaba misiones cruciales para mantener el frágil equilibrio universal.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Una noche, en el silencio abrumador del éter celestial, David sintió la presencia del Creador. No fue una voz audible, sino una inundación de su ser, una calidez que no consumía pero iluminaba cada fibra de su existencia, como un fuego cósmico que vibraba en su alma. El aire mismo pareció densificarse con la santidad.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —David, Serafín de mi voluntad —resonó una voz que era a la vez un susurro y un trueno en su mente, una voz que contenía la sabiduría de eones—. El momento ha llegado para que guíes a los elegidos. Siul clama por justicia, y la oscuridad que lo consume debe ser erradicada. Ve a Gabriel, quien aún no conoce la totalidad de mi plan, y comunícale su papel. Max y Radicks necesitan ser liberados; ellos serán la clave para restaurar el orden.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                David inclinó su rostro en señal de reverencia, el peso de la responsabilidad cayendo sobre sus hombros, una carga que aceptaba con humildad.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Padre, haré como lo ordenas. Les mostraré el camino y les enseñaré a través de mí. —Su propia voz, aunque celestial, contenía una pizca de la duda que a veces lo asaltaba—. Pero dime, ¿qué propósito hay detrás de sus pruebas? ¿Por qué permitirles soportar tanto dolor?
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                La voz del Creador resonó de nuevo, esta vez con una mezcla de solemnidad y una ternura infinita que calmó el alma de David.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —El fuego purifica, y el dolor moldea. Max y Radicks han sido forjados en las llamas de la adversidad, porque solo aquellos que han conocido la profundidad del quebranto pueden ser instrumentos de verdadera redención. Su sufrimiento no es en vano; es el crisol donde su verdadera fuerza se manifestará.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                David sintió el peso de esas palabras, comprendiendo que el plan divino era mucho más vasto de lo que su mente podía abarcar. Aun consciente de la magnitud de su rol, se dirigió al plano celestial donde Gabriel, el dios del planeta Siul, mantenía una vigilia constante sobre su reino caído. La imagen de Siul, un mundo antaño vibrante y colosal, ahora cubierto por las sombras, le dolía profundamente.
+            </p>
+
+            <h2 class="animated-paragraph text-2xl md:text-3xl italic text-center mt-12 mb-6">El Encuentro con Gabriel</h2>
+            <p class="animated-paragraph text-justify mb-6">
+                Durante siglos, el planeta Siul, el mundo más grande conocido en todos los universos, había sido un campo de batalla desolado. Sus paisajes, antaño vastas selvas de árboles dorados que cantaban con el viento y cordilleras que tocaban el cielo, estaban ahora marcados por cicatrices de fuego y desolación. El aire olía a ceniza y a una tristeza ancestral, un lamento perpetuo que se alzaba desde las ruinas. El equilibrio entre la luz y la oscuridad había sido destruido por el poder de Belcebú, un querubín caído que, en su ansia de poder, había desafiado las leyes del Creador y traído un caos incomprensible a la creación. Las tierras de Siul, antaño sagradas, se encontraban sumidas en la ruina, y el clamor de los inocentes resonaba en los planos celestiales, un eco constante de su sufrimiento. Incluso Kairon, el planeta gemelo que orbitaba tan cerca que parecía rozar el horizonte siulciano, sentía la alteración, desatando tormentas de energía en su atmósfera, un reflejo de la agonía de Siul.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                En un templo sagrado, suspendido en los cielos de Siul, con pilares fracturados y vitrales rotos que apenas filtraban la luz moribunda del planeta, Gabriel, el dios del planeta, se encontraba en oración profunda. Sus rodillas estaban gastadas por eones de súplicas, su rostro marcado por la angustia. Suplicaba al Altísimo una solución, una señal, cualquier cosa que pudiera aliviar el tormento de su mundo. Fue entonces cuando el cielo mismo pareció abrirse sobre el templo, inundando el salón con una luz divina tan pura y cegadora que eclipsó todo a su alrededor, haciendo que el polvo danzara en sus haces. Un zumbido vibrante llenó el aire, como mil arpas celestiales tocando al unísono. De repente, un viento divino, suave pero poderoso, atravesó la estancia, y una figura majestuosa apareció ante él. David, con su armadura celestial resplandeciendo con un brillo incandescente que parecía forjado en el corazón de una estrella, se presentó.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Gabriel, he venido por mandato del Creador —dijo David, su voz firme pero cargada de una empatía que resonó en el alma de Gabriel.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Gabriel lo miró con asombro, sus ojos, acostumbrados a la penumbra, parpadeando ante la intensidad de David. Aunque conocía la historia de la caída y redención de David, jamás había presenció su grandeza como el Serafín Legendario de esta manera tan directa. Una mezcla de reverencia y esperanza le invadió.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —David, portador de la voluntad divina, dime, ¿qué orden trae el Altísimo? —preguntó Gabriel, su voz apenas un susurro.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                David se acercó, sus pasos ligeros sobre el suelo de mármol. Colocó una mano sobre el hombro de Gabriel, un toque que transmitió una fuerza inmensa y una comprensión tácita.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —El Creador me ha hablado. Es momento de que liberes a los elegidos, Max y Radicks. Ellos han sido moldeados por Su mano para enfrentar la oscuridad que azota este mundo. Su sacrificio será grande, pero su propósito lo justifica.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Gabriel frunció el ceño, su rostro reflejando una profunda duda y una pizca de resentimiento. ¿Por qué otros, cuando él había luchado incansablemente?
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —¿Por qué ellos, David? —cuestionó, su voz teñida de amargura—. ¿Por qué no yo, quien juré proteger este mundo con cada fibra de mi ser? ¿Acaso mi fe no ha sido suficiente?
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                David esbozó una sonrisa comprensiva, una expresión que suavizó la intensidad de su presencia.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —El Creador elige a los más aptos, no siempre a los más fuertes. Max y Radicks no solo lucharán con sus manos, sino con sus corazones, con una dualidad que tú no posees. Y tú, Gabriel, tienes otro papel importante, uno crucial: ser el puente entre el cielo y ellos, el faro que los guiará. Su victoria también será la tuya, pues la habrás hecho posible.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Gabriel asintió lentamente, la verdad de las palabras de David calando hondo. El resentimiento se disipó, reemplazado por una renovada determinación. Comprendió que su papel no era menor, sino diferente, igualmente vital.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Entonces, guíame, David. Muéstrame cómo debo cumplir con esta tarea. —Su voz ahora era firme, llena de una nueva convicción.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                David irradió una luz que transformó la estancia en un reflejo del cielo, con destellos iridiscentes que danzaban en el aire.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Comienza liberándolos de las cadenas que los atan, tanto las físicas como las internas. Después, llévalos al trono de Belcebú, pero no los abandones hasta que hayan comprendido su verdadero poder. Y cuando la hora de la batalla llegue, recuerda que tu fe será su escudo, y tu esperanza, su espada.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Gabriel, renovado en su misión y con el corazón lleno de una nueva esperanza, extendió sus alas de oro resplandeciente. El sonido de su vuelo era como el susurro de mil campanas celestiales mientras descendía a las mazmorras más profundas del planeta Siul, un lugar donde la luz apenas se atrevía a entrar, donde los elegidos aguardaban su destino.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Pero no estaba solo. David, como un mentor designado por el Creador, decidió acompañarlos en espíritu. Su presencia no era física, sino una resonancia en el alma, una guía silenciosa que se manifestaría a los elegidos en los momentos de mayor necesidad, tejiendo su sabiduría en el tejido mismo de su viaje.
+            </p>
+
+            <h2 class="animated-paragraph text-2xl md:text-3xl italic text-center mt-12 mb-6">La Prisión de los Elegidos</h2>
+            <p class="animated-paragraph text-justify mb-6">
+                Encerrados en una prisión oculta al mundo, un laberinto de piedra fría y humedad perpetua, Max y Radicks vivían encadenados, víctimas de su propia naturaleza dual. El aire era denso, cargado con el olor a moho y desesperación. Max, mitad humano y mitad divino, meditaba silenciosamente en un rincón, su postura serena a pesar de las cadenas que le oprimían los tobillos. Buscaba fortaleza en su conexión espiritual, intentando silenciar el clamor de su parte humana, que anhelaba la libertad. Por otro lado, Radicks, cuya sangre también albergaba misteriosos vestigios de lo celestial, dejaba que su ira contra el mundo se desbordara en gruñidos bajos y golpes ocasionales contra las paredes de la celda, el sonido sordo de sus puños contra la piedra resonando en la oscuridad.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Estamos atrapados aquí mientras el mundo se consume en las llamas de Belcebú —gruñó Radicks, golpeando las paredes de la celda con frustración, el eco de sus golpes una manifestación de su rabia—. ¿De qué sirve todo esto?
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —A veces, la oscuridad solo es el preludio de la luz —respondió Max, su voz tranquila como un estanque en calma, mientras sus ojos se perdían en las sombras que los rodeaban, buscando un significado más allá de su confinamiento. Su mente, sin embargo, no estaba exenta de dudas; la inmovilidad era una tortura para su espíritu guerrero.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Esa misma noche, cuando la desesperación parecía más densa, una luz divina, suave al principio y luego cegadora, iluminó su celda. El aire frío de la prisión se calentó, y el olor a moho fue reemplazado por una fragancia a incienso y pureza. Una figura celestial emergió de la luz: Gabriel, el Dios de Siul, portador de la voluntad del Creador. Su presencia majestuosa y etérea, irradiaba una luz que parecía limpiar incluso las piedras corroídas por el tiempo, haciendo que las sombras retrocedieran.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Max, Radicks, escuchen mis palabras —dijo Gabriel, su voz resonando como el eco de un coro celestial, llenando la celda con una melodía de esperanza—. El Creador me ha ordenado liberarlos. Son los elegidos, destinados a enfrentar al Querubín caído y devolver la paz a Siul.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Radicks lo miró incrédulo, sus ojos entrecerrados, una mezcla de desconfianza y una chispa de esperanza luchando en su interior. ¿Después de tanto tiempo, la libertad? ¿Y con un propósito tan grande? Max, por su parte, cayó de rodillas en señal de reverencia, su corazón inundado por la magnitud de la revelación.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —¿Por qué nosotros? —preguntó Max, su voz temblando por la abrumadora responsabilidad que sentía, por el peso de un destino que parecía demasiado grande para ellos.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Gabriel extendió su mano y, con un gesto sutil, las cadenas que los ataban se desintegraron en polvo brillante, cayendo al suelo con un suave tintineo.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Porque son los únicos que pueden soportar esta carga. El Creador ve en ustedes un equilibrio único, una fuerza capaz de derrotar incluso a un querubín como Belcebú. —En ese instante, una figura etérea y luminosa apareció junto a Gabriel, la forma de David, no como un guerrero distante, sino como un guía que entendía su lucha interna, sus miedos y sus dudas. Su presencia era reconfortante, un ancla en el torbellino de emociones.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Max, Radicks, son más que guerreros —resonó la voz de David en sus mentes, una voz que era a la vez antigua y familiar—. Son la esperanza encarnada para un mundo que agoniza. Yo fui como ustedes una vez, quebrado pero elegido. Aprenderán a dominar sus fuerzas, pero primero deben aprender a confiar el uno en el otro, a fusionar sus diferencias en una sola voluntad.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Durante su viaje hacia el Abismo de las Sombras, bajo la guía espiritual de David, cada paso se convirtió en una lección. David les enseñó lecciones esenciales, no solo a través de palabras, sino a través de visiones y sensaciones que se grababan en sus almas:
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                A Max, le mostró cómo canalizar su divinidad sin perder su humanidad, haciéndole entender que su mitad mortal no era una debilidad, sino su mayor fortaleza, el ancla que lo conectaba con la compasión y la resistencia. Le enseñó a sentir el pulso de la creación en sus venas, a tejer la luz divina con la esencia terrenal.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                A Radicks, le enseñó a dominar su ira, a sentirla, reconocerla, pero no dejar que lo consumiera. Le mostró cómo usarla como una herramienta, una fuerza controlada y dirigida, en lugar de un arma descontrolada que lo destruiría desde dentro. Le hizo ver que la furia podía ser un motor, no un amo.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                En las noches más oscuras, cuando el miedo y las dudas los acechaban, cuando las sombras de su pasado se cernían sobre ellos, David se manifestaba en sus sueños, susurrando palabras de aliento, recordándoles que la fe era el arma más poderosa que poseían, una luz interna que ninguna oscuridad podía apagar. Les mostró visiones de su futuro, de la victoria, pero también del costo.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                En sus manos, con un brillo etéreo que se materializó del aire mismo, Gabriel materializó dos reliquias ancestrales: la Espada del Amanecer, una hoja bañada en la luz del primer día de la creación, su filo resplandeciendo con una promesa de victoria, y el Escudo del Alba, una barrera impenetrable que parecía contener las estrellas mismas, sus grabados antiguos pulsando con energía.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Estas reliquias los guiarán, pero recuerden: su fuerza no está solo en ellas, sino en su fe y unidad. Son extensiones de su voluntad, no la fuente de su poder.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Radicks tomó la espada con una determinación férrea, sintiendo el peso equilibrado de la hoja en su mano, una extensión natural de su espíritu combativo. Max aceptó el escudo con reverencia, su superficie fría y lisa, pero vibrante con una energía protectora.
+            </p>
+
+            <h2 class="animated-paragraph text-2xl md:text-3xl italic text-center mt-12 mb-6">El Camino hacia el Abismo de las Sombras</h2>
+            <p class="animated-paragraph text-justify mb-6">
+                Guiados por la luz constante de Gabriel, que se manifestaba como un orbe brillante flotando delante de ellos, Max y Radicks emprendieron un viaje hacia el Abismo de las Sombras, el último bastión de Belcebú. El camino era arduo, a través de paisajes desolados que atestiguaban la brutalidad de la guerra. Pasaron por aldeas devastadas, donde el silencio era tan pesado como las ruinas. El olor a ceniza y a muerte flotaba en el aire, mezclado con el tenue aroma de la desesperación. Los pocos sobrevivientes, con rostros demacrados y ojos vacíos, clamaban por ayuda, sus voces roncas y quebradas. Cada paso era un recordatorio lacerante del precio que Siul había pagado por el caos desatado. Los bosques de árboles dorados, que en tiempos de paz cantaban con el viento, ahora se alzaban como esqueletos carbonizados, y los ríos de luz se habían convertido en cauces secos y polvorientos.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Max dedicaba sus noches a la oración, arrodillado bajo el cielo estrellado de Siul, pidiendo al Creador fuerza y guía, no solo para la batalla, sino para soportar el dolor que veía a su alrededor. El viento susurraba sus plegarias entre los árboles carbonizados, llevando consigo el lamento de un mundo herido.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —¿Crees que realmente podremos vencerlo? —preguntó Radicks una noche, su tono cargado de dudas, mientras observaba las llamas distantes de algún fuego de campamento enemigo. La inmensidad de Belcebú pesaba sobre ellos, una opresión palpable que se sentía incluso en el aire denso de Siul.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —No se trata de vencer, sino de cumplir con el propósito que nos fue dado —respondió Max, con una serenidad que a Radicks a veces le resultaba desconcertante, casi inhumana. Max sabía que la victoria no siempre era la aniquilación, sino la restauración del equilibrio, la sanación de un mundo que había perdido su armonía.
+            </p>
+
+            <h2 class="animated-paragraph text-2xl md:text-3xl italic text-center mt-12 mb-6">El Enfrentamiento Final</h2>
+            <p class="animated-paragraph text-justify mb-6">
+                David ya había preparado sus corazones y mentes para el desafío final. Su voz, ahora una presencia constante en sus pensamientos, resonaba con su última lección en el umbral de la batalla:
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                —Recuerden, no son solo soldados; son la voluntad del Creador en acción. Esta batalla no es solo contra Belcebú, sino contra la oscuridad que habita en cada uno de nosotros. Deben de ser valientes, pues su luz es más grande que cualquier sombra. No teman al fracaso, sino a no intentarlo.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                El Abismo de las Sombras se alzaba ante ellos, una garganta cavernosa que exhalaba un frío gélido y un olor a azufre y podredumbre. El aire vibraba con una energía maligna, pesada y opresiva, que se aferraba a sus pulmones. Al llegar al trono de Belcebú, fueron recibidos por una escena de puro horror: el Querubín caído, una figura grotesca de inmensa estatura, con sus alas ennegrecidas y desgarradas, su corona de huesos afilados brillando con una luz macabra. Sus ojos, dos brasas ardientes en la penumbra, los observaban con una sonrisa cruel que revelaba dientes afilados como dagas, prometiendo un tormento sin fin.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                La batalla que siguió fue como el choque de estrellas, una sinfonía de destrucción y poder que hacía temblar los cimientos mismos de Siul. El metal de la Espada del Amanecer chocaba contra las garras de Belcebú con un estruendo ensordecedor, mientras el Escudo del Alba repelía sus ataques con destellos cegadores. Max y Radicks, armados con las reliquias divinas, lucharon con todo lo que tenían, sus movimientos fluidos y coordinados, un baile mortal de luz y sombra. Sin embargo, Belcebú, un ser alimentado por siglos de oscuridad y poder, los superaba en fuerza y resistencia, su risa resonando con cada golpe que asestaba, una carcajada que helaba la sangre. El suelo temblaba bajo sus pies, las rocas se desprendían del techo con estruendo y el aire se llenaba con el olor a electricidad y a la desesperación de la batalla, un hedor metálico y acre.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                Uno a uno, sus aliados cayeron. Mia y Luna, guerreras de Rango Virtudes, que habían luchado con valentía inquebrantable junto a ellos, ofrecieron sus vidas por la causa, sus luces desvaneciéndose en la oscuridad del abismo con un último suspiro. Sus sacrificios, aunque dolorosos, encendieron una nueva furia en Radicks, una que David había intentado contener. La lucha alcanzó un nuevo nivel cuando Radicks, en un acceso de furia descontrolada, liberó la ira que David había logrado sellar en él. Su cuerpo se rodeó de un aura oscura y su fuerza se multiplicó, pero sus ataques eran salvajes, sin dirección, un torbellino de destrucción sin control.
+            </p>
+            <p class="animated-paragraph text-justify mb-6">
+                En el último instante, cuando todo parecía perdido, cuando la desesperación amenazaba con consumirlos, Max, con una última chispa de fe y la guía silenciosa de David en su mente, dio el golpe decisivo con la Espada del Amanecer. La hoja, imbuida con la luz purificadora del primer día de la creación, atravesó la oscuridad que Belcebú representaba, sellando su poder y desintegrándolo en una explosión de energía que iluminó el abismo por un instante. Pero el costo fue inmenso, pues la fuerza liberada fue tal que Max y Radicks, gravemente heridos y al borde de la aniquilación, cayeron, muriendo en el proceso. Sus cuerpos quedaron inertes en el suelo, rodeados por el silencio ensordecedor de la victoria, un silencio que solo el eco de su sacrificio llenaba.
+            </p>
+
+            <h2 class="animated-paragraph text-2xl md:text-3xl italic text-center mt-12 mb-6">Renacimiento</h2>
+            <p class="animated-paragraph text-justify mb-6">
+                La luz de la victoria, brillante y cegadora, envolvió el universo, no con un estallido violento, sino con una expansión suave y purificadora que se extendió por cada rincón. Los cielos de Siul, antes grises y opresivos, se despejaron, revelando un azul profundo y un sol radiante que bañaba las tierras con energía divina. Las cicatrices de la guerra comenzaron a sanar, los bosques carbonizados brotaban con un nuevo verdor dorado y los ríos de luz volvían a fluir con luminiscencia natural. Una nueva esperanza floreció en el aire, un aroma a renacimiento y paz. Gabriel, desde su trono celestial, observaba en silencio, sus ojos llenos de una mezcla de tristeza por el sacrificio de sus elegidos y una profunda comprensión. Sabía que ese no era el final, sino el comienzo de una nueva era, un ciclo de redención que apenas comenzaba a desplegarse en el vasto tapiz del multiverso, un eco de la armonía restaurada entre Siul y Kairon.
+            </p>
+        </main>
+        
+        <footer class="mt-12 text-center text-sm opacity-75">
+            <p>Derechos de propiedad intelectual &copy; ChinoOficial.</p>
+        </footer>
+    </div>
+
+    <!-- Botón de volver arriba -->
+    <button id="back-to-top" title="Volver Arriba" aria-label="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const seasonalButtons = document.querySelectorAll('.seasonal-btn');
+            const belcebuButton = document.getElementById('belcebu-mode');
+            const seasonalModes = ['spring', 'summer', 'autumn', 'winter', 'belcebu'];
+            const backToTopButton = document.getElementById('back-to-top');
+            const parchmentContainer = document.getElementById('parchment-container');
+            const particlesContainerId = 'particles-js';
+            
+            const particlesConfig = {
+                'spring': {
+                    // Partículas de primavera (círculos suaves)
+                    particles: { "number": { "value": 80 }, "color": { "value": "#a0522d" }, "shape": { "type": "circle" }, "line_linked": { "color": "#a0522d" }, "move": { "speed": 6 } },
+                    interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "repulse" } } }
+                },
+                'summer': {
+                    // Partículas de verano (círculos amarillos brillantes)
+                    particles: { "number": { "value": 100 }, "color": { "value": "#ffcc00" }, "shape": { "type": "circle" }, "line_linked": { "color": "#ffcc00" }, "move": { "speed": 8 } },
+                    interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "repulse" } } }
+                },
+                'autumn': {
+                    // Partículas de otoño (formas de bordes)
+                    particles: { "number": { "value": 60 }, "color": { "value": "#e9967a" }, "shape": { "type": "edge" }, "line_linked": { "color": "#e9967a" }, "move": { "speed": 4 } },
+                    interactivity: { events: { onhover: { mode: "grab" }, onclick: { mode: "push" } } }
+                },
+                'winter': {
+                    // Partículas de invierno (estrellas)
+                    particles: { "number": { "value": 120 }, "color": { "value": "#4682b4" }, "shape": { "type": "star" }, "line_linked": { "color": "#4682b4" }, "move": { "speed": 3 } },
+                    interactivity: { events: { onhover: { mode: "bubble" }, onclick: { mode: "push" } } }
+                },
+                'belcebu': {
+                    // Partículas para el modo Belcebú (fuego)
+                    "particles": { "number": { "value": 80 }, "color": { "value": "#e6b840" }, "shape": { "type": "circle" }, "line_linked": { "color": "#e6b840" }, "move": { "speed": 3 } },
+                    "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" } } }
+                }
+            };
+            
+            // Función para actualizar las partículas según el modo
+            function updateParticles(mode) {
+                if (window.pJSDom && window.pJSDom.length > 0) {
+                    window.pJSDom[0].pJS.fn.vendors.destroypJS();
+                    window.pJSDom = [];
+                }
+                particlesJS(particlesContainerId, particlesConfig[mode]);
+            }
+
+            // Función principal para aplicar el tema estacional
+            function setSeasonalTheme(mode) {
+                body.classList.remove(...seasonalModes.map(m => `${m}-mode`));
+                body.classList.add(`${mode}-mode`);
+                localStorage.setItem('theme', mode);
+                updateParticles(mode);
+            }
+            
+            // Lógica de la música con Tone.js
+            const musicToggle = document.getElementById('music-toggle');
+            const musicIcon = musicToggle.querySelector('.fa-music');
+            let isPlaying = false;
+            let player;
+
+            async function startMusic() {
+                if (!player) {
+                    player = new Tone.Player({
+                        "url": "https://cdn.glitch.global/c101b0f0-8c24-4f04-a14f-3561a0b63d0f/ambient-music.mp3?v=1723146445995",
+                        "loop": true,
+                        "autostart": false,
+                    }).toDestination();
+                }
+                await Tone.start();
+                player.start();
+                isPlaying = true;
+                musicIcon.classList.remove('fa-music');
+                musicIcon.classList.add('fa-pause');
+            }
+
+            function stopMusic() {
+                if (player) {
+                    player.stop();
+                    isPlaying = false;
+                    musicIcon.classList.remove('fa-pause');
+                    musicIcon.classList.add('fa-music');
+                }
+            }
+
+            musicToggle.addEventListener('click', () => {
+                if (isPlaying) {
+                    stopMusic();
+                } else {
+                    startMusic();
+                }
+            });
+
+            // Se carga el tema guardado al cargar la página
+            const savedTheme = localStorage.getItem('theme') || 'spring';
+            setSeasonalTheme(savedTheme);
+
+            seasonalButtons.forEach(button => {
+                const mode = button.id.replace('-mode', '');
+                button.addEventListener('click', () => {
+                    setSeasonalTheme(mode);
+                });
+            });
+
+            // Lógica del botón de "Volver Arriba"
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.display = 'flex';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
